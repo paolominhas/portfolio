@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSROOT 3D Viewer</title>
+    <style>
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: transparent; 
+            color: #a1a1aa; 
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        /* Fixed: Changed from #3d-canvas to #root-canvas */
+        #root-canvas { width: 100%; height: 100%; }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; color: #34d399; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body>
+    
+    <div id="root-canvas"><span class="loading">Loading CERN Geometry...</span></div>
+
+    <script type="module">
+        import { openFile, draw } from 'https://root.cern/js/latest/modules/main.mjs';
+
+        async function initRootViewer() {
+            try {
+                // Fetch the ROOT file 
+                const file = await openFile('/krakow_setup.root');
+                const obj = await file.readObject('geometry');
+                
+                // Fixed: Targeting 'root-canvas' instead of '3d-canvas'
+                document.getElementById('root-canvas').innerHTML = ''; 
+                await draw('root-canvas', obj, 'geom');
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('root-canvas').innerHTML = 
+                    `<span style="color: #f87171;">Simulation Error: ${error.message}</span>`;
+            }
+        }
+
+        initRootViewer();
+    </script>
+</body>
+</html>
