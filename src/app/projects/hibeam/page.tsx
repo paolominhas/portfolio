@@ -7,6 +7,7 @@ import { BlockMath, InlineMath } from 'react-katex';
 import { Canvas, useFrame  } from '@react-three/fiber';
 import { useTexture, Line, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
+import AnnihilationSim from '@/components/annihilationsim';
 
 // ---------------------------------------------------------
 // 1. DYNAMIC FIGURE COMPONENT
@@ -24,7 +25,7 @@ const InteractiveMagneticFigure = () => (
           href="hibeam/interactive" 
           className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-full transition-transform hover:scale-105"
         >
-          Run the Simulation &rarr;
+          Interact with the detectors &rarr;
         </Link>
       </div>
       <div className="w-full md:w-1/3 aspect-square rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center relative overflow-hidden">
@@ -185,7 +186,7 @@ export default function HIBEAMarticle() {
             <span>&bull;</span>
             <span>February 2026</span>
             <span>&bull;</span>
-            <span>10 min read</span>
+            <span>5 min read</span>
           </div>
         </div>
       </header>
@@ -194,9 +195,14 @@ export default function HIBEAMarticle() {
       <div className="max-w-3xl mx-auto px-6 pt-16 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         
         <p className="text-2xl text-slate-200 font-light leading-relaxed">
-          Why do we exist? When we look out round the universe we can see stars and galaxies in every direction. Why is this all here? this can be explained via a phenomenon known as CP violation 
+          Why do we exist? When we look out round the universe we can see stars and galaxies in every direction. Why is this all here? In this project, working with scientists around Europe, we begin to search for new answers.
         </p>
+       </div>
 
+      <div className="mt-8 max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
+        <p>
+          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. We know we have new evidence if neutrons in our beam randomly become antineutrons (their own "mirror image"), so we tested a prototype using a proton beam as a proxy for that signature in Krakow.
+        </p>
       </div>
 
       {/* SCROLLYTELLING GLOBE SECTION */}
@@ -218,15 +224,37 @@ export default function HIBEAMarticle() {
       {/* CONTINUATION OF ARTICLE CONTENT */}
       <div className="max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         <p>
-          To explain this, we need a mechanism that violates Baryon number—a rule in particle physics that says matter and antimatter must balance. While most searches focus on protons decaying, there is a more exotic alternative: what if a neutron could spontaneously turn into an antineutron (<InlineMath math="n \rightarrow \bar{n}" />)?
+          A team of around 20 physicists are currently working on this project (HIBEAM - the acronym refers to High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow to simulations I ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
         </p>
         
-        <h2 className="text-3xl font-bold text-white mt-16 mb-6">The Magnetic Dampening</h2>
         <p>
-          If this <InlineMath math="\Delta B = 2" /> transition happens, it is incredibly rare. Theoretical models suggest a free neutron would need over <InlineMath math="10^8" /> seconds to flip. But here is the catch: we don&apos;t live in a vacuum. We live on Earth, surrounded by a magnetic field.
+          This project was done as a part of my MPhys degree in physics at the University of Edinburgh in 2025 and 2026. It will be possible to read the full report at the end of March.
+        </p>
+        
+        <h2 className="text-3xl font-bold text-white mt-16 mb-6">Shooting protons or neutrons?</h2>
+        <p>
+          In the introduction above you may have noticed the mention of a "signature", and that despite the final experiment using a neutron beam,
+          we are using a proton beam to test the prototype. In fact, these two questions are related to each other.
         </p>
         <p>
-          Because neutrons and antineutrons have opposite magnetic moments, an external magnetic field forces their energy levels to split. This Zeeman splitting (<InlineMath math="\Delta E" />) completely disrupts the delicate quantum superposition required for the particle to oscillate.
+          In particle physics, a signature is what a particle can be detected by - some particles, such as neutrons, are very difficult to detect. So instead of detecting them directly, they can be detected by the products they leave behind when they smash into something. In essence that is what our detector is - something for the particles to smash into and leave a trace that can be detected.
+          In the case of antineutrons, they smash up and leave behind several "pions". These are a mixture of particles slighty smaller than neutrons and protons, with charges of <InlineMath math="+1" />, <InlineMath math="-1" /> or <InlineMath math="0" />.
+
+        </p>
+
+        <AnnihilationSim />
+        
+        <p>
+          This animation shows antineutrons "annihilating" matter particles (mirror images cancelling each other out). The leftover energy is released as pions.
+        </p>
+        
+        <p>
+          Our detector is a time projection chamber made of mostly Argon (a box where we can trace particle's paths) - there is no magnetic field so the paths are all straight. We can use a proton beam as the pion signature is in some ways comprable to the protons. We can look at how much energy the protons lose passing through the detector, the directions and paths they take and how quickly they lose energy at different angles to see if the detector is working well.
+        </p>
+
+        <p>
+          There are also other processes going on that we cannot control that will affect our data - like random fluctuations called noise in our electronics, and particles showering our detector from space called cosmic muons.
+
         </p>
 
         <div className="my-12 p-8 bg-slate-900 rounded-2xl border-l-4 border-cyan-500 shadow-xl">
@@ -239,13 +267,26 @@ export default function HIBEAMarticle() {
           </p>
         </div>
 
+        <h2 className="text-3xl font-bold text-white mt-16 mb-6">Simulating the detector</h2>
+
         <p>
-          Our Monte Carlo simulations using Geant4 confirm this mathematically. If a beam of cold neutrons flies down a 50-meter tube, even a localised magnetic "hot spot" of 10 nanotesla is enough to quench the signal entirely. 
+          We simulated protons passing through our detector
         </p>
         <InteractiveMagneticFigure />
         <p>
           This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.
         </p>
+
+        {/* --- ACKNOWLEDGEMENTS FOOTNOTE --- */}
+        <footer className="mt-24 pt-8 border-t border-slate-800/60">
+          <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">
+            Acknowledgements
+          </h4>
+          <p className="text-sm md:text-base text-slate-500 leading-relaxed">
+            This project was undertaken with the generous support of the <a href="https://www.particle-nuclear.lu.se/experimental-particle-and-nuclear-physics/hibeam-nnbar" className="text-cyan-500/80 hover:text-cyan-400 transition-colors">HIBEAM/NNBAR</a> research team at the <a href="https://ess.eu" className="text-cyan-500/80 hover:text-cyan-400 transition-colors">European Spallation Source</a> and my supervisors <a href="https://ess.eu/john-womersley" target="_blank" rel="noopener noreferrer" className="text-slate-300 font-medium hover:text-cyan-400 transition-colors">Prof. John Womersley</a> & <a href="https://en.wikipedia.org/wiki/Victoria_Martin" target="_blank" rel="noopener noreferrer" className="text-slate-300 font-medium hover:text-cyan-400 transition-colors">Prof. Victoria Martin</a>. I would like to specially thank <a href="https://portal.research.lu.se/en/persons/matthias-holl/" target="_blank" rel="noopener noreferrer" className="text-slate-300 font-medium hover:text-cyan-400 transition-colors">Dr. Matthias Holl</a> for his expert guidance with the data from and simulations of the prototype detector.
+          </p>
+        </footer>
+        {/* --------------------------------- */}
       </div>
 
     </article>
