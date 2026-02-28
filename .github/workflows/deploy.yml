@@ -1,0 +1,25 @@
+name: Deploy Next.js App
+
+on:
+  push:
+    branches:
+      - main # This tells GitHub to run this script only when you push to the 'main' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to DigitalOcean
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/portfolio
+            git pull origin main
+            npm install
+            # Rebuild the app using the extra memory flag we set up earlier
+            NODE_OPTIONS="--max-old-space-size=2048" npm run build
+            # Restart the app via PM2
+            pm2 restart paolo-org
