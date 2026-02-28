@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { projects } from '@/data/projects'; // Import your data
 
@@ -7,7 +8,6 @@ export default function ProjectsIndex() {
       <h1 className="text-4xl md:text-6xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
         Selected Projects
       </h1>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project) => (
           <Link 
