@@ -22,4 +22,4 @@ jobs:
             # Rebuild the app using the extra memory flag we set up earlier
             NODE_OPTIONS="--max-old-space-size=2048" npm run build
             # Restart the app via PM2
-            pm2 restart paolo-org
+            pm2 restart paolo-org || pm2 start npm --name "paolo-org" -- run start
