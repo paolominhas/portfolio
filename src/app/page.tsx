@@ -35,7 +35,7 @@ export default function HomePage() {
         >
           Making cool <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-500">
-            things.
+            MEGS.
           </span>
         </motion.h1>
 
