@@ -1,7 +1,15 @@
 import { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import collisionData from '../../public/data/collision-data.json';
+import collisionData from '@/data/collision-data.json';
+
+interface Particle {
+  id: number;
+  type: number;
+  origin: [number, number, number];
+  velocity: [number, number, number];
+  color: string;
+}
 
 export default function ParticleDetector() {
   const pointsRef = useRef<THREE.Points>(null);
@@ -15,7 +23,9 @@ export default function ParticleDetector() {
     const colors = new Float32Array(particleCount * 3);
     const colorHelper = new THREE.Color();
 
-    collisionData.particles.forEach((p, i) => {
+    const typedParticles = collisionData.particles as Particle[];
+
+    typedParticles.forEach((p, i) => {
       // Set Origins
       positions[i * 3] = p.origin[0];
       positions[i * 3 + 1] = p.origin[1];

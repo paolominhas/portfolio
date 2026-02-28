@@ -8,7 +8,7 @@ import * as THREE from 'three';
 // --- Part A: The Actual 3D Content ---
 // This component holds your "World". separating it allows for easier testing
 // and cleaner separation of concerns from the Canvas settings.
-function BackgroundContent() {
+export function BackgroundContent() {
   const meshRef = useRef<THREE.Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
 
