@@ -15,11 +15,17 @@ export const articles: Article[] = [
     slug: 'article-one',
     description: 'A high-performance financial analytics tool built with D3.js.',
     techStack: ['Next.js', 'TypeScript', 'D3.js', 'Tailwind'],
-    image: '/images/dashboard.jpg', // You need to put this image in public/images/
+    image: '/images/LHCb.png', // You need to put this image in public/images/
     content: `
       <p>This project solved a major problem in visualization...</p>
       <h2>The Challenge</h2>
       <p>Rendering 10,000 data points in real-time...</p>
+      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
+      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
+      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
+      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
+      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
+
     `,
   },
   {

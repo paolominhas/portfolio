@@ -5,7 +5,7 @@ export default function ProjectsIndex() {
   return (
     <section className="pt-32 px-6 md:px-20 max-w-7xl mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Selected Works
+        Selected Projects
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

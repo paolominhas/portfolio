@@ -41,7 +41,7 @@ export default function ContactPage() {
         <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>
             <p className="text-zinc-400">
-                Have a project in mind or just want to say hi? I'm always open to discussing new opportunities.
+                If for some reason you would like to contact me go ahead here!
             </p>
         </div>
 
@@ -51,12 +51,12 @@ export default function ContactPage() {
                 <div className="text-center py-12">
                     <div className="text-emerald-400 text-5xl mb-4">✓</div>
                     <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                    <p className="text-zinc-400">I'll get back to you as soon as possible.</p>
+                    <p className="text-zinc-400">Promise I'll get back to you as soon as possible.</p>
                     <button 
                         onClick={() => setStatus('idle')} 
                         className="mt-6 px-6 py-2 bg-zinc-800 rounded-lg text-sm hover:bg-zinc-700"
                     >
-                        Send another
+                        Send another if you dare
                     </button>
                 </div>
             ) : (
@@ -70,7 +70,7 @@ export default function ContactPage() {
                             id="name" 
                             required 
                             className="w-full bg-zinc-950/50 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors"
-                            placeholder="John Doe"
+                            placeholder="Bob Boson"
                         />
                     </div>
 
@@ -83,7 +83,7 @@ export default function ContactPage() {
                             id="email" 
                             required 
                             className="w-full bg-zinc-950/50 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors"
-                            placeholder="john@example.com"
+                            placeholder="bob@your-uncle.is"
                         />
                     </div>
 
@@ -96,7 +96,7 @@ export default function ContactPage() {
                             rows={4} 
                             required 
                             className="w-full bg-zinc-950/50 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors resize-none"
-                            placeholder="Tell me about your project..."
+                            placeholder="Tell me about your thing..."
                         />
                     </div>
 
@@ -110,7 +110,7 @@ export default function ContactPage() {
                     </button>
 
                     {status === 'error' && (
-                        <p className="text-red-400 text-sm text-center">Something went wrong. Please try again.</p>
+                        <p className="text-red-400 text-sm text-center">Something went wrong sorry. Please try again.</p>
                     )}
                 </form>
             )}

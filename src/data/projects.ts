@@ -10,12 +10,25 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'hibeam', // Unique ID
+    title: 'MPhys Thesis',
+    slug: 'hibeam', // CRITICAL: This MUST match your folder name exactly!
+    description: 'Simulations of the prototype Time Projection Chamber for \'HIBEAM\' at ESS (Lund, SE) in geant4, and comarison to data from Krakow IFJ',
+    techStack: ['geant4', 'ROOT (C++)', 'python', 'linux', 'vim'],
+    image: '/images/root-project-thumbnail.jpg', // Add a nice thumbnail to public/images/
+    
+    // You can leave content blank or put a short summary, 
+    // because your custom page doesn't actually render this field.
+    content: '', 
+  },
+  
+  {
     id: '1',
-    title: 'Neon Financial Dashboard',
+    title: 'Charmed Lambda Baryon Decays',
     slug: 'neon-dashboard',
-    description: 'A high-performance financial analytics tool built with D3.js.',
-    techStack: ['Next.js', 'TypeScript', 'D3.js', 'Tailwind'],
-    image: '/images/dashboard.jpg', // You need to put this image in public/images/
+    description: 'From the PPSS IFJ-PAN internship 2026 in Krakow, working with Prof. Dr. hab. Mariusz Witek on the LHCb collaboration.',
+    techStack: ['ROOT', 'python', 'XGBoost', 'Boosted Decision Tree'],
+    image: '/images/LHCb.png', // You need to put this image in public/images/
     content: `
       <p>This project solved a major problem in visualization...</p>
       <h2>The Challenge</h2>
@@ -24,7 +37,7 @@ export const projects: Project[] = [
   },
   {
     id: '2',
-    title: 'AI Image Generator',
+    title: 'Simulating Neutrino Oscillation Detectors at DUNE',
     slug: 'ai-generator',
     description: 'An interface for Stable Diffusion using serverless functions.',
     techStack: ['React', 'Python', 'FastAPI'],
@@ -35,10 +48,10 @@ export const projects: Project[] = [
   },
 
   {
-    id: 'hibeam', // Unique ID
-    title: 'Detector Geometry Simulation',
+    id: '3', // Unique ID
+    title: 'Study of the Near Detector at DUNE',
     slug: 'hibeam', // CRITICAL: This MUST match your folder name exactly!
-    description: 'An interactive 3D simulation of CERN ROOT geometry using React Three Fiber and converted glTF models.',
+    description: 'Bachelor dissertation: ',
     techStack: ['Next.js', 'Three.js', 'React Three Fiber', 'C++ ROOT'],
     image: '/images/root-project-thumbnail.jpg', // Add a nice thumbnail to public/images/
     

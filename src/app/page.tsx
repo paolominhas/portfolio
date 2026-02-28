@@ -22,7 +22,7 @@ export default function HomePage() {
               bg-emerald-500/10 border border-emerald-500/20 
               text-emerald-400 text-xs font-mono mb-4
             ">
-              Hello
+              Hello :)
             </span>
         </motion.div>
 
@@ -33,9 +33,9 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Building digital <br />
+          Making cool <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-500">
-            experiences.
+            things.
           </span>
         </motion.h1>
 
@@ -46,8 +46,7 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          I am a Full Stack Engineer specializing in Node.js, 3D WebGL interactions, 
-          and scalable backend architecture. I merge technical robustness with aesthetic precision.
+          Thanks for looking at my website! It's just a project to try out some new coding, and for me to be able to put up a few summaries of undergraduate research I have done.
         </motion.p>
 
         {/* Call to Actions */}
@@ -57,10 +56,10 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Link href="/projects" className="group relative px-8 py-3 rounded-lg bg-white text-black font-semibold overflow-hidden">
+          <Link href="/projects/hibeam" className="group relative px-8 py-3 rounded-lg bg-white text-black font-semibold overflow-hidden">
              <div className="absolute inset-0 w-full h-full bg-zinc-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
              <span className="relative flex items-center gap-2">
-                View Projects <ArrowRight size={18} />
+                View MPhys Project <ArrowRight size={18} />
              </span>
           </Link>
           

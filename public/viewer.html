@@ -5,40 +5,43 @@
     <title>JSROOT 3D Viewer</title>
     <style>
         body, html { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: transparent; 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            /* 1. Change to pure black (or any hex code you want) */
+            background-color: #000000; 
             color: #a1a1aa; 
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            font-family: ui-monospace, SFMono-Regular, monospace;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
-        /* Fixed: Changed from #3d-canvas to #root-canvas */
         #root-canvas { width: 100%; height: 100%; }
-        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; color: #34d399; }
+        .loading { animation: pulse 2s infinite; color: #34d399; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
 <body>
-    
     <div id="root-canvas"><span class="loading">Loading CERN Geometry...</span></div>
 
     <script type="module">
-        import { openFile, draw } from 'https://root.cern/js/latest/modules/main.mjs';
+        // 2. Import 'settings' from JSROOT
+        import { openFile, draw, settings } from 'https://root.cern/js/latest/modules/main.mjs';
+
+        // Force JSROOT to render axes and text in white to match the black background
+        settings.DarkMode = true;
 
         async function initRootViewer() {
             try {
-                // Fetch the ROOT file 
-                const file = await openFile('/krakow_setup.root');
+                const urlParams = new URLSearchParams(window.location.search);
+                const fileName = urlParams.get('file');
+
+                if (!fileName) throw new Error("No ROOT file specified.");
+
+                const file = await openFile('/' + fileName);
                 const obj = await file.readObject('geometry');
                 
-                // Fixed: Targeting 'root-canvas' instead of '3d-canvas'
                 document.getElementById('root-canvas').innerHTML = ''; 
-                await draw('root-canvas', obj, 'geom');
+                
+                // 3. Add the transparency modifier to the draw options
+                // 'transp70' means 70% transparent. You can change this from 1 to 99.
+                await draw('root-canvas', obj, 'geom;transp70');
 
             } catch (error) {
                 console.error(error);
