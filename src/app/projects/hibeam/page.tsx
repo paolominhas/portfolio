@@ -8,6 +8,7 @@ import { Canvas, useFrame  } from '@react-three/fiber';
 import { useTexture, Line, Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import AnnihilationSim from '@/components/annihilationsim';
+import EnergyHistogram from '@/components/graph';
 
 // ---------------------------------------------------------
 // 1. DYNAMIC FIGURE COMPONENT
@@ -270,12 +271,31 @@ export default function HIBEAMarticle() {
         <h2 className="text-3xl font-bold text-white mt-16 mb-6">Simulating the detector</h2>
 
         <p>
-          We simulated protons passing through our detector
+          We simulated protons passing through our detector as they did in Krakow.
         </p>
         <InteractiveMagneticFigure />
         <p>
-          This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.
+          By clicking above you will be able to visualise exactly what the detectors in this experiment look like! The simulations we done using those exact geometries.
         </p>
+
+        <h2 className="text-3xl font-bold text-white mt-16 mb-6">Does it work?</h2>
+
+        <p>
+          We can look at how much energy the protons lose when passing through our detector with a <InlineMath math="\frac{dE}{dx}" /> energy loss graph. This means a graph of the change in the amount of energy deposited in the detector per unit of length travelled in the detector (so if the path lengths are different this discrepancy is divided out).
+        </p>
+        <EnergyHistogram />
+        <p>
+          We know this distribution should follow a function called the "Landau Distribution" - which looks similar to a normal distribution, however the positive side has a long tail. This function cannot be analytically solved however, so we use an approximation for it calle dthe Moyal distribution.
+
+          We can see the fit matches the data, apart from the positive tail not being fully modelled. This is due to the approximations we have made here (on this web page).
+        </p>
+
+
+        <p>
+          We can then conclude that our detector is functioning by comparing this simulation here to data! If they match well enough then we can move forward and add new modifications to the prototype to better model the final HIBEAM detector.
+        </p>
+
+
 
         {/* --- ACKNOWLEDGEMENTS FOOTNOTE --- */}
         <footer className="mt-24 pt-8 border-t border-slate-800/60">
