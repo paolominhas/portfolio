@@ -196,13 +196,13 @@ export default function HIBEAMarticle() {
       <div className="max-w-3xl mx-auto px-6 pt-16 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         
         <p className="text-2xl text-slate-200 font-light leading-relaxed">
-          Why do we exist? When we look out round the universe we can see stars and galaxies in every direction. Why is this all here? In this project, working with scientists around Europe, we begin to search for new answers.
+          Why do we exist? When we look around the universe we can see stars and galaxies in every direction. Why is this all here? In this project, working with scientists around Europe, we begin to search for new answers.
         </p>
        </div>
 
       <div className="mt-8 max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         <p>
-          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. We know we have new evidence if neutrons in our beam randomly become antineutrons (their own "mirror image"), so we tested a prototype using a proton beam as a proxy for that signature in Krakow.
+          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. To answer the question of why we exist, we have to know why there is far more matter in our universe than antimatter. We know we have new evidence for this if neutrons in our beam randomly become antineutrons (their own "mirror image"), so we tested a prototype using a proton beam as a proxy for that signature in Krakow.
         </p>
       </div>
 
@@ -225,11 +225,11 @@ export default function HIBEAMarticle() {
       {/* CONTINUATION OF ARTICLE CONTENT */}
       <div className="max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         <p>
-          A team of around 20 physicists are currently working on this project (HIBEAM - the acronym refers to High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow to simulations I ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
+          A team of around 20 physicists are currently working on HIBEAM (High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow with simulations I ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
         </p>
         
         <p>
-          This project was done as a part of my MPhys degree in physics at the University of Edinburgh in 2025 and 2026. It will be possible to read the full report at the end of March.
+          This project was done as a part of my MPhys degree at the University of Edinburgh in 2025 and 2026. It will be possible to read the full report at the end of March.
         </p>
         
         <h2 className="text-3xl font-bold text-white mt-16 mb-6">Shooting protons or neutrons?</h2>
@@ -238,7 +238,7 @@ export default function HIBEAMarticle() {
           we are using a proton beam to test the prototype. In fact, these two questions are related to each other.
         </p>
         <p>
-          In particle physics, a signature is what a particle can be detected by - some particles, such as neutrons, are very difficult to detect. So instead of detecting them directly, they can be detected by the products they leave behind when they smash into something. In essence that is what our detector is - something for the particles to smash into and leave a trace that can be detected.
+          In particle physics, a signature is what a particle can be detected by: some particles, such as neutrons, are very difficult to detect. So instead of detecting them directly, they can be detected by the products they leave behind when they smash into something. In essence that is what our detector is - something for the particles to smash into and leave a trace that can be detected.
           In the case of antineutrons, they smash up and leave behind several "pions". These are a mixture of particles slighty smaller than neutrons and protons, with charges of <InlineMath math="+1" />, <InlineMath math="-1" /> or <InlineMath math="0" />.
 
         </p>
@@ -250,7 +250,7 @@ export default function HIBEAMarticle() {
         </p>
         
         <p>
-          Our detector is a time projection chamber made of mostly Argon (a box where we can trace particle's paths) - there is no magnetic field so the paths are all straight. We can use a proton beam as the pion signature is in some ways comprable to the protons. We can look at how much energy the protons lose passing through the detector, the directions and paths they take and how quickly they lose energy at different angles to see if the detector is working well.
+          Our detector is a time projection chamber made of mostly argon (a box where we can trace particle's paths) - there is no magnetic field so the paths are all straight. We can use a proton beam as the pion signature is in some ways comparable to the protons. We can look at how much energy the protons lose passing through the detector, the directions and paths they take and how quickly they lose energy at different angles to see if the detector is working well.
         </p>
 
         <p>
@@ -275,7 +275,7 @@ export default function HIBEAMarticle() {
         </p>
         <InteractiveMagneticFigure />
         <p>
-          By clicking above you will be able to visualise exactly what the detectors in this experiment look like! The simulations we done using those exact geometries.
+          By clicking above you will be able to visualise exactly what the detectors in this experiment look like! The simulations were done using those exact geometries.
         </p>
 
         <h2 className="text-3xl font-bold text-white mt-16 mb-6">Does it work?</h2>
@@ -285,7 +285,7 @@ export default function HIBEAMarticle() {
         </p>
         <EnergyHistogram />
         <p>
-          We know this distribution should follow a function called the "Landau Distribution" - which looks similar to a normal distribution, however the positive side has a long tail. This function cannot be analytically solved however, so we use an approximation for it calle dthe Moyal distribution.
+          We know this distribution should follow a function called the "Landau Distribution" - which looks similar to a normal distribution; however, the positive side has a long tail. This function cannot be analytically solved however, so we use an approximation for it called the Moyal distribution.
 
           We can see the fit matches the data, apart from the positive tail not being fully modelled. This is due to the approximations we have made here (on this web page).
         </p>
