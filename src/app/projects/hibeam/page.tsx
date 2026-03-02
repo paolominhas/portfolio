@@ -296,7 +296,7 @@ export default function HIBEAMarticle() {
         </p>
         <EnergyHistogram />
         <p>
-          We know this distribution should follow a function called the "Landau Distribution" - which looks similar to a normal distribution; however, the positive side has a long tail. This function cannot be analytically solved however, so we use an approximation for it called the Moyal distribution.
+          We know this distribution should follow a function called the "Landau Distribution" - which looks similar to a normal distribution; however, the positive side has a long tail as particles initially lose a lot of energy and lose less the further the pass through the medium. This function cannot be analytically solved however, so we use an approximation for it called the Moyal distribution.
 
           We can see the fit matches the data, apart from the positive tail not being fully modelled. This is due to the approximations we have made here (on this web page).
         </p>

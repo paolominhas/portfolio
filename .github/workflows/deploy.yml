@@ -17,9 +17,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/portfolio
-            git pull origin main
+            
+            # 1. Fetch the absolute latest map of the code from GitHub
+            git fetch origin
+            
+            # 2. THE SAFEGUARD: Force the server to perfectly match GitHub, destroying local edits
+            git reset --hard origin/main
+            
+            # 3. THE CLEANUP: Delete any untracked ghost files or folders blocking the build
+            git clean -f -d
+            
+            # 4. Install dependencies and build
             npm install
-            # Rebuild the app using the extra memory flag we set up earlier
             NODE_OPTIONS="--max-old-space-size=2048" npm run build
-            # Restart the app via PM2
-            pm2 restart paolo-org || pm2 start npm --name "paolo-org" -- run start
+            
+            # 5. Zero-downtime reload (falls back to 'start' if the app is currently offline)
+            pm2 reload paolo-org || pm2 start npm --name "paolo-org" -- run start
