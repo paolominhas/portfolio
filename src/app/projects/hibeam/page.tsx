@@ -202,7 +202,7 @@ export default function HIBEAMarticle() {
 
       <div className="mt-8 max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         <p>
-          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. To answer the question of why we exist, we have to know why there is far more matter in our universe than antimatter. We know we have new evidence for this if neutrons in our beam randomly become antineutrons (their own "mirror image"), so we tested a prototype detector using a proton beam as a proxy for that signature in Krakow.
+          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. To answer the question of why we exist, we have to know why there is far more matter in our universe than antimatter. We know we have new evidence for this if we shoot neutrons through space and some randomly become antineutrons (their own "mirror image"), so we tested a prototype detector using a proton beam as a proxy for that signature in Krakow (this will be explained below).
         </p>
       </div>
 

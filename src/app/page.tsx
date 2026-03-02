@@ -33,9 +33,9 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Making cool <br />
+          My work in progress <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 to-zinc-500">
-            MEGS.
+            website.
           </span>
         </motion.h1>
 
@@ -59,12 +59,12 @@ export default function HomePage() {
           <Link href="/projects/hibeam" className="group relative px-8 py-3 rounded-lg bg-white text-black font-semibold overflow-hidden">
              <div className="absolute inset-0 w-full h-full bg-zinc-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
              <span className="relative flex items-center gap-2">
-                View MPhys Project <ArrowRight size={18} />
+                View MPhys Public Summary <ArrowRight size={18} />
              </span>
           </Link>
           
           <Link href="/about" className="px-8 py-3 rounded-lg border border-white/10 text-white hover:bg-white/5 transition-colors">
-             Read About Me
+            About Me
           </Link>
         </motion.div>
 
