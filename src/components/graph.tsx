@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { InlineMath } from 'react-katex';
 import { 
   ComposedChart,
   BarChart, 
@@ -131,7 +132,7 @@ export default function EnergyHistogram() {
       <div className="mb-4 flex justify-between items-start border-b border-slate-800 pb-4">
         <div>
           <h3 className="text-cyan-400 font-bold tracking-widest uppercase text-sm drop-shadow-[0_0_8px_rgba(6,182,212,0.5)] mb-1">
-            dE/dx Energy Loss Spectrum
+            Energy Loss Spectrum
           </h3>
           <p className="text-slate-500 text-[10px] tracking-wider uppercase">Prototype Time Projection Chamber</p>
         </div>
@@ -143,7 +144,7 @@ export default function EnergyHistogram() {
               <span className="text-emerald-400 text-xs">{fitStats.mpv.toFixed(3)} GeV</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-slate-500 text-[9px] uppercase tracking-widest">Sigma σ (the width of the peak)</span>
+              <span className="text-slate-500 text-[9px] tracking-widest">SIGMA <InlineMath math="\sigma" /> (THE WIDTH OF THE PEAK)</span>
               <span className="text-emerald-400 text-xs">{fitStats.sigma.toFixed(3)}</span>
             </div>
           </div>

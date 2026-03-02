@@ -180,7 +180,7 @@ export default function HIBEAMarticle() {
             Vanishing Neutrons
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 mb-10 leading-relaxed font-light">
-            Why neutrons becoming antimatter is fascinating, and how we can see it for ourselves.
+            How to test if a new particle detector works, and if it can see vanishing neutrons.
           </p>
           <div className="flex items-center justify-center gap-4 text-sm font-medium text-slate-500">
             <span>By <strong className="text-slate-300">Paolo Minhas</strong></span>
@@ -202,7 +202,7 @@ export default function HIBEAMarticle() {
 
       <div className="mt-8 max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         <p>
-          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. To answer the question of why we exist, we have to know why there is far more matter in our universe than antimatter. We know we have new evidence for this if neutrons in our beam randomly become antineutrons (their own "mirror image"), so we tested a prototype using a proton beam as a proxy for that signature in Krakow.
+          This project will help researchers at the European Spallation Source (ESS) in Lund (a future neutron beam facility) make a new detector to answer this fundamental question. To answer the question of why we exist, we have to know why there is far more matter in our universe than antimatter. We know we have new evidence for this if neutrons in our beam randomly become antineutrons (their own "mirror image"), so we tested a prototype detector using a proton beam as a proxy for that signature in Krakow.
         </p>
       </div>
 
@@ -225,12 +225,9 @@ export default function HIBEAMarticle() {
       {/* CONTINUATION OF ARTICLE CONTENT */}
       <div className="max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-slate-300">
         <p>
-          A team of around 20 physicists are currently working on HIBEAM (High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow with simulations I ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
+          A team of around 20 physicists are currently working on HIBEAM (High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow with simulations we ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
         </p>
         
-        <p>
-          This project was done as a part of my MPhys degree at the University of Edinburgh in 2025 and 2026. It will be possible to read the full report at the end of March.
-        </p>
         
         <h2 className="text-3xl font-bold text-white mt-16 mb-6">Shooting protons or neutrons?</h2>
         <p>
@@ -254,19 +251,33 @@ export default function HIBEAMarticle() {
         </p>
 
         <p>
-          There are also other processes going on that we cannot control that will affect our data - like random fluctuations called noise in our electronics, and particles showering our detector from space called cosmic muons.
+          There are also other processes going on that we cannot control that will affect our data - like random fluctuations called noise in our electronics, and particles showering our detector from space called cosmic muons (heavy electrons showering on Earth caused by radiation from space entering the atmosphere).
 
         </p>
 
-        <div className="my-12 p-8 bg-slate-900 rounded-2xl border-l-4 border-cyan-500 shadow-xl">
-          <p className="text-sm font-bold text-cyan-400 uppercase tracking-widest mb-4">The Mathematical Collapse</p>
-          <div className="text-white text-center text-xl md:text-2xl py-4 overflow-x-auto">
-            <BlockMath math={String.raw`P_{n \rightarrow \bar{n}}(t) = \left( \frac{2 \delta m}{\Delta E} \right)^2 \sin^2\left( \frac{\Delta E}{2 \hbar} t \right)`} />
+        <div className="relative w-full my-12 rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl group">
+        {/* The Image */}
+        {/* Note: Place your actual image file in the Next.js 'public' folder! */}
+        <img 
+          src="/images/prototpc.png" 
+          alt="The HIBEAM ProtoTPC Detector" 
+          className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-1000 group-hover:scale-105"
+        />
+
+        {/* Sleek Glassmorphism Caption Overlay */}
+        <div className="absolute bottom-0 left-0 w-full bg-slate-900/80 backdrop-blur-md border-t border-cyan-500/30 p-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4]"></div>
+            <p className="text-xs font-bold text-cyan-400 uppercase tracking-[0.2em]">
+              The Prototype TPC
+            </p>
           </div>
-          <p className="text-sm text-slate-400 mt-4 text-center">
-            Because the interaction mass (<InlineMath math="\delta m" />) is infinitesimally small, any environmental energy split (<InlineMath math="\Delta E" />) crushes the probability amplitude to near zero.
+          <p className="text-sm text-slate-300 leading-relaxed md:pr-12">
+            Inside this time projection chamber, the argon gas mixture serves as the target area to detect the protons coming in. If you look closely at the silver cylinder you can see a black square - this is the detector part of the chamber - the cuboid in the interactive mock-ups below. This picture was taken by Blahoslav Rataj.
           </p>
         </div>
+        
+      </div>
 
         <h2 className="text-3xl font-bold text-white mt-16 mb-6">Simulating the detector</h2>
 
