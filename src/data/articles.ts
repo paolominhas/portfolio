@@ -20,12 +20,7 @@ export const articles: Article[] = [
       <p>This project solved a major problem in visualization...</p>
       <h2>The Challenge</h2>
       <p>Rendering 10,000 data points in real-time...</p>
-      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
-      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
-      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
-      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
-      <p>This is exactly why experiments like HIBEAM at the European Spallation Source require multi-layer Mu-metal shielding. We aren&apos;t just fighting background noise; we are fighting the environment&apos;s tendency to force the universe to "choose" a state. By creating the most magnetically pristine vacuum on Earth, we might just catch matter looking in the mirror.</p>
-
+      
     `,
   },
   {
