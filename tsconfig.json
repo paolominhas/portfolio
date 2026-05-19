@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "../../Downloads/restructured/src/app/(portfolio)/page.tsx", "../../Downloads/restructured/src/app/robots.ts"  ],
   "exclude": ["node_modules"]
 }
