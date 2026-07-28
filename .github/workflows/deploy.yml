@@ -17,10 +17,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 30m
           script: |
+            git config --global --add safe.directory /home/paolo/portfolio
             cd /home/paolo/portfolio
             git fetch origin
             git reset --hard origin/main
             git clean -f -d
-            npm install
+            npm ci
             NODE_OPTIONS="--max-old-space-size=2048" npm run build
             pm2 reload paolo-org || pm2 start npm --name "paolo-org" -- run start

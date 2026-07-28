@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import SubdomainNav from "@/components/shared/SubdomainNav";
+import Footer from "@/components/shared/Footer";
 
 /**
  * MUSIC LAYOUT
  *
- * The music site is a blog about music — editorial, warm, text-heavy.
- * Accent: a warm amber/gold. The blog structure uses [slug] dynamic
- * routes for individual posts, with VexFlow for inline notation.
+ * Pivoted from an analysis blog to a portfolio of arrangements, and
+ * from the dark portfolio-wide theme to a bright, clean one — closer
+ * to how sheet-music and concert-programme sites actually look
+ * (white background, a warm single accent, generous whitespace)
+ * than to a dark editorial blog.
+ *
+ * A serif display face is kept for headings (a nod to concert
+ * programmes and engraved title pages) but the background is white,
+ * not the cream/terracotta combination that's become a generic
+ * "AI portfolio" tell — paired here with a warm amber accent and a
+ * plain five-line staff as the one recurring decorative motif.
  */
 
 export const metadata: Metadata = {
@@ -15,7 +24,7 @@ export const metadata: Metadata = {
     default: "Music — Paolo Minhas",
   },
   description:
-    "Writing about music, orchestral performance, and music theory.",
+    "A portfolio of arrangements for chamber ensembles, by Paolo Minhas.",
   openGraph: {
     siteName: "Music — Paolo Minhas",
     url: "https://music.paolo.org.uk",
@@ -23,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 const musicNavItems = [
-  { name: "Posts", path: "/posts" },
+  { name: "Arrangements", path: "/arrangements" },
   { name: "About", path: "/about" },
 ];
 
@@ -34,12 +43,12 @@ export default function MusicLayout({
 }) {
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen bg-white text-stone-900"
       style={
         {
-          "--accent": "#d4a24e",
-          "--accent-muted": "rgba(212, 162, 78, 0.12)",
-          "--accent-border": "rgba(212, 162, 78, 0.25)",
+          "--accent": "#b8791a",
+          "--accent-soft": "rgba(184, 121, 26, 0.1)",
+          "--accent-border": "rgba(184, 121, 26, 0.25)",
         } as React.CSSProperties
       }
     >
@@ -47,10 +56,12 @@ export default function MusicLayout({
         siteName="Music"
         siteHref="/"
         navItems={musicNavItems}
-        accentColor="#d4a24e"
+        accentColor="#b8791a"
         homeHref="https://paolo.org.uk"
+        theme="light"
       />
       <main className="relative z-10">{children}</main>
+      <Footer theme="light" site="music" accent="#b8791a" />
     </div>
   );
 }

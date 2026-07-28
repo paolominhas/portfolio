@@ -1,0 +1,20 @@
+{
+  "id": "game-of-life-gliders",
+  "title": "Conway's Game of Life \u2014 Glider Gun",
+  "description": "A Gosper glider gun (top-left) periodically emitting gliders, alongside a single glider crossing the grid.",
+  "width": 60,
+  "height": 60,
+  "frameCount": 90,
+  "fps": 12,
+  "colormap": "binary",
+  "valueRange": [
+    0,
+    1
+  ],
+  "framesFile": "frames.json",
+  "parameters": {
+    "width": 60,
+    "height": 60,
+    "rule": "B3/S23"
+  }
+}

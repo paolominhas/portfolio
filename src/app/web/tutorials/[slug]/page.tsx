@@ -1,68 +1,77 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { tutorials } from "@/data/web-data";
 
-export default function TutorialPost() {
-  const params = useParams();
-  const slug = params.slug;
+export function generateStaticParams() {
+  return tutorials.map((tut) => ({ slug: tut.slug }));
+}
 
-  // In a real app, you would fetch the tutorial data using this slug.
-  // We'll use placeholder text for the layout.
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const tutorial = tutorials.find((t) => t.slug === slug);
+  return {
+    title: tutorial?.title ?? "Not found",
+    description: tutorial?.description,
+  };
+}
+
+export default async function TutorialPost({ params }: PageProps) {
+  const { slug } = await params;
+  const tutorial = tutorials.find((t) => t.slug === slug);
+  if (!tutorial) notFound();
 
   return (
-    <article className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans selection:bg-sky-200">
-      
-      <div className="pt-32 pb-20 px-6 md:px-12 max-w-screen-md mx-auto">
-        
-        {/* Back Button */}
-        <Link 
-          href="/tutorials" 
-          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-stone-400 hover:text-stone-900 transition-colors mb-12"
-        >
-          <ArrowLeft size={16} /> Back to Archive
-        </Link>
+    <article className="pt-40 pb-24 px-6 md:px-12 max-w-3xl mx-auto">
+      <Link
+        href="/tutorials"
+        className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-slate-400 hover:text-slate-800 transition-colors mb-12"
+      >
+        <ArrowLeft size={14} /> Back to writing
+      </Link>
 
-        {/* Article Header */}
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-16"
-        >
-          <div className="flex gap-4 text-[10px] uppercase tracking-[0.15em] font-semibold text-stone-400 mb-6">
-            <span>Oct 12, 2023</span>
-            <span>Beginner</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-serif tracking-tight text-stone-800 leading-tight mb-6">
-            Next.js App Router: <br/>
-            <span className="italic text-stone-500">The Foundation</span>
-          </h1>
-          <p className="text-xl text-stone-500 font-light leading-relaxed">
-            Setting up a robust architecture from scratch, avoiding common pitfalls, and preparing for scale.
-          </p>
-        </motion.header>
+      <header className="mb-16">
+        <div className="flex gap-4 font-mono text-xs uppercase tracking-wider text-slate-400 mb-6">
+          <span>{tutorial.date}</span>
+          <span>{tutorial.difficulty}</span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight mb-6">
+          {tutorial.title}
+        </h1>
+        <p className="text-xl text-slate-500 leading-relaxed">
+          {tutorial.description}
+        </p>
+        <div className="flex flex-wrap gap-2 mt-6">
+          {tutorial.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
 
-        {/* Article Content (Prose) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="prose prose-stone prose-lg prose-headings:font-serif prose-a:text-sky-600 hover:prose-a:text-sky-500 max-w-none"
-        >
-          {/* Note: To style raw HTML/Markdown easily, install @tailwindcss/typography and use the 'prose' class as shown above */}
-          <p>
-            When starting a new Next.js project, the sheer number of configuration options can be overwhelming. In this guide, we will strip away the noise and focus on building a minimal, scalable foundation.
-          </p>
-          <h2>The Routing Paradigm</h2>
-          <p>
-            The transition from the Pages router to the App router represents a fundamental shift in how we think about component rendering...
-          </p>
-        </motion.div>
-
-      </div>
+      {tutorial.content ? (
+        <div
+          className="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-[var(--accent)]"
+          dangerouslySetInnerHTML={{ __html: tutorial.content }}
+        />
+      ) : (
+        <p className="text-slate-400 italic">
+          This write-up hasn't been drafted yet — add the body to{" "}
+          <code className="font-mono text-sm bg-slate-100 px-1.5 py-0.5 rounded">
+            src/data/web-data.ts
+          </code>
+          .
+        </p>
+      )}
     </article>
   );
 }

@@ -38,6 +38,13 @@ interface SubdomainNavProps {
   navItems: NavItem[];
   accentColor: string;
   homeHref: string;
+  /**
+   * "dark" (default) keeps the original zinc/glass pill used by the
+   * physics site. "light" is a bright variant — white/95 pill, soft
+   * shadow instead of a glow border — used by the music and web
+   * subdomains so they don't inherit the dark portfolio look.
+   */
+  theme?: "dark" | "light";
 }
 
 export default function SubdomainNav({
@@ -46,7 +53,9 @@ export default function SubdomainNav({
   navItems,
   accentColor,
   homeHref,
+  theme = "dark",
 }: SubdomainNavProps) {
+  const isLight = theme === "light";
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
@@ -68,21 +77,35 @@ export default function SubdomainNav({
     >
       <div className="relative mx-auto max-w-fit md:max-w-none w-full md:w-auto flex flex-col items-center">
         {/* Main pill */}
-        <div className="w-full sm:max-w-sm md:w-auto md:max-w-none flex items-center justify-between p-1 rounded-full bg-zinc-900/50 backdrop-blur-xl border border-white/10 shadow-2xl">
+        <div
+          className={`w-full sm:max-w-sm md:w-auto md:max-w-none flex items-center justify-between p-1 rounded-full backdrop-blur-xl border transition-colors ${
+            isLight
+              ? "bg-white/90 border-stone-200 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+              : "bg-zinc-900/50 border-white/10 shadow-2xl"
+          }`}
+        >
           {/* Site logo / name */}
           <Link
             href={siteHref}
             onClick={closeMenu}
-            className="px-6 py-2 text-sm font-medium text-zinc-100 hover:text-white transition-colors whitespace-nowrap"
+            className={`px-6 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
+              isLight
+                ? "text-stone-800 hover:text-stone-950"
+                : "text-zinc-100 hover:text-white"
+            }`}
           >
             <span style={{ color: accentColor }} className="font-semibold">
               {siteName}
             </span>
-            <span className="text-zinc-500 ml-1.5">·</span>
-            <span className="text-zinc-400 ml-1.5">Paolo</span>
+            <span className={isLight ? "text-stone-300 ml-1.5" : "text-zinc-500 ml-1.5"}>·</span>
+            <span className={isLight ? "text-stone-500 ml-1.5" : "text-zinc-400 ml-1.5"}>
+              Paolo
+            </span>
           </Link>
 
-          <div className="hidden md:block w-px h-4 bg-white/10 mx-2" />
+          <div
+            className={`hidden md:block w-px h-4 mx-2 ${isLight ? "bg-stone-200" : "bg-white/10"}`}
+          />
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center">
@@ -109,8 +132,12 @@ export default function SubdomainNav({
                   <span
                     className={
                       isActive
-                        ? "text-white"
-                        : "text-zinc-400 hover:text-zinc-200"
+                        ? isLight
+                          ? "text-stone-900"
+                          : "text-white"
+                        : isLight
+                          ? "text-stone-500 hover:text-stone-800"
+                          : "text-zinc-400 hover:text-zinc-200"
                     }
                   >
                     {item.name}
@@ -122,7 +149,11 @@ export default function SubdomainNav({
             {/* Back to main site */}
             <a
               href={homeHref}
-              className="ml-2 px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
+              className={`ml-2 px-4 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${
+                isLight
+                  ? "text-stone-400 hover:text-stone-700"
+                  : "text-zinc-500 hover:text-zinc-300"
+              }`}
             >
               paolo.org.uk <ArrowUpRight size={12} />
             </a>
@@ -131,7 +162,11 @@ export default function SubdomainNav({
           {/* Mobile toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-zinc-300 hover:text-white transition-colors mr-2 rounded-full hover:bg-white/10"
+            className={`md:hidden p-2 transition-colors mr-2 rounded-full ${
+              isLight
+                ? "text-stone-500 hover:text-stone-900 hover:bg-stone-100"
+                : "text-zinc-300 hover:text-white hover:bg-white/10"
+            }`}
             aria-label="Toggle mobile menu"
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -146,7 +181,11 @@ export default function SubdomainNav({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full mt-3 w-full sm:max-w-sm bg-zinc-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-col gap-2 md:hidden"
+              className={`absolute top-full mt-3 w-full sm:max-w-sm backdrop-blur-2xl border rounded-2xl p-4 flex flex-col gap-2 md:hidden ${
+                isLight
+                  ? "bg-white/95 border-stone-200 shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+                  : "bg-zinc-900/95 border-white/10 shadow-2xl"
+              }`}
             >
               {navItems.map((item) => {
                 const isActive = relativePath.startsWith(item.path);
@@ -157,19 +196,27 @@ export default function SubdomainNav({
                     onClick={closeMenu}
                     className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-white/10 text-white"
-                        : "text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+                        ? isLight
+                          ? "bg-stone-100 text-stone-900"
+                          : "bg-white/10 text-white"
+                        : isLight
+                          ? "text-stone-500 hover:bg-stone-50 hover:text-stone-800"
+                          : "text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
                     }`}
                   >
                     {item.name}
                   </Link>
                 );
               })}
-              <div className="w-full h-px bg-white/10 my-1" />
+              <div className={`w-full h-px my-1 ${isLight ? "bg-stone-200" : "bg-white/10"}`} />
               <a
                 href={homeHref}
                 onClick={closeMenu}
-                className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
+                className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors flex items-center gap-1 ${
+                  isLight
+                    ? "text-stone-400 hover:text-stone-700"
+                    : "text-zinc-500 hover:text-zinc-300"
+                }`}
               >
                 ← Back to paolo.org.uk
               </a>

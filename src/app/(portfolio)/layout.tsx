@@ -31,7 +31,7 @@ export default function PortfolioLayout({
       <Scene />
       <Navbar />
       <main className="relative z-10">{children}</main>
-      <Footer />
+      <Footer theme="dark" site="portfolio" />
     </>
   );
 }

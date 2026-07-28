@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PhysicsNav from "@/components/shared/SubdomainNav";
+import Footer from "@/components/shared/Footer";
 
 /**
  * PHYSICS LAYOUT
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
 // Navigation items specific to the physics site
 const physicsNavItems = [
   { name: "Simulations", path: "/simulations" },
-  { name: "Research", path: "/research" },
+  { name: "Articles", path: "/articles" },
 ];
 
 export default function PhysicsLayout({
@@ -59,6 +60,7 @@ export default function PhysicsLayout({
         homeHref="https://paolo.org.uk"
       />
       <main className="relative z-10">{children}</main>
+      <Footer theme="dark" site="physics" accent="#e84834" />
     </div>
   );
 }
