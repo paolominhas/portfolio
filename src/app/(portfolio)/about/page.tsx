@@ -13,7 +13,7 @@ export default function AboutPage() {
             <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 bg-zinc-900">
                 {/* Save your photo as public/me.jpg */}
                 <Image 
-                    src="/images/me.jpg" 
+                    src="/images/me_new.jpg" 
                     alt="Profile Picture" 
                     fill 
                     className="object-cover grayscale hover:grayscale-0 transition-all duration-500" 
