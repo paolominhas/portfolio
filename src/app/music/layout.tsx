@@ -1,22 +1,38 @@
 import type { Metadata } from "next";
-import SubdomainNav from "@/components/shared/SubdomainNav";
-import Footer from "@/components/shared/Footer";
+import { Playfair_Display } from "next/font/google";
+import MusicNav from "@/components/music/MusicNav";
+import MusicFooter from "@/components/music/MusicFooter";
 
 /**
  * MUSIC LAYOUT
  *
- * Pivoted from an analysis blog to a portfolio of arrangements, and
- * from the dark portfolio-wide theme to a bright, clean one — closer
- * to how sheet-music and concert-programme sites actually look
- * (white background, a warm single accent, generous whitespace)
- * than to a dark editorial blog.
+ * Acid-brutalist redesign of music.paolo.org.uk: electric neon lime
+ * (#D6FF00) background, hot-pink/magenta (#FF007F) mesh-gradient
+ * accents, pure black text and rules. See tailwind.config.ts for the
+ * lime / magenta / cream tokens and the `font-display` family.
  *
- * A serif display face is kept for headings (a nod to concert
- * programmes and engraved title pages) but the background is white,
- * not the cream/terracotta combination that's become a generic
- * "AI portfolio" tell — paired here with a warm amber accent and a
- * plain five-line staff as the one recurring decorative motif.
+ * Playfair Display is loaded here via next/font/google — self-hosted
+ * and inlined as a CSS variable (--font-playfair) at build time, so
+ * there's no runtime request to Google Fonts and no layout shift.
+ * The variable is applied on this layout's wrapping <div>, which is
+ * why `font-display` (defined in tailwind.config.ts as
+ * `var(--font-playfair)`) only resolves to Playfair *within* /music —
+ * used elsewhere it just falls back to the generic serif stack,
+ * rather than silently reaching outside this subtree.
+ *
+ * Bespoke MusicNav/MusicFooter (src/components/music/) rather than
+ * the shared SubdomainNav/Footer used by physics — the same reasoning
+ * as WebNav/WebFooter: this palette needs hard rules and flat colour,
+ * not the soft pill-nav/zinc-footer treatment. physics is untouched.
  */
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +40,7 @@ export const metadata: Metadata = {
     default: "Music — Paolo Minhas",
   },
   description:
-    "A portfolio of arrangements for chamber ensembles, by Paolo Minhas.",
+    "A downloadable archive of chamber-ensemble arrangements, by Paolo Minhas.",
   openGraph: {
     siteName: "Music — Paolo Minhas",
     url: "https://music.paolo.org.uk",
@@ -43,25 +59,11 @@ export default function MusicLayout({
 }) {
   return (
     <div
-      className="min-h-screen bg-white text-stone-900"
-      style={
-        {
-          "--accent": "#b8791a",
-          "--accent-soft": "rgba(184, 121, 26, 0.1)",
-          "--accent-border": "rgba(184, 121, 26, 0.25)",
-        } as React.CSSProperties
-      }
+      className={`${playfair.variable} min-h-screen bg-lime text-black selection:bg-black selection:text-lime`}
     >
-      <SubdomainNav
-        siteName="Music"
-        siteHref="/"
-        navItems={musicNavItems}
-        accentColor="#b8791a"
-        homeHref="https://paolo.org.uk"
-        theme="light"
-      />
+      <MusicNav navItems={musicNavItems} homeHref="https://paolo.org.uk" />
       <main className="relative z-10">{children}</main>
-      <Footer theme="light" site="music" accent="#b8791a" />
+      <MusicFooter />
     </div>
   );
 }

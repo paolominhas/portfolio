@@ -8,7 +8,6 @@ import HeroText from "@/components/web/HeroText";
 import ScrollReveal from "@/components/web/ScrollReveal";
 import MagneticButton from "@/components/web/MagneticButton";
 import AnimatedBentoGrid, { type BentoItem } from "@/components/web/AnimatedBentoGrid";
-import ProcessShowcase from "@/components/web/ProcessShowcase";
 
 /**
  * WEB HOME
@@ -123,9 +122,6 @@ export default function WebHomePage() {
           </motion.div>
         </div>
       </section>
-
-      {/* ================= ANIMATION ================= */}
-      <ProcessShowcase />
 
       {/* ================= SERVICES — Paper ================= */}
       <section className="px-6 md:px-10 max-w-6xl mx-auto py-20 md:py-28">

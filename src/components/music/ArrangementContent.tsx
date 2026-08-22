@@ -49,7 +49,7 @@ export default function ArrangementContent({ html }: ArrangementContentProps) {
 
           try {
             const vf = new Factory({
-              renderer: { elementId: htmlEl, width: 480, height: 130, background: "#ffffff" },
+              renderer: { elementId: htmlEl, width: 480, height: 130, background: "#FFFCEF" },
             });
             const score = vf.EasyScore();
             const system = vf.System();
@@ -64,7 +64,7 @@ export default function ArrangementContent({ html }: ArrangementContentProps) {
             vf.draw();
           } catch (err) {
             console.warn("VexFlow render error:", err);
-            htmlEl.innerHTML = `<p class="text-stone-400 text-sm italic">Notation could not be rendered</p>`;
+            htmlEl.innerHTML = `<p class="text-black/40 text-sm italic">Notation could not be rendered</p>`;
           }
         });
       })
@@ -76,10 +76,11 @@ export default function ArrangementContent({ html }: ArrangementContentProps) {
   return (
     <div
       ref={contentRef}
-      className="prose prose-stone max-w-none
-        prose-headings:font-serif prose-headings:text-stone-900
-        prose-p:text-stone-600 prose-p:leading-relaxed
-        prose-a:text-[var(--accent)] prose-a:no-underline hover:prose-a:underline"
+      className="prose prose-neutral max-w-none
+        prose-headings:font-display prose-headings:text-black prose-headings:font-bold
+        prose-p:text-black/70 prose-p:leading-relaxed
+        prose-a:text-black prose-a:underline prose-a:decoration-magenta prose-a:decoration-2 prose-a:underline-offset-2 hover:prose-a:text-magenta
+        prose-strong:text-black"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

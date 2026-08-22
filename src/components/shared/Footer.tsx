@@ -6,15 +6,14 @@ import CarbonBadge from "./CarbonBadge";
 /**
  * SITE FOOTER
  *
- * Shared across the main portfolio and all three subdomains
- * (physics / music / web), each of which passes its own `site` and
- * `theme` so the footer reads as part of that site rather than a
- * bolted-on afterthought:
+ * Shared by the main portfolio and physics. music and web each have
+ * their own bespoke footer now (MusicFooter, WebFooter) since their
+ * redesigns moved to palettes this component's zinc/stone theming
+ * doesn't suit — but they're still listed in `subdomains` below so
+ * physics' "Elsewhere" links point at them with the right accent dot.
  *
  *   (portfolio)/layout.tsx  → <Footer theme="dark" site="portfolio" />
  *   physics/layout.tsx      → <Footer theme="dark"  site="physics" accent="#e84834" />
- *   music/layout.tsx        → <Footer theme="light" site="music"   accent="#b8791a" />
- *   web/layout.tsx          → <Footer theme="light" site="web"     accent="#0f8a7b" />
  *
  * Structure: brand + one-line pitch, a sitemap back to the main
  * portfolio, a directory of the three subdomains (current one
@@ -44,14 +43,14 @@ const subdomains: { key: Site; name: string; href: string; description: string; 
     name: "Music",
     href: "https://music.paolo.org.uk",
     description: "Arrangements",
-    accent: "#b8791a",
+    accent: "#FF007F",
   },
   {
     key: "web",
     name: "Web",
     href: "https://web.paolo.org.uk",
     description: "Development & design",
-    accent: "#0f8a7b",
+    accent: "#FFDD44",
   },
 ];
 

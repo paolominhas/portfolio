@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { ArrowLeft, Music, Clock, Calendar } from "lucide-react";
+import { ArrowLeft, Music, Clock, Calendar, Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { arrangements } from "@/data/arrangements";
 import ArrangementContent from "@/components/music/ArrangementContent";
-import StaffLines from "@/components/music/StaffLines";
+import { CircledNumber } from "@/components/music/CircledNumber";
 
 export function generateStaticParams() {
   return arrangements.map((arr) => ({ slug: arr.slug }));
@@ -28,37 +28,39 @@ export default async function ArrangementPage({ params }: PageProps) {
   const arrangement = arrangements.find((a) => a.slug === slug);
   if (!arrangement) notFound();
 
+  const index = arrangements.findIndex((a) => a.slug === slug);
+
   return (
-    <article className="pt-40 pb-24 px-6 md:px-16 max-w-3xl mx-auto">
+    <article className="pt-40 pb-28 px-6 md:px-16 max-w-3xl mx-auto">
       <Link
         href="/arrangements"
-        className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-stone-400 hover:text-stone-800 transition-colors mb-12"
+        className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-black/50 hover:text-black transition-colors mb-12"
       >
-        <ArrowLeft size={14} /> Back to arrangements
+        <ArrowLeft size={14} /> Back to the crate
       </Link>
 
-      <StaffLines className="w-32 mb-6 opacity-70" />
+      <CircledNumber n={index + 1} active size="lg" />
 
-      <p className="font-mono text-xs uppercase tracking-widest text-stone-400 mb-3">
+      <p className="font-mono text-xs uppercase tracking-widest text-black/50 mt-6 mb-3">
         {arrangement.originalComposer} — {arrangement.originalWork}
       </p>
-      <h1 className="text-4xl md:text-5xl font-serif tracking-tight text-stone-900 mb-6">
+      <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-black mb-6">
         {arrangement.title}
       </h1>
 
       {/* Fact strip */}
-      <div className="flex flex-wrap gap-x-8 gap-y-3 mb-10 py-6 border-y border-stone-200">
-        <div className="flex items-center gap-2 text-sm text-stone-600">
-          <Music size={15} className="text-[var(--accent)]" />
+      <div className="flex flex-wrap gap-x-8 gap-y-3 mb-10 py-6 border-y-2 border-black/10">
+        <div className="flex items-center gap-2 text-sm text-black/70">
+          <Music size={15} className="text-magenta" />
           {arrangement.arrangedFor}
         </div>
-        <div className="flex items-center gap-2 text-sm text-stone-600">
-          <Clock size={15} className="text-[var(--accent)]" />
+        <div className="flex items-center gap-2 text-sm text-black/70">
+          <Clock size={15} className="text-magenta" />
           {arrangement.durationMinutes} min
         </div>
         {arrangement.premiere && (
-          <div className="flex items-center gap-2 text-sm text-stone-600">
-            <Calendar size={15} className="text-[var(--accent)]" />
+          <div className="flex items-center gap-2 text-sm text-black/70">
+            <Calendar size={15} className="text-magenta" />
             {arrangement.premiere.ensemble}, {arrangement.premiere.date}
             {arrangement.premiere.venue ? ` — ${arrangement.premiere.venue}` : ""}
           </div>
@@ -69,7 +71,7 @@ export default async function ArrangementPage({ params }: PageProps) {
         {arrangement.instrumentation.map((inst) => (
           <span
             key={inst}
-            className="text-xs text-stone-600 bg-stone-100 px-3 py-1.5 rounded-full"
+            className="text-xs font-mono uppercase tracking-wide text-black/60 bg-black/5 border border-black/10 px-3 py-1.5"
           >
             {inst}
           </span>
@@ -79,21 +81,25 @@ export default async function ArrangementPage({ params }: PageProps) {
       <ArrangementContent html={arrangement.programmeNote} />
 
       {(arrangement.audioUrl || arrangement.scoreUrl) && (
-        <div className="mt-12 pt-8 border-t border-stone-200 flex flex-wrap gap-4">
-          {arrangement.audioUrl && (
-            <a
-              href={arrangement.audioUrl}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-stone-900 text-white text-sm font-medium hover:bg-stone-700 transition-colors"
-            >
-              Listen to a recording
-            </a>
-          )}
+        <div className="mt-12 pt-8 border-t-2 border-black/10 flex flex-wrap gap-4">
           {arrangement.scoreUrl && (
             <a
               href={arrangement.scoreUrl}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-stone-300 text-stone-700 text-sm font-medium hover:border-stone-400 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-magenta text-white border-2 border-black text-sm font-bold uppercase tracking-wide shadow-brutal-sm hover:bg-black hover:text-magenta hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-150"
             >
-              View score excerpt
+              <Download size={15} /> Download score
+            </a>
+          )}
+          {arrangement.audioUrl && (
+            <a
+              href={arrangement.audioUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-black bg-cream text-black text-sm font-bold uppercase tracking-wide shadow-brutal-sm hover:bg-black hover:text-lime hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-150"
+            >
+              Listen to a recording
             </a>
           )}
         </div>

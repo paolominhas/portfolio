@@ -32,6 +32,23 @@ const config: Config = {
           light: "#EDE7FD", // soft tint — card fills, section backgrounds
         },
         paper: "#F7F5FC", // off-white with a faint lilac cast — base light bg
+        // --- /music — acid-brutalist crate-digger palette ---
+        lime: "#D6FF00", // primary background — electric neon lime/chartreuse
+        magenta: "#FF007F", // accent — mesh gradient, hover states, Download CTA
+        cream: "#FFFCEF", // warm off-white — record-sleeve card faces
+      },
+      fontFamily: {
+        // Scoped to /music via the CSS variable next/font/google writes in
+        // music/layout.tsx. Named "display" (not "serif") so it never
+        // shadows the generic `font-serif` already used by the main
+        // portfolio and the pre-redesign music pages.
+        display: [
+          "var(--font-playfair)",
+          "ui-serif",
+          "Georgia",
+          "Cambria",
+          "serif",
+        ],
       },
     },
   },
