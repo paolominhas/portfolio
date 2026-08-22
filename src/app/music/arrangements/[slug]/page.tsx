@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ArrowLeft, Music, Clock, Calendar, Download } from "lucide-react";
+import { ArrowLeft, Music, Clock, Calendar, Download, Music2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { arrangements } from "@/data/arrangements";
 import ArrangementContent from "@/components/music/ArrangementContent";
 import { CircledNumber } from "@/components/music/CircledNumber";
+import DownloadLink from "@/components/music/DownloadLink";
 
 export function generateStaticParams() {
   return arrangements.map((arr) => ({ slug: arr.slug }));
@@ -80,30 +81,28 @@ export default async function ArrangementPage({ params }: PageProps) {
 
       <ArrangementContent html={arrangement.programmeNote} />
 
-      {(arrangement.audioUrl || arrangement.scoreUrl) && (
-        <div className="mt-12 pt-8 border-t-2 border-black/10 flex flex-wrap gap-4">
-          {arrangement.scoreUrl && (
-            <a
-              href={arrangement.scoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-magenta text-white border-2 border-black text-sm font-bold uppercase tracking-wide shadow-brutal-sm hover:bg-black hover:text-magenta hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-150"
-            >
-              <Download size={15} /> Download score
-            </a>
-          )}
-          {arrangement.audioUrl && (
-            <a
-              href={arrangement.audioUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-black bg-cream text-black text-sm font-bold uppercase tracking-wide shadow-brutal-sm hover:bg-black hover:text-lime hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-150"
-            >
-              Listen to a recording
-            </a>
-          )}
+      {/* Downloads — always shown, per-slot active/inert. A slot with
+          no URL yet renders visibly disabled rather than being hidden
+          entirely, so "downloads exist for every arrangement" reads
+          as a promise about the archive, not just the ones filled in
+          so far. */}
+      <div className="mt-12 pt-8 border-t-2 border-black/10">
+        <p className="font-mono text-xs uppercase tracking-widest text-black/40 mb-4">
+          Downloads
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <DownloadLink
+            href={arrangement.scoreUrl}
+            label="Download score"
+            icon={<Download size={15} />}
+          />
+          <DownloadLink
+            href={arrangement.audioUrl}
+            label="Listen to a recording"
+            icon={<Music2 size={15} />}
+          />
         </div>
-      )}
+      </div>
     </article>
   );
 }

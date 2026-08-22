@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { motion, useTransform, type MotionValue } from "framer-motion";
-import { Download, Clock } from "lucide-react";
+import { Download, Music2, Clock } from "lucide-react";
 import type { Arrangement } from "@/data/arrangements";
 import { CircledNumber } from "./CircledNumber";
+import DownloadLink from "./DownloadLink";
 
 /**
  * ARRANGEMENT CARD
@@ -81,10 +82,6 @@ export default function ArrangementCard({
   const opacity = useTransform(progress, inputRange, [0.3, 1, 1, 0.3]);
   const x = useTransform(progress, inputRange, [64, 0, 0, -64]);
 
-  const scoreHref =
-    arrangement.scoreUrl ?? arrangement.audioUrl ?? `/arrangements/${arrangement.slug}`;
-  const isExternal = scoreHref.startsWith("http");
-
   return (
     <motion.div
       style={{ rotateY, scale, opacity, x }}
@@ -135,24 +132,31 @@ export default function ArrangementCard({
           </div>
         </div>
 
-        {/* Hover-revealed Download CTA — hot pink, per spec. Positioned
+        {/* Hover-revealed Download CTAs — hot pink, per spec. Two
+            slots (score + recording), each active or inert depending
+            on whether this arrangement has a real file yet. Positioned
             with `bottom-0` (a layout offset) rather than a translate
             utility, so it doesn't fight with the `y` Framer Motion
             already animates via `variants` on this same element. */}
         <motion.div
           variants={ctaVariants}
           transition={{ type: "spring", stiffness: 320, damping: 26 }}
-          className="absolute inset-x-0 bottom-0"
+          className="absolute inset-x-0 bottom-0 flex"
         >
-          <a
-            href={scoreHref}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noopener noreferrer" : undefined}
-            className="flex items-center justify-center gap-2 w-full py-4 bg-magenta text-white text-sm font-bold uppercase tracking-wide border-t-4 border-black hover:bg-black hover:text-magenta transition-colors duration-200"
-          >
-            <Download size={16} strokeWidth={2.5} />
-            Download score
-          </a>
+          <DownloadLink
+            href={arrangement.scoreUrl}
+            label="Score"
+            icon={<Download size={14} strokeWidth={2.5} />}
+            size="compact"
+          />
+          <div className="border-l-2 border-black flex flex-1">
+            <DownloadLink
+              href={arrangement.audioUrl}
+              label="Audio"
+              icon={<Music2 size={14} strokeWidth={2.5} />}
+              size="compact"
+            />
+          </div>
         </motion.div>
       </div>
     </motion.div>

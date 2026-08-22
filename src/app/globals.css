@@ -60,14 +60,27 @@ html {
 }
 
 /* The hot-pink mesh gradient "bleeding" down from the top of the page
-   into the flat lime background — a radial blur faded out with a
-   linear mask so it reads as a soft bleed rather than a hard edge. */
+   into the flat lime background. Deliberately dominant — this should
+   read as the hero's primary colour for its first ~55-60%, not a
+   faint accent glow — then fade smoothly into lime via the linear
+   mask so it's still a bleed, not a hard-edged block. */
 .mesh-bleed {
   background-image:
-    radial-gradient(60% 50% at 30% 0%, rgb(255 0 127 / 0.55), transparent 70%),
-    radial-gradient(45% 40% at 80% 10%, rgb(255 0 127 / 0.4), transparent 70%);
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-  mask-image: linear-gradient(to bottom, black, transparent);
+    radial-gradient(70% 65% at 28% 0%, rgb(255 0 127 / 1), transparent 78%),
+    radial-gradient(60% 55% at 82% 6%, rgb(255 0 127 / 0.95), transparent 75%),
+    radial-gradient(95% 75% at 50% 0%, rgb(255 0 127 / 0.7), transparent 85%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 40%,
+    transparent 92%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 40%,
+    transparent 92%
+  );
 }
 
 /* --------------------------------------------------------------------

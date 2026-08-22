@@ -5,9 +5,13 @@ import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  // `external` entries (currently: mphys) route straight out to
+  // physics.paolo.org.uk and have no internal detail page to build.
+  return projects
+    .filter((project) => !project.external)
+    .map((project) => ({
+      slug: project.slug,
+    }));
 }
 
 // 1. Unify the interface: params is a Promise for both Page and Metadata
@@ -53,8 +57,11 @@ export default async function ProjectPage({ params }: PageProps) {
   // Find the project
   const project = projects.find((p) => p.slug === slug);
 
-  // If still not found after awaiting, throw 404
-  if (!project) {
+  // If still not found, or if this is an `external` entry (no
+  // internal detail page — see projects.ts), throw 404. The /projects
+  // index never links here for external entries; this only guards a
+  // direct/stale URL hit.
+  if (!project || project.external) {
     notFound(); 
   }
 

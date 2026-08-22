@@ -1,22 +1,20 @@
-// app/projects/hibeam/page.tsx
 import type { Metadata } from 'next';
-import HibeamClientContent from './HibeamClientContent';
+import MphysContent from '@/components/physics/MphysContent';
 
-// 1. Standard Metadata (Works perfectly because this is a Server Component)
 export const metadata: Metadata = {
-  title: 'HIBEAM Experiment | My Portfolio',
-  description: 'High-Intensity Baryon Extraction and Measurement (HIBEAM) experiment searching for neutron conversions.',
+  title: 'MPhys Thesis — HIBEAM Prototype TPC',
+  description:
+    'High-Intensity Baryon Extraction and Measurement (HIBEAM) experiment searching for neutron conversions — MPhys dE/dx analysis of the prototype TPC detector.',
 };
 
-export default function HibeamProjectPage() {
-  // 2. Define the exact JSON-LD Structured Data
+export default function MphysResearchPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ResearchProject",
     "name": "HIBEAM",
     "alternateName": "High-Intensity Baryon Extraction and Measurement",
     "description": "A high-precision particle physics experiment located at the European Spallation Source (ESS)...",
-    "url": "https://paolo.org.uk/projects/hibeam",
+    "url": "https://physics.paolo.org.uk/research/mphys",
     "location": {
       "@type": "Place",
       "name": "European Spallation Source (ESS)",
@@ -34,14 +32,11 @@ export default function HibeamProjectPage() {
 
   return (
     <>
-      {/* 3. Inject JSON-LD silently into the head */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
-      {/* 4. Render the heavy 3D Client Component */}
-      <HibeamClientContent />
+      <MphysContent />
     </>
   );
 }

@@ -35,7 +35,7 @@ const subdomains: { key: Site; name: string; href: string; description: string; 
     key: "physics",
     name: "Physics",
     href: "https://physics.paolo.org.uk",
-    description: "Simulations & articles",
+    description: "Research & simulations",
     accent: "#FF6B3D",
   },
   {
@@ -55,9 +55,9 @@ const subdomains: { key: Site; name: string; href: string; description: string; 
 ];
 
 const exploreLinks = [
+  { name: "Home", href: "https://paolo.org.uk" },
   { name: "About", href: "https://paolo.org.uk/about" },
   { name: "Projects", href: "https://paolo.org.uk/projects" },
-  { name: "Articles", href: "https://paolo.org.uk/articles" },
   { name: "Contact", href: "https://paolo.org.uk/contact" },
 ];
 

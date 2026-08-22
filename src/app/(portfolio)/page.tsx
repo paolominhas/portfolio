@@ -56,10 +56,15 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Link href="/projects/hibeam" className="group relative px-8 py-3 rounded-lg bg-white text-black font-semibold overflow-hidden">
+          <Link
+            href="https://physics.paolo.org.uk/research/mphys"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative px-8 py-3 rounded-lg bg-white text-black font-semibold overflow-hidden"
+          >
              <div className="absolute inset-0 w-full h-full bg-zinc-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
              <span className="relative flex items-center gap-2">
-                View MPhys Public Summary <ArrowRight size={18} />
+                View MPhys Research <ArrowRight size={18} />
              </span>
           </Link>
           

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { researchProjects } from "@/data/research";
 
 /**
  * PHYSICS INDEX / LANDING
@@ -113,6 +114,35 @@ export default function PhysicsHome() {
           Physics course at Edinburgh. Each one runs live in the browser —
           the original Python source is shown alongside the TypeScript port.
         </motion.p>
+
+        {/* Research teaser — the four research projects live at
+            /research; this is a compact pointer to them from the
+            landing page, not a duplicate of the index grid there. */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mb-16"
+        >
+          <Link
+            href="/research"
+            className="group flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 md:p-8 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-[var(--accent-border)] transition-all duration-300"
+          >
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent)] mb-2">
+                Research
+              </p>
+              <p className="text-white/60 max-w-xl">
+                An MPhys thesis, a summer placement, and two further projects
+                across detector, flavour, and neutrino physics —{" "}
+                {researchProjects.map((p) => p.title.split(" —")[0]).join(", ")}.
+              </p>
+            </div>
+            <span className="shrink-0 inline-flex items-center gap-1.5 text-sm font-medium text-white group-hover:text-[var(--accent)] transition-colors">
+              View Research <ArrowRight size={14} />
+            </span>
+          </Link>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {simulations.map((sim, i) => {

@@ -16,15 +16,15 @@ import CarbonBadge from "@/components/shared/CarbonBadge";
  */
 
 const subdomains = [
-  { key: "physics", name: "Physics", href: "https://physics.paolo.org.uk", description: "Simulations & articles" },
+  { key: "physics", name: "Physics", href: "https://physics.paolo.org.uk", description: "Research & simulations" },
   { key: "music", name: "Music", href: "https://music.paolo.org.uk", description: "Arrangements" },
   { key: "web", name: "Web", href: "https://web.paolo.org.uk", description: "Development & design" },
 ];
 
 const exploreLinks = [
+  { name: "Home", href: "https://paolo.org.uk" },
   { name: "About", href: "https://paolo.org.uk/about" },
   { name: "Projects", href: "https://paolo.org.uk/projects" },
-  { name: "Articles", href: "https://paolo.org.uk/articles" },
   { name: "Contact", href: "https://paolo.org.uk/contact" },
 ];
 

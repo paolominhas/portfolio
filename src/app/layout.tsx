@@ -32,12 +32,13 @@ import type { Metadata } from "next";
  *   ├── globals.css
  *   ├── (portfolio)/        ← Route group for main paolo.org.uk pages
  *   │   ├── layout.tsx      ← Navbar + Scene + Footer (moved from root)
- *   │   ├── page.tsx        ← Home page (the one with "My work in progress")
+ *   │   ├── page.tsx        ← Home page
  *   │   ├── about/
- *   │   ├── projects/
- *   │   ├── articles/
+ *   │   ├── projects/       ← MPhys links out to physics.paolo.org.uk/research/mphys
  *   │   └── contact/
  *   ├── physics/            ← physics.paolo.org.uk (own layout + nav)
+ *   │   ├── articles/       ← physics simulation write-ups (unrelated to the old portfolio /articles)
+ *   │   └── research/       ← the 4 research projects (mphys, ppss, globes, dune-nd)
  *   ├── music/              ← music.paolo.org.uk (own layout + nav)
  *   └── web/                ← web.paolo.org.uk (own layout + nav)
  */

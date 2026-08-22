@@ -43,6 +43,7 @@ export const metadata: Metadata = {
 };
 
 const physicsNavItems = [
+  { name: "Research", path: "/research" },
   { name: "Simulations", path: "/simulations" },
   { name: "Articles", path: "/articles" },
 ];

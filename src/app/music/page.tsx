@@ -74,7 +74,7 @@ export default function MusicHome() {
       <section className="relative overflow-hidden px-6 md:px-10 pt-40 pb-28 md:pt-48 md:pb-32">
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-[70vh] mesh-bleed pointer-events-none"
+          className="absolute inset-x-0 top-0 h-[92vh] mesh-bleed pointer-events-none"
         />
         <div className="relative max-w-4xl">
           <div className="flex items-center gap-3 mb-8">

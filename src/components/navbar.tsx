@@ -6,18 +6,33 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
+/**
+ * PORTFOLIO NAV
+ * ─────────────────────────────────────────────────────────────────
+ * Exactly four items: Home, About, Projects, Contact. Contact is
+ * still visually emphasised (solid white pill) since it's the
+ * primary conversion point, but it's now a single entry in
+ * `navItems` rather than a second, separately-maintained "Let's
+ * Talk" button — the old version rendered Contact twice (once as a
+ * plain link — cut from a previous nav — and once as the CTA), which
+ * this collapses into one.
+ */
+
 const navItems = [
+  { name: 'Home', path: '/', exact: true },
   { name: 'About', path: '/about' },
   { name: 'Projects', path: '/projects' },
-  { name: 'Articles', path: '/articles' },
+  { name: 'Contact', path: '/contact', cta: true },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  // Helper to close the mobile menu when a link is clicked
   const closeMenu = () => setIsOpen(false);
+
+  const isItemActive = (item: (typeof navItems)[number]) =>
+    item.exact ? pathname === item.path : pathname.startsWith(item.path);
 
   return (
     <motion.nav 
@@ -35,13 +50,13 @@ export default function Navbar() {
           flex items-center justify-between p-1 rounded-full
           bg-zinc-900/50 backdrop-blur-xl border border-white/10 shadow-2xl
         ">
-          {/* Home Logo / Name */}
+          {/* Logo / Name — links home, distinct from the "Home" nav item's active state */}
           <Link 
             href="/" 
             onClick={closeMenu}
             className="px-6 py-2 text-sm font-medium text-zinc-100 hover:text-white transition-colors whitespace-nowrap"
           >
-            My Portfolio
+            Paolo Minhas
           </Link>
 
           {/* Desktop Divider */}
@@ -50,7 +65,20 @@ export default function Navbar() {
           {/* === DESKTOP LINKS === */}
           <div className="hidden md:flex items-center">
             {navItems.map((item) => {
-              const isActive = pathname.startsWith(item.path);
+              const isActive = isItemActive(item);
+
+              if (item.cta) {
+                return (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    className="ml-2 px-5 py-2 bg-white text-black rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors whitespace-nowrap"
+                  >
+                    {item.name}
+                  </Link>
+                );
+              }
+
               return (
                 <Link 
                   key={item.path} 
@@ -70,14 +98,6 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
-            {/* Desktop Contact Button */}
-            <Link 
-                href="/contact"
-                className="ml-2 px-5 py-2 bg-white text-black rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors whitespace-nowrap"
-            >
-                Let's Talk
-            </Link>
           </div>
 
           {/* === MOBILE TOGGLE BUTTON === */}
@@ -100,8 +120,8 @@ export default function Navbar() {
               transition={{ duration: 0.2 }}
               className="absolute top-full mt-3 w-full sm:max-w-sm bg-zinc-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-col gap-2 md:hidden"
             >
-              {navItems.map((item) => {
-                const isActive = pathname.startsWith(item.path);
+              {navItems.filter((item) => !item.cta).map((item) => {
+                const isActive = isItemActive(item);
                 return (
                   <Link
                     key={item.path}
@@ -123,7 +143,7 @@ export default function Navbar() {
                 onClick={closeMenu}
                 className="w-full px-4 py-3 mt-1 bg-white text-black text-center rounded-xl text-sm font-semibold hover:bg-zinc-200 transition-colors"
               >
-                Let's Talk
+                Contact
               </Link>
             </motion.div>
           )}

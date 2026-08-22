@@ -29,6 +29,7 @@
     "vexflow": "^5.0.0"
   },
   "devDependencies": {
+    "@next/mdx": "^16.3.2",
     "@tailwindcss/postcss": "^4.2.0",
     "@types/node": "^20",
     "@types/react": "^19",
