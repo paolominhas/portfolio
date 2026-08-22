@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 :root {
   --background: #09090b; /* zinc-950 hex code as a fallback variable */
@@ -7,6 +8,39 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* --------------------------------------------------------------------
+ * /web — editorial brutalist-chic utilities
+ * Scoped by usage (only referenced under src/app/web/**), not by
+ * selector, since Tailwind v4 has a single global stylesheet.
+ * ------------------------------------------------------------------ */
+
+/* Faint grain over navy sections so large flat fills don't look flat */
+.bg-grain {
+  position: relative;
+  isolation: isolate;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* 1px hairline rules that stay crisp at any zoom, used for the
+   brutalist grid lines separating editorial sections on /web */
+.rule-navy {
+  background-image: linear-gradient(
+    to right,
+    rgb(16 21 133 / 0.15) 1px,
+    transparent 1px
+  );
+  background-size: 1px 100%;
 }
 
 /* Optional: Custom Scrollbar */

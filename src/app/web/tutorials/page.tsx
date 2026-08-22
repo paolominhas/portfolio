@@ -1,54 +1,55 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { tutorials } from "@/data/web-data";
+import HeroText from "@/components/web/HeroText";
+import ScrollReveal from "@/components/web/ScrollReveal";
+
+/**
+ * WEB TUTORIALS INDEX
+ */
 
 export default function TutorialsIndex() {
   return (
-    <div className="pt-40 pb-24 px-6 md:px-12 max-w-3xl mx-auto">
-      <motion.h1
-        className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        Writing
-      </motion.h1>
-      <motion.p
-        className="text-lg text-slate-500 mb-16"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.05 }}
-      >
-        Notes and guides from first install to production deployment.
-      </motion.p>
+    <div className="pt-40 pb-28 px-6 md:px-10 max-w-3xl mx-auto">
+      <HeroText
+        as="h1"
+        text="Writing."
+        highlightWords={["writing."]}
+        className="text-5xl md:text-7xl font-black tracking-tight text-navy mb-6"
+      />
+      <ScrollReveal on="load" delay={0.35}>
+        <p className="text-lg text-navy/60 mb-16">
+          Notes and guides from first install to production deployment.
+        </p>
+      </ScrollReveal>
 
-      <div className="border-t border-slate-200">
+      <div className="border-t-2 border-navy/10">
         {tutorials.map((tut, i) => (
-          <motion.div
-            key={tut.slug}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.06 }}
-          >
+          <ScrollReveal key={tut.slug} delay={i * 0.06} y={14}>
             <Link
               href={`/tutorials/${tut.slug}`}
-              className="group flex flex-col md:flex-row md:items-baseline justify-between py-8 border-b border-slate-200 hover:bg-white transition-colors px-4 -mx-4 rounded-lg"
+              className="group flex flex-col md:flex-row md:items-baseline justify-between py-8 border-b-2 border-navy/10 hover:bg-lilac-light/40 transition-colors px-4 -mx-4 rounded-lg"
             >
               <div className="max-w-md">
-                <h2 className="text-xl font-semibold text-slate-900 group-hover:text-[var(--accent)] transition-colors mb-1">
-                  {tut.title}
+                <h2 className="text-xl font-bold text-navy mb-1 group-hover:text-navy">
+                  {tut.title}{" "}
+                  <span className="inline-block text-yellow opacity-0 group-hover:opacity-100 transition-opacity">
+                    →
+                  </span>
                 </h2>
-                <p className="text-sm text-slate-500">{tut.description}</p>
+                <p className="text-sm text-navy/60">{tut.description}</p>
               </div>
-              <div className="mt-4 md:mt-0 flex gap-4 font-mono text-xs uppercase tracking-wider text-slate-400">
-                <span>{tut.date}</span>
-                <span>{tut.difficulty}</span>
+              <div className="mt-4 md:mt-0 flex gap-3 shrink-0">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-navy/50 bg-paper border border-navy/10 px-2.5 py-1 rounded-full">
+                  {tut.date}
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-navy bg-yellow/25 border border-yellow/40 px-2.5 py-1 rounded-full">
+                  {tut.difficulty}
+                </span>
               </div>
             </Link>
-          </motion.div>
+          </ScrollReveal>
         ))}
       </div>
     </div>

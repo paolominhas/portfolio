@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import SubdomainNav from "@/components/shared/SubdomainNav";
-import Footer from "@/components/shared/Footer";
+import WebNav from "@/components/web/WebNav";
+import WebFooter from "@/components/web/WebFooter";
 
 /**
  * WEB LAYOUT
  *
- * The web development side of the site — services, selected work,
- * and write-ups. Previously every page here built its own ad-hoc
- * header and (on the home page only) a one-line footer, so nothing
- * outside the homepage had consistent navigation. This now uses the
- * same shared SubdomainNav/Footer as physics and music, in their
- * light-theme variants.
+ * Editorial-brutalist redesign of web.paolo.org.uk: Deep Navy (#101585),
+ * Bright Yellow (#FFDD44), and Soft Lilac (#A78BFA) — see
+ * tailwind.config.ts for the token definitions (navy / yellow / lilac /
+ * paper) and src/app/globals.css for how it's wired into the build.
  *
- * DESIGN TOKENS — deliberately not the "cream background + serif +
- * warm accent" look the old pages used (that combination reads as a
- * generic template rather than a developer's own site). Instead:
- * a cool off-white, a teal accent, and monospace used for labels —
- * signalling "built by an engineer" rather than "editorial blog".
+ * This uses a bespoke WebNav/WebFooter rather than the shared
+ * SubdomainNav/Footer used by physics and music — the pill nav and
+ * zinc/stone footer don't suit this palette, and scoping the new
+ * components to src/components/web/ keeps physics/music untouched.
+ *
+ * Base background is `paper` (off-white, faint lilac cast) so that
+ * individual sections can go full-bleed Navy or Lilac without fighting
+ * a dark body background — see web/page.tsx for the alternating
+ * Navy -> Paper/Lilac -> Navy rhythm.
  */
 
 export const metadata: Metadata = {
@@ -43,26 +45,10 @@ export default function WebLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      className="min-h-screen bg-[#F6F7F7] text-slate-900"
-      style={
-        {
-          "--accent": "#0f8a7b",
-          "--accent-soft": "rgba(15, 138, 123, 0.08)",
-          "--accent-border": "rgba(15, 138, 123, 0.22)",
-        } as React.CSSProperties
-      }
-    >
-      <SubdomainNav
-        siteName="Web"
-        siteHref="/"
-        navItems={webNavItems}
-        accentColor="#0f8a7b"
-        homeHref="https://paolo.org.uk"
-        theme="light"
-      />
+    <div className="min-h-screen bg-paper text-navy selection:bg-yellow selection:text-navy">
+      <WebNav navItems={webNavItems} homeHref="https://paolo.org.uk" />
       <main className="relative z-10">{children}</main>
-      <Footer theme="light" site="web" accent="#0f8a7b" />
+      <WebFooter />
     </div>
   );
 }
