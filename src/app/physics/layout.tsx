@@ -1,21 +1,33 @@
 import type { Metadata } from "next";
+import { Bodoni_Moda } from "next/font/google";
 import PhysicsNav from "@/components/shared/SubdomainNav";
 import Footer from "@/components/shared/Footer";
 
 /**
  * PHYSICS LAYOUT
  *
- * This layout wraps everything under /physics/... — which is what
- * physics.paolo.org.uk resolves to via the middleware rewrite.
+ * Scope note: this redesign covers the index/landing page (dark) and
+ * the simulation sandbox pages (warm/painterly) — see physics/page.tsx
+ * and SimulationSandbox.tsx. The nav and footer are intentionally
+ * NOT rebuilt from scratch the way WebNav/MusicNav were; that wasn't
+ * asked for this time, and SubdomainNav's existing "dark" pill theme
+ * already sits fine over the new abyss/starfield background. Only the
+ * accent hex changes, from the old #e84834 to `ember` (#FF6B3D), to
+ * match the new palette in tailwind.config.ts.
  *
- * It does NOT include the root layout's <html> and <body> tags —
- * those come from src/app/layout.tsx which wraps everything. This
- * layout just adds the physics-specific chrome: its own navbar,
- * colour scheme overrides, and metadata.
- *
- * The root layout applies the dark bg-zinc-950 base. This layout
- * layers the physics-specific accent colours on top via CSS variables.
+ * Bodoni Moda is loaded here via next/font/google for the "classic,
+ * elegant, high-contrast serif" headline treatment — self-hosted at
+ * build time, scoped to /physics the same way Playfair Display is
+ * scoped to /music (see music/layout.tsx for the fuller explanation
+ * of why that scoping works). Utility class: `font-bodoni`.
  */
+
+const bodoni = Bodoni_Moda({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-bodoni",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +42,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Navigation items specific to the physics site
 const physicsNavItems = [
   { name: "Simulations", path: "/simulations" },
   { name: "Articles", path: "/articles" },
@@ -43,12 +54,12 @@ export default function PhysicsLayout({
 }) {
   return (
     <div
-      className="min-h-screen"
+      className={`${bodoni.variable} min-h-screen`}
       style={
         {
-          "--accent": "#e84834",
-          "--accent-muted": "rgba(232, 72, 52, 0.15)",
-          "--accent-border": "rgba(232, 72, 52, 0.25)",
+          "--accent": "#FF6B3D",
+          "--accent-muted": "rgba(255, 107, 61, 0.15)",
+          "--accent-border": "rgba(255, 107, 61, 0.25)",
         } as React.CSSProperties
       }
     >
@@ -56,11 +67,11 @@ export default function PhysicsLayout({
         siteName="Physics"
         siteHref="/"
         navItems={physicsNavItems}
-        accentColor="#e84834"
+        accentColor="#FF6B3D"
         homeHref="https://paolo.org.uk"
       />
       <main className="relative z-10">{children}</main>
-      <Footer theme="dark" site="physics" accent="#e84834" />
+      <Footer theme="dark" site="physics" accent="#FF6B3D" />
     </div>
   );
 }

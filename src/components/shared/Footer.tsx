@@ -13,7 +13,7 @@ import CarbonBadge from "./CarbonBadge";
  * physics' "Elsewhere" links point at them with the right accent dot.
  *
  *   (portfolio)/layout.tsx  → <Footer theme="dark" site="portfolio" />
- *   physics/layout.tsx      → <Footer theme="dark"  site="physics" accent="#e84834" />
+ *   physics/layout.tsx      → <Footer theme="dark"  site="physics" accent="#FF6B3D" />
  *
  * Structure: brand + one-line pitch, a sitemap back to the main
  * portfolio, a directory of the three subdomains (current one
@@ -36,7 +36,7 @@ const subdomains: { key: Site; name: string; href: string; description: string; 
     name: "Physics",
     href: "https://physics.paolo.org.uk",
     description: "Simulations & articles",
-    accent: "#e84834",
+    accent: "#FF6B3D",
   },
   {
     key: "music",

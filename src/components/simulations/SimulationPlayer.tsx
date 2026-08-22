@@ -45,7 +45,7 @@ function decodeFrame(base64: string): Uint8Array {
 export default function SimulationPlayer({
   simulationId,
   caption,
-  accent = "#e84834",
+  accent = "#FF6B3D",
 }: SimulationPlayerProps) {
   const [state, setState] = useState<LoadState>({ status: "loading" });
   const [frameIndex, setFrameIndex] = useState(0);

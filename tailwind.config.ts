@@ -36,6 +36,11 @@ const config: Config = {
         lime: "#D6FF00", // primary background — electric neon lime/chartreuse
         magenta: "#FF007F", // accent — mesh gradient, hover states, Download CTA
         cream: "#FFFCEF", // warm off-white — record-sleeve card faces
+        // --- /physics — painterly observatory palette ---
+        abyss: "#0A0E1A", // near-black deep-space navy — landing/index background
+        ember: "#FF6B3D", // warm glow accent — also the site-wide physics accent
+        kelp: "#2F9E7C", // cool glow accent — leaf-green tie-in for sandbox pages
+        dawn: "#F6C89F", // warm peach — base tone for the sandbox gradient
       },
       fontFamily: {
         // Scoped to /music via the CSS variable next/font/google writes in
@@ -47,6 +52,17 @@ const config: Config = {
           "ui-serif",
           "Georgia",
           "Cambria",
+          "serif",
+        ],
+        // Scoped to /physics via the CSS variable physics/layout.tsx
+        // writes in. Separate token (not reusing `display`) so physics
+        // and music can each carry their own serif identity even
+        // though both happen to be loaded through next/font/google.
+        bodoni: [
+          "var(--font-bodoni)",
+          "ui-serif",
+          "Didot",
+          "Georgia",
           "serif",
         ],
       },
