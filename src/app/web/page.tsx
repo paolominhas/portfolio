@@ -2,36 +2,87 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Terminal } from "lucide-react";
-import { services, process, techStack, webProjects } from "@/data/web-data";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { process, webProjects, type WebProject } from "@/data/web-data";
 import HeroText from "@/components/web/HeroText";
 import ScrollReveal from "@/components/web/ScrollReveal";
 import MagneticButton from "@/components/web/MagneticButton";
-import AnimatedBentoGrid, { type BentoItem } from "@/components/web/AnimatedBentoGrid";
-import ProcessShowcase from "@/components/web/ProcessShowcase";
 import TerminalScrollShowcase from "@/components/web/TerminalScrollShowcase";
+import { EucoPreview, DioramaPreview } from "@/components/web/HighlightPreviews";
+import WebsiteRequestForm from "@/components/web/WebsiteRequestForm";
 
 /**
  * WEB HOME
  *
- * Editorial-brutalist rebuild: the page runs Navy -> Paper -> Lilac ->
- * Paper -> Navy, so full-bleed color blocks do the work section
- * dividers used to do. Structure is unchanged from the previous build
- * (positioning statement, services, two case studies, process, tech
- * strip, CTA) — this is a visual and motion pass, not a content one.
+ * Editorial-brutalist rebuild: the page runs Navy -> Paper -> Navy(full-
+ * bleed showcase) -> Lilac -> Paper -> Navy, so full-bleed color blocks
+ * do the section-divider work.
+ *
+ * This pass leans the page out rather than adding to it. Cut versus the
+ * previous build:
+ *   - The standalone "services" bento grid and the tech-stack pill wall
+ *     — both told, not showed, and the hero copy already covers
+ *     positioning at a glance.
+ *   - `ProcessShowcase`, the older pinned 350vh "watch it build" section
+ *     — `TerminalScrollShowcase` is the same pitch done better, so
+ *     running both back-to-back was redundant scroll-jacking. The
+ *     component itself is untouched and still lives in
+ *     src/components/web/ProcessShowcase.tsx if it's wanted elsewhere.
+ *
+ * Kept, in order: hero -> TerminalScrollShowcase -> Past highlights
+ * (now two real, interactive mini-site recreations instead of link-out
+ * cards) -> how the process runs -> a single closing CTA that opens the
+ * website-request modal.
  */
 
-const featuredProjects = webProjects.filter((p) => !p.placeholder).slice(0, 2);
-
-const serviceItems: BentoItem[] = services.map((service, i) => ({
-  eyebrow: `0${i + 1}`,
-  title: service.title,
-  description: service.description,
-  tags: service.tags,
-  span: i === 0 ? "lg" : "sm",
-}));
+function HighlightCard({
+  project,
+  children,
+}: {
+  project: WebProject;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-5">
+      {children}
+      <div>
+        <div className="mb-2 flex items-start justify-between gap-3">
+          <h3 className="text-lg font-bold text-navy">{project.title}</h3>
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 text-navy/40 transition-colors hover:text-navy"
+            aria-label={`Visit ${project.title} (opens in a new tab)`}
+          >
+            <ArrowUpRight size={18} />
+          </a>
+        </div>
+        <p className="mb-2 text-sm leading-relaxed text-navy/70">{project.description}</p>
+        <p className="mb-3 text-xs text-navy/45">{project.outcome}</p>
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-navy/10 bg-white/60 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide text-navy/60"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function WebHomePage() {
+  const euco = webProjects.find((p) => p.slug === "euco");
+  const diorama = webProjects.find((p) => p.slug === "diorama-consulting");
+
+  if (!euco || !diorama) {
+    throw new Error("Expected 'euco' and 'diorama-consulting' entries in webProjects");
+  }
+
   return (
     <div>
       {/* ================= HERO — Navy ================= */}
@@ -125,84 +176,54 @@ export default function WebHomePage() {
         </div>
       </section>
 
-
+      {/* ================= LIVE BUILD — full-bleed pinned track ================= */}
+      <section className="bg-paper px-6 md:px-10 pt-20 pb-14 md:pt-28 md:pb-20">
+        <ScrollReveal className="max-w-6xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
+            01 — Watch it build
+          </p>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-4 max-w-xl">
+            Four builds, one continuous scroll.
+          </h2>
+          <p className="text-navy/60 max-w-xl">
+            An editor drives everything on the right — theming, i18n, a
+            3D-tilted layout, and a live payment-gateway swap. Keep
+            scrolling; nothing here snaps, it all just tracks your
+            scrollbar.
+          </p>
+        </ScrollReveal>
+      </section>
       <TerminalScrollShowcase />
 
-
-      {/* ================= SERVICES — Paper ================= */}
-      <section className="px-6 md:px-10 max-w-6xl mx-auto py-20 md:py-28">
-        <ScrollReveal>
-          <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-            01 — What I do
-          </p>
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-12 max-w-xl">
-            Three ways I can help.
-          </h2>
-        </ScrollReveal>
-        <AnimatedBentoGrid items={serviceItems} />
-      </section>
-
-      {/* ================= SELECTED WORK — Lilac band ================= */}
+      {/* ================= PAST HIGHLIGHTS — Lilac band ================= */}
       <section className="bg-lilac-light py-20 md:py-28 px-6 md:px-10">
         <div className="max-w-6xl mx-auto">
-          <ScrollReveal className="flex items-end justify-between mb-12">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-                02 — Selected work
-              </p>
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy">
-                A couple of favourites.
-              </h2>
-            </div>
-            <Link
-              href="/portfolio"
-              className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-white hover:bg-navy px-4 py-2 rounded-full border-2 border-navy transition-colors"
-            >
-              View all <ArrowRight size={14} />
-            </Link>
+          <ScrollReveal className="mb-12">
+            <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
+              02 — Past highlights
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy max-w-xl">
+              Two builds worth a closer look.
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredProjects.map((project, i) => (
-              <ScrollReveal key={project.slug} delay={i * 0.1} scale={0.97}>
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-2xl bg-paper border-2 border-transparent hover:border-yellow p-7 md:p-8 transition-colors duration-300 h-full"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl md:text-2xl font-bold text-navy group-hover:text-navy transition-colors">
-                      {project.title}
-                    </h3>
-                    <ArrowUpRight
-                      size={18}
-                      className="text-navy/30 group-hover:text-navy transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1"
-                    />
-                  </div>
-                  <p className="text-sm text-navy/70 leading-relaxed mb-3">
-                    {project.description}
-                  </p>
-                  <p className="text-xs text-navy/45 mb-5">{project.outcome}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] font-mono uppercase tracking-wide text-navy/60 bg-lilac-light border border-navy/10 group-hover:bg-yellow/20 group-hover:border-yellow/40 px-2.5 py-1 rounded-full transition-colors"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </a>
-              </ScrollReveal>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <ScrollReveal delay={0}>
+              <HighlightCard project={euco}>
+                <EucoPreview />
+              </HighlightCard>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1}>
+              <HighlightCard project={diorama}>
+                <DioramaPreview />
+              </HighlightCard>
+            </ScrollReveal>
           </div>
 
-          <div className="mt-8 md:hidden">
+          <div className="mt-10 flex justify-center md:justify-end">
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-navy border-2 border-navy px-4 py-2 rounded-full"
+              className="inline-flex items-center gap-1 rounded-full border-2 border-navy px-4 py-2 text-sm font-semibold text-navy transition-colors hover:bg-navy hover:text-white"
             >
               View all work <ArrowRight size={14} />
             </Link>
@@ -210,9 +231,7 @@ export default function WebHomePage() {
         </div>
       </section>
 
-      <ProcessShowcase />
-
-      {/* ================= PROCESS — Paper ================= */}
+      {/* ================= HOW IT RUNS — Paper ================= */}
       <section className="px-6 md:px-10 max-w-6xl mx-auto py-20 md:py-28">
         <ScrollReveal>
           <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
@@ -239,30 +258,6 @@ export default function WebHomePage() {
         </div>
       </section>
 
-      {/* ================= TECH STACK — Paper ================= */}
-      <section className="px-6 md:px-10 max-w-6xl mx-auto pb-20 md:pb-28">
-        <ScrollReveal>
-          <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-6">
-            Tools I reach for
-          </p>
-        </ScrollReveal>
-        <div className="flex flex-wrap gap-3">
-          {techStack.map((tool, i) => (
-            <motion.span
-              key={tool}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.04 }}
-              whileHover={{ y: -2 }}
-              className="px-4 py-2 rounded-full border-2 border-lilac/50 bg-lilac-light/40 text-sm text-navy font-mono hover:bg-yellow hover:border-yellow transition-colors duration-300 cursor-default"
-            >
-              {tool}
-            </motion.span>
-          ))}
-        </div>
-      </section>
-
       {/* ================= CTA — Navy ================= */}
       <section className="px-6 md:px-10 pb-24">
         <div className="max-w-6xl mx-auto rounded-3xl bg-navy bg-grain px-8 py-16 md:py-20 text-center overflow-hidden relative">
@@ -275,13 +270,11 @@ export default function WebHomePage() {
               Have a project in <span className="text-yellow">mind?</span>
             </h2>
             <p className="text-white/50 mb-10 max-w-md mx-auto">
-              I take on a small number of projects at a time — get in touch
-              and I&apos;ll reply within a couple of days.
+              Tell me a bit about what you need and I&apos;ll reply within a
+              couple of days with next steps.
             </p>
             <div className="flex justify-center">
-              <MagneticButton href="https://paolo.org.uk/contact" variant="primary">
-                Start a conversation
-              </MagneticButton>
+              <WebsiteRequestForm />
             </div>
           </ScrollReveal>
         </div>
