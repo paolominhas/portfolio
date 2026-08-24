@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Terminal } from "lucide-react";
 import { services, process, techStack, webProjects } from "@/data/web-data";
 import HeroText from "@/components/web/HeroText";
 import ScrollReveal from "@/components/web/ScrollReveal";
 import MagneticButton from "@/components/web/MagneticButton";
 import AnimatedBentoGrid, { type BentoItem } from "@/components/web/AnimatedBentoGrid";
 import ProcessShowcase from "@/components/web/ProcessShowcase";
+import TerminalScrollShowcase from "@/components/web/TerminalScrollShowcase";
 
 /**
  * WEB HOME
@@ -125,7 +126,7 @@ export default function WebHomePage() {
       </section>
 
 
-      <ProcessShowcase/>
+      <TerminalScrollShowcase />
 
 
       {/* ================= SERVICES — Paper ================= */}
@@ -208,6 +209,8 @@ export default function WebHomePage() {
           </div>
         </div>
       </section>
+
+      <ProcessShowcase />
 
       {/* ================= PROCESS — Paper ================= */}
       <section className="px-6 md:px-10 max-w-6xl mx-auto py-20 md:py-28">
