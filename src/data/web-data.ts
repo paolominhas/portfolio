@@ -104,35 +104,11 @@ export const webProjects: WebProject[] = [
     slug: "euco",
     title: "Edinburgh University Chamber Orchestra",
     description:
-      "Full website rebuild from Create React App to Next.js 15, with ISR data fetching, Docker deployment, and a custom concert page.",
-    outcome: "Rebuilt information architecture, live ticket-sales integration, editorial concert pages.",
+      "Full website rebuild from Create React App to Next.js 15, plus a Stripe ticketing platform with QR check-in and a companion React Native scanning app, replacing a fully manual box office.",
+    outcome: "Rebuilt information architecture, live Stripe ticket sales with QR check-in, editorial concert pages.",
     url: "https://www.eu-co.co.uk",
     image: "/images/web/euco.jpg",
-    tags: ["Next.js", "Docker", "nginx"],
-    content: "",
-  },
-  {
-    slug: "srishti-ragavi-reads",
-    title: "Srishti Ragavi Reads",
-    description:
-      "An editorial blog exploring literature, from well-known classics to lesser-known gems.",
-    outcome: "Placeholder case study — swap for a real write-up when the site is live.",
-    url: "https://example.com/srishti",
-    image: "/images/web/placeholder-editorial.jpg",
-    tags: ["Blog", "Literature", "Editorial"],
-    placeholder: true,
-    content: "",
-  },
-  {
-    slug: "pooh-from-the-east",
-    title: "Pooh from the East",
-    description:
-      "A travel and lifestyle blog tracking side quests, cooking, and daily life abroad.",
-    outcome: "Placeholder case study — swap for a real write-up when the site is live.",
-    url: "https://example.com/pooh",
-    image: "/images/web/placeholder-travel.jpg",
-    tags: ["Cooking", "Lifestyle", "Photography"],
-    placeholder: true,
+    tags: ["Next.js", "Stripe", "React Native", "Docker"],
     content: "",
   },
 ];

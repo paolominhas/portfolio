@@ -46,13 +46,15 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: {
     template: "%s | Paolo Minhas",
-    default: "Paolo Minhas | My Website",
+    default: "Paolo Minhas | Software Engineer & Physics Graduate",
   },
-  description: "Learn about the world, physics and music.",
+  description:
+    "Full-stack software engineer and physics graduate — production systems, payment infrastructure, and particle detector research.",
   metadataBase: new URL("https://paolo.org.uk"),
   openGraph: {
-    title: "My Portfolio",
-    description: "Learn about the world, physics and music.",
+    title: "Paolo Minhas | Software Engineer & Physics Graduate",
+    description:
+      "Full-stack software engineer and physics graduate — production systems, payment infrastructure, and particle detector research.",
     url: "https://paolo.org.uk",
     siteName: "Paolo Minhas",
     images: [
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Beautiful Edinburgh where I live.",
+        alt: "Paolo Minhas — Software Engineer & Physics Graduate",
       },
     ],
     locale: "en_UK",
@@ -68,8 +70,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Portfolio",
-    description: "Learn about the world, physics and music.",
+    title: "Paolo Minhas | Software Engineer & Physics Graduate",
+    description:
+      "Full-stack software engineer and physics graduate — production systems, payment infrastructure, and particle detector research.",
     images: ["/og-image.jpg"],
   },
 };

@@ -41,19 +41,21 @@ export default function AboutPage() {
             
             <div className="prose prose-invert prose-lg text-zinc-300">
                 <p>
-                    Hello, I am a student finishing up the last year of my integrated Master's in Physics in Edinburgh. 
-                    I have also tried out a bit of coding here and there and recently started trying out websites and JavaScript.
+                    I&apos;m finishing an integrated Master&apos;s in Physics at Edinburgh,
+                    alongside freelance full-stack web development and a research placement
+                    on the HIBEAM experiment at the European Spallation Source.
                 </p>
                 <p>
-                    I love music, and recently was lucky enough to get the opportunity to make a website for my orchestra.
-                    You can see this website here:
+                    Outside physics, I run digital infrastructure for Edinburgh University
+                    Chamber Orchestra — including a Stripe ticketing platform I designed and
+                    built for their site. You can see the live site here:
                 </p>
             </div>
 
             <div className="max-w-7xl mx-auto w-full mb-8">                
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-6">
                     <div>
-                        <h1 className="text-2l font-bold text-white">Edinburgh Universty Chamber Orchestra</h1>
+                        <h1 className="text-2l font-bold text-white">Edinburgh University Chamber Orchestra</h1>
                         <p className="text-zinc-400 mt-2">You can also buy tickets for their upcoming concerts!</p>
                     </div>
                     
@@ -98,7 +100,7 @@ export default function AboutPage() {
             <div>
                 <h2 className="text-xl font-bold text-white mb-4">My Coding Experience</h2>
                 <div className="flex flex-wrap gap-2">
-                    {['python', 'C++', 'ROOT', 'geant4', 'TypeScript', 'Next.js', 'React.js', 'JavaScript', 'Tailwind', 'GLoBES'].map((skill) => (
+                    {['Python', 'TypeScript', 'JavaScript', 'C++', 'Next.js', 'Astro', 'React', 'React Native', 'FastAPI', 'Tailwind', 'Docker', 'PostgreSQL', 'Stripe API', 'ROOT', 'Geant4', 'GLoBES'].map((skill) => (
                         <span key={skill} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm hover:bg-white/10 transition-colors">
                             {skill}
                         </span>
@@ -115,28 +117,28 @@ export default function AboutPage() {
                         <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-500 rounded-full border-4 border-zinc-950" />
                         <h3 className="text-lg font-semibold text-white">Student @ University of Edinburgh</h3>
                         <p className="text-zinc-500 text-sm mb-2">2022 - 2026</p>
-                        <p className="text-zinc-400">Master's in Physics with direct entry</p>
+                        <p className="text-zinc-400">Integrated Master&apos;s (MPhys) in Physics, direct entry</p>
                     </div>
 
                     <div className="relative">
                         <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-800 rounded-full border-4 border-zinc-950" />
                         <h3 className="text-lg font-semibold text-white">Intern Researcher @ IFJ PAN Kraków, PL</h3>
                         <p className="text-zinc-500 text-sm mb-2">2025</p>
-                        <p className="text-zinc-400">Energy fitting with ML in ROOT and python for charmed lambda baryon decays (LHCb)</p>
+                        <p className="text-zinc-400">Applied ML to energy fitting in ROOT and Python for charmed lambda baryon decays (LHCb)</p>
                     </div>
 
                     <div className="relative">
                         <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-800 rounded-full border-4 border-zinc-950" />
                         <h3 className="text-lg font-semibold text-white">Summer Researcher @ University of Edinburgh, UK</h3>
                         <p className="text-zinc-500 text-sm mb-2">2025</p>
-                        <p className="text-zinc-400">Simulating the effect of the sterile neutrino on sensitivity of the DUNE detectors</p>
+                        <p className="text-zinc-400">Simulated the effect of the sterile neutrino on DUNE detector sensitivity</p>
                     </div>
 
                     <div className="relative">
                         <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-800 rounded-full border-4 border-zinc-950" />
-                        <h3 className="text-lg font-semibold text-white">Front of House @ Edinburgh Playhouse</h3>
-                        <p className="text-zinc-500 text-sm mb-2">2024 - Present</p>
-                        <p className="text-zinc-400">Probably should remove this from here but I also work as an usher and bartender</p>
+                        <h3 className="text-lg font-semibold text-white">Front of House @ Edinburgh Playhouse (ATG)</h3>
+                        <p className="text-zinc-500 text-sm mb-2">Jul 2024 - Present</p>
+                        <p className="text-zinc-400">Usher and bartender at Europe&apos;s largest all-seated theatre, working during high-pressure shows</p>
                     </div>
                 </div>
             </div>

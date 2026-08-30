@@ -9,19 +9,36 @@ import { Menu, X } from 'lucide-react';
 /**
  * PORTFOLIO NAV
  * ─────────────────────────────────────────────────────────────────
- * Exactly four items: Home, About, Projects, Contact. Contact is
- * still visually emphasised (solid white pill) since it's the
- * primary conversion point, but it's now a single entry in
- * `navItems` rather than a second, separately-maintained "Let's
- * Talk" button — the old version rendered Contact twice (once as a
- * plain link — cut from a previous nav — and once as the CTA), which
- * this collapses into one.
+ * Home, About, Projects, Physics, Web, Contact. Contact is still
+ * visually emphasised (solid white pill) since it's the primary
+ * conversion point, but it's now a single entry in `navItems` rather
+ * than a second, separately-maintained "Let's Talk" button — the old
+ * version rendered Contact twice (once as a plain link — cut from a
+ * previous nav — and once as the CTA), which this collapses into one.
+ *
+ * Physics and Web are `external` — they route to their own
+ * subdomains rather than internal Next.js routes, so they render as
+ * plain <a> tags instead of <Link>, matching the convention already
+ * used by SubdomainNav's "back to main site" link. Added so the
+ * physics and web subdomains — the most substantial content on the
+ * whole site — are reachable from the main nav, not just via a
+ * single homepage CTA.
  */
 
-const navItems = [
+interface NavItem {
+  name: string;
+  path: string;
+  exact?: boolean;
+  cta?: boolean;
+  external?: boolean;
+}
+
+const navItems: NavItem[] = [
   { name: 'Home', path: '/', exact: true },
   { name: 'About', path: '/about' },
   { name: 'Projects', path: '/projects' },
+  { name: 'Physics', path: 'https://physics.paolo.org.uk', external: true },
+  { name: 'Web', path: 'https://web.paolo.org.uk', external: true },
   { name: 'Contact', path: '/contact', cta: true },
 ];
 
@@ -79,6 +96,18 @@ export default function Navbar() {
                 );
               }
 
+              if (item.external) {
+                return (
+                  <a
+                    key={item.path}
+                    href={item.path}
+                    className="relative px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                );
+              }
+
               return (
                 <Link 
                   key={item.path} 
@@ -121,6 +150,19 @@ export default function Navbar() {
               className="absolute top-full mt-3 w-full sm:max-w-sm bg-zinc-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-col gap-2 md:hidden"
             >
               {navItems.filter((item) => !item.cta).map((item) => {
+                if (item.external) {
+                  return (
+                    <a
+                      key={item.path}
+                      href={item.path}
+                      onClick={closeMenu}
+                      className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200 transition-colors"
+                    >
+                      {item.name}
+                    </a>
+                  );
+                }
+
                 const isActive = isItemActive(item);
                 return (
                   <Link
