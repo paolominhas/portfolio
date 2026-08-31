@@ -42,7 +42,7 @@ export default function AboutPage() {
             <div className="prose prose-invert prose-lg text-zinc-300">
                 <p>
                     I&apos;m finishing an integrated Master&apos;s in Physics at Edinburgh,
-                    alongside freelance full-stack web development and a research placement
+                    alongside freelance full-stack web development and research 
                     on the HIBEAM experiment at the European Spallation Source.
                 </p>
                 <p>
