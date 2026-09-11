@@ -1,22 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import { process, webProjects, type WebProject } from "@/data/web-data";
 import HeroText from "@/components/web/HeroText";
 import ScrollReveal from "@/components/web/ScrollReveal";
 import MagneticButton from "@/components/web/MagneticButton";
+import HowWeWorkShowcase from "@/components/web/HowWeWorkShowcase";
 import TerminalScrollShowcase from "@/components/web/TerminalScrollShowcase";
-import { EucoPreview, DioramaPreview } from "@/components/web/HighlightPreviews";
+import SitePreview from "@/components/web/HighlightPreviews";
 import WebsiteRequestForm from "@/components/web/WebsiteRequestForm";
 
 /**
  * WEB HOME
  *
- * Editorial-brutalist rebuild: the page runs Navy -> Paper -> Navy(full-
- * bleed showcase) -> Lilac -> Paper -> Navy, so full-bleed color blocks
- * do the section-divider work.
+ * Editorial-brutalist rebuild: the page runs Navy -> Paper -> Paper ->
+ * Navy(full-bleed showcase) -> Lilac -> Paper -> Navy, so full-bleed
+ * color blocks do most of the section-divider work.
  *
  * This pass leans the page out rather than adding to it. Cut versus the
  * previous build:
@@ -29,10 +31,13 @@ import WebsiteRequestForm from "@/components/web/WebsiteRequestForm";
  *     component itself is untouched and still lives in
  *     src/components/web/ProcessShowcase.tsx if it's wanted elsewhere.
  *
- * Kept, in order: hero -> TerminalScrollShowcase -> Past highlights
- * (now two real, interactive mini-site recreations instead of link-out
- * cards) -> how the process runs -> a single closing CTA that opens the
- * website-request modal.
+ * Kept, in order: hero -> HowWeWorkShowcase (the four value pillars,
+ * rewritten from a single run-on paragraph) -> TerminalScrollShowcase
+ * -> Past highlights (real client screenshots, cycled on click, rather
+ * than the previous simulated mini-site recreations) -> how the process
+ * runs (each stage now expands to show what it actually involves —
+ * design tooling, payment integrations) -> a single closing CTA that
+ * opens the website-request modal.
  */
 
 function HighlightCard({
@@ -81,6 +86,15 @@ export default function WebHomePage() {
 
   if (!euco || !diorama) {
     throw new Error("Expected 'euco' and 'diorama-consulting' entries in webProjects");
+  }
+
+  // Which "How it runs" stages are expanded to show their detail chips.
+  // Multiple can be open at once — deliberately not a single-open
+  // accordion, since comparing two stages side by side (e.g. Design vs
+  // Build) is a reasonable thing to want on a 4-column desktop layout.
+  const [openSteps, setOpenSteps] = useState<Record<number, boolean>>({});
+  function toggleStep(i: number) {
+    setOpenSteps((prev) => ({ ...prev, [i]: !prev[i] }));
   }
 
   return (
@@ -176,17 +190,23 @@ export default function WebHomePage() {
         </div>
       </section>
 
+      {/* ================= HOW WE WORK — Paper ================= */}
+      <HowWeWorkShowcase />
+
       {/* ================= LIVE BUILD — full-bleed pinned track ================= */}
       <section className="bg-paper px-6 md:px-10 pt-20 pb-14 md:pt-28 md:pb-20">
         <ScrollReveal className="max-w-6xl mx-auto">
           <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-            01 — Watch it build
+            02 — Watch it build
           </p>
           <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-4 max-w-xl">
             Four builds, one continuous scroll.
           </h2>
           <p className="text-navy/60 max-w-xl">
-            See changes to this site happen live! Changing data in your content management system will do just this. It is as simple as changing a word from red to green.
+            An editor drives everything on the right — theming, i18n, a
+            3D-tilted layout, and a live payment-gateway swap. Keep
+            scrolling; nothing here snaps, it all just tracks your
+            scrollbar.
           </p>
         </ScrollReveal>
       </section>
@@ -197,22 +217,25 @@ export default function WebHomePage() {
         <div className="max-w-6xl mx-auto">
           <ScrollReveal className="mb-12">
             <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-              02 — Past highlights
+              03 — Past highlights
             </p>
             <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy max-w-xl">
               Two builds worth a closer look.
             </h2>
+            <p className="mt-3 text-sm text-navy/50 max-w-md">
+              Real screenshots — click through either one for a couple more views.
+            </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ScrollReveal delay={0}>
               <HighlightCard project={euco}>
-                <EucoPreview />
+                <SitePreview project={euco} />
               </HighlightCard>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
               <HighlightCard project={diorama}>
-                <DioramaPreview />
+                <SitePreview project={diorama} />
               </HighlightCard>
             </ScrollReveal>
           </div>
@@ -232,26 +255,76 @@ export default function WebHomePage() {
       <section className="px-6 md:px-10 max-w-6xl mx-auto py-20 md:py-28">
         <ScrollReveal>
           <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-            03 — How it runs
+            04 — How it runs
           </p>
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-14 max-w-xl">
+          <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-3 max-w-xl">
             Four stages, start to finish.
           </h2>
+          <p className="text-navy/60 max-w-xl mb-14">
+            Tap a stage for what it actually involves — including the
+            design tooling behind &ldquo;Design&rdquo; and the payment
+            integrations behind &ldquo;Build&rdquo;.
+          </p>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {process.map((step, i) => (
-            <ScrollReveal key={step.title} delay={i * 0.08}>
-              <span className="block font-black text-4xl text-yellow mb-4">
-                0{i + 1}
-              </span>
-              <h3 className="text-base font-bold text-navy mb-2">
-                {step.title}
-              </h3>
-              <p className="text-sm text-navy/65 leading-relaxed">
-                {step.description}
-              </p>
-            </ScrollReveal>
-          ))}
+          {process.map((step, i) => {
+            const isOpen = !!openSteps[i];
+            return (
+              <ScrollReveal key={step.title} delay={i * 0.08}>
+                <button
+                  type="button"
+                  onClick={() => toggleStep(i)}
+                  aria-expanded={isOpen}
+                  disabled={!step.details}
+                  className="group block w-full text-left"
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="block font-black text-4xl text-yellow">
+                      0{i + 1}
+                    </span>
+                    {step.details && (
+                      <span
+                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-navy/50 transition-all duration-300 group-hover:border-navy/40 group-hover:text-navy ${
+                          isOpen ? "rotate-45 border-navy/40 text-navy" : "border-navy/15"
+                        }`}
+                      >
+                        <Plus size={14} />
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-base font-bold text-navy mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-navy/65 leading-relaxed">
+                    {step.description}
+                  </p>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && step.details && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="mt-4 flex flex-col gap-2 border-l-2 border-yellow/40 pl-4">
+                        {step.details.map((detail) => (
+                          <li
+                            key={detail}
+                            className="font-mono text-[11px] uppercase tracking-wide text-navy/60"
+                          >
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </section>
 

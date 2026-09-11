@@ -37,6 +37,12 @@ export const services: Service[] = [
 export interface ProcessStep {
   title: string;
   description: string;
+  /**
+   * Short chip labels shown when a step is expanded — the concrete
+   * tools/deliverables behind the one-line description. Optional so a
+   * step can stay simple if it doesn't need the detail.
+   */
+  details?: string[];
 }
 
 export const process: ProcessStep[] = [
@@ -44,21 +50,74 @@ export const process: ProcessStep[] = [
     title: "Discover",
     description:
       "A short call to understand what the site actually needs to do — and, just as importantly, what it doesn't.",
+    details: ["Goals & key metrics", "Competitor scan", "Keyword research"],
   },
   {
     title: "Design",
     description:
       "A distinct visual direction grounded in the subject, not a generic template with a new logo dropped in.",
+    details: [
+      "Photoshop & Illustrator hand-off",
+      "Lightweight, scalable vector graphics",
+      "Hand-drawn/illustrated sites, working with a designer",
+    ],
   },
   {
     title: "Build",
     description:
       "Typed, componentised, and version-controlled from the first commit — built to be handed off or extended later.",
+    details: [
+      "Stripe checkout & ticketing",
+      "Other payment providers on request",
+      "Typed, componentised code",
+    ],
   },
   {
     title: "Launch & support",
     description:
       "Deployed with CI/CD behind me, and available afterwards for the inevitable content tweak or feature request.",
+    details: ["CI/CD deploy", "Carbon & performance monitoring", "Ongoing edits & feature requests"],
+  },
+];
+
+/**
+ * "How we work" — the four pillars behind every build, rewritten from a
+ * single stream-of-consciousness paragraph into distinct, ordered ideas.
+ * Rendered by <HowWeWorkShowcase />.
+ */
+export interface WorkPillar {
+  icon: "target" | "wand" | "leaf" | "search";
+  title: string;
+  description: string;
+  /** Example search terms — only used by the "target" pillar. */
+  searchTerms?: string[];
+}
+
+export const workPillars: WorkPillar[] = [
+  {
+    icon: "target",
+    title: "Start with the goal",
+    description:
+      "Before any design work happens, we find the number that actually matters — more people finding you for “concerts near me”, more tickets sold, more sign-ups. Everything on the site channels toward that number, and we set up the analytics to prove it's moving.",
+    searchTerms: ["concerts near me", "charity shops in Glasgow", "translations of Homer"],
+  },
+  {
+    icon: "wand",
+    title: "Built to be managed",
+    description:
+      "The build itself moves quickly, and once it's live, running the site is just as easy. Swap a photo, add a concert date, update a price — through a simple editor, no code and no previous experience required.",
+  },
+  {
+    icon: "leaf",
+    title: "Efficient by design",
+    description:
+      "Every site is kept as lightweight as possible, which pays off twice: pages load fast, and they use less energy doing it. You can see this page's live score in the footer below — we're also happy to point you toward greener hosting. None of that comes at the cost of accessibility.",
+  },
+  {
+    icon: "search",
+    title: "Found however people search",
+    description:
+      "We optimise for Google the traditional way, and for the newer generation of AI answer engines — so whether someone types a query into a search bar or asks an AI assistant to find a concert near them, your site is what comes back.",
   },
 ];
 
@@ -82,6 +141,15 @@ export interface WebProject {
   outcome: string;
   url: string;
   image: string;
+  /**
+   * A couple of real screenshots of the live site, cycled on click by
+   * <SitePreview />. Falls back to just `[image]` if omitted. Drop
+   * files into /public/images/web/ — until they exist the component
+   * shows a branded placeholder instead of a broken image.
+   */
+  images?: string[];
+  /** Fake-browser-chrome bar colour for <SitePreview />, matching the site's own palette. */
+  chromeColor: string;
   tags: string[];
   /** Marks example/placeholder entries so they're easy to find and swap for real case studies. */
   placeholder?: boolean;
@@ -97,6 +165,8 @@ export const webProjects: WebProject[] = [
     outcome: "Custom design system, CMS-managed case studies, containerised deploy.",
     url: "https://dioramaconsulting.co.uk",
     image: "/images/web/diorama.jpg",
+    images: ["/images/web/diorama-1.jpg", "/images/web/diorama-2.jpg", "/images/web/diorama-3.jpg"],
+    chromeColor: "#0F172A",
     tags: ["Astro", "Docker", "Keystatic CMS"],
     content: "",
   },
@@ -108,6 +178,8 @@ export const webProjects: WebProject[] = [
     outcome: "Rebuilt information architecture, live Stripe ticket sales with QR check-in, editorial concert pages.",
     url: "https://www.eu-co.co.uk",
     image: "/images/web/euco.jpg",
+    images: ["/images/web/euco-1.jpg", "/images/web/euco-2.jpg", "/images/web/euco-3.jpg"],
+    chromeColor: "#4A1420",
     tags: ["Next.js", "Stripe", "React Native", "Docker"],
     content: "",
   },
