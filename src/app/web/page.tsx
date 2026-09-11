@@ -186,10 +186,7 @@ export default function WebHomePage() {
             Four builds, one continuous scroll.
           </h2>
           <p className="text-navy/60 max-w-xl">
-            An editor drives everything on the right — theming, i18n, a
-            3D-tilted layout, and a live payment-gateway swap. Keep
-            scrolling; nothing here snaps, it all just tracks your
-            scrollbar.
+            See changes to this site happen live! Changing data in your content management system will do just this. It is as simple as changing a word from red to green.
           </p>
         </ScrollReveal>
       </section>
