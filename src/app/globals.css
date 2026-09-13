@@ -145,3 +145,33 @@ html {
   background-color: #3f3f46; /* zinc-700 */
   border-radius: 9999px;
 }
+
+/* --------------------------------------------------------------------
+ * /tutor — warm, academic utilities
+ * Deliberately its own palette (deep teal / warm cream / amber), not
+ * shared with any other subdomain — see tutor-data.ts for the copy
+ * this dresses. Defined as CSS vars (rather than added to
+ * tailwind.config.ts) so the new subdomain doesn't require touching
+ * the shared Tailwind config; components reference them via
+ * Tailwind's arbitrary-value syntax, e.g. bg-[var(--tutor-ink)].
+ * ------------------------------------------------------------------ */
+
+:root {
+  --tutor-ink: #123c3e;      /* deep teal — headings, nav, primary text on cream */
+  --tutor-ink-deep: #0a2526; /* darker teal — hero background */
+  --tutor-paper: #fbf6ec;    /* warm cream page background */
+  --tutor-amber: #f2a93b;    /* primary accent — CTAs, highlights, the "gold star" colour */
+  --tutor-coral: #e8604c;    /* secondary accent, used sparingly (errors, one-off emphasis) */
+}
+
+/* Faint graph-paper grid behind the hero — a maths/exercise-book
+   motif that's on-brand without being twee. Two overlaid line
+   gradients rather than a background-image so the line colour can
+   just be a CSS var too. */
+.bg-graph-paper {
+  background-image:
+    linear-gradient(var(--tutor-amber) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tutor-amber) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}

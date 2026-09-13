@@ -16,13 +16,13 @@ import CarbonBadge from "./CarbonBadge";
  *   physics/layout.tsx      → <Footer theme="dark"  site="physics" accent="#FF6B3D" />
  *
  * Structure: brand + one-line pitch, a sitemap back to the main
- * portfolio, a directory of the three subdomains (current one
+ * portfolio, a directory of the four subdomains (current one
  * marked), a connect column, then a bottom bar with copyright and
  * the Website Carbon badge (see CarbonBadge.tsx).
  */
 
 type Theme = "dark" | "light";
-type Site = "portfolio" | "physics" | "music" | "web";
+type Site = "portfolio" | "physics" | "music" | "web" | "tutor";
 
 interface FooterProps {
   theme?: Theme;
@@ -51,6 +51,13 @@ const subdomains: { key: Site; name: string; href: string; description: string; 
     href: "https://web.paolo.org.uk",
     description: "Development & design",
     accent: "#FFDD44",
+  },
+  {
+    key: "tutor",
+    name: "Tutor",
+    href: "https://tutor.paolo.org.uk",
+    description: "Maths & physics tuition",
+    accent: "#F2A93B",
   },
 ];
 
@@ -95,8 +102,8 @@ export default function Footer({
             </p>
             <p className={`text-sm leading-relaxed max-w-xs ${styles.body}`}>
               Physicist and developer based in Edinburgh, UK — building
-              simulations, arrangements, and websites across three small
-              corners of the internet.
+              simulations, arrangements, websites, and tutoring across four
+              small corners of the internet.
             </p>
           </div>
 

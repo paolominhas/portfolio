@@ -23,7 +23,7 @@ import { NextRequest, NextResponse } from "next/server";
  */
 
 // The subdomains we handle. Add more here as needed.
-const SUBDOMAIN_MAP = new Set(["physics", "music", "web"]);
+const SUBDOMAIN_MAP = new Set(["physics", "music", "web", "tutor"]);
 
 // Your root domain — used to extract the subdomain.
 // In development, we also handle localhost.
@@ -39,6 +39,7 @@ export function middleware(request: NextRequest) {
   //   127.0.0.1  physics.localhost
   //   127.0.0.1  music.localhost
   //   127.0.0.1  web.localhost
+  //   127.0.0.1  tutor.localhost
   // Then access physics.localhost:3000
 
   // Strip the port if present (e.g. "physics.localhost:3000" → "physics.localhost")

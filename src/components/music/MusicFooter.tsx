@@ -16,6 +16,7 @@ const subdomains = [
   { key: "physics", name: "Physics", href: "https://physics.paolo.org.uk", description: "Research & simulations" },
   { key: "music", name: "Music", href: "https://music.paolo.org.uk", description: "Arrangements" },
   { key: "web", name: "Web", href: "https://web.paolo.org.uk", description: "Development & design" },
+  { key: "tutor", name: "Tutor", href: "https://tutor.paolo.org.uk", description: "Maths & physics tuition" },
 ];
 
 const exploreLinks = [
@@ -37,8 +38,8 @@ export default function MusicFooter() {
             </p>
             <p className="text-sm leading-relaxed max-w-xs text-white/50">
               Physicist and developer based in Edinburgh, UK — building
-              simulations, arrangements, and websites across three small
-              corners of the internet.
+              simulations, arrangements, websites, and tutoring across four
+              small corners of the internet.
             </p>
           </div>
 
