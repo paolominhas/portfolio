@@ -3,15 +3,15 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, MapPin, Calendar } from "lucide-react";
-import { researchProjects } from "@/data/research";
+import { visibleResearchProjects } from "@/data/research";
 
 /**
  * RESEARCH INDEX
  *
  * Same visual system as physics/page.tsx (abyss + bg-stars + ember/
  * kelp glow blobs + font-bodoni headlines) so this reads as the same
- * site, not a bolted-on section. Four cards, one per researchProjects
- * entry — mphys's card routes to its bespoke folder
+ * site, not a bolted-on section. One card per researchProjects
+ * visible entry (drafts are filtered out) — mphys's card routes to its bespoke folder
  * (`/research/mphys`), the other three to the generic
  * `/research/[slug]` template. Both resolve to real content either
  * way; the `bespokeRoute` flag only matters for clarity here, since
@@ -56,14 +56,14 @@ export default function ResearchIndex() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Four projects spanning detector physics, flavour physics, and
-          neutrino oscillations — an MPhys thesis, a summer placement, and
-          two further research projects, all built on the same ROOT/Python
-          analysis toolchain.
+          Projects spanning detector physics, flavour physics, and neutrino
+          oscillations — an MPhys thesis, a summer placement, and further
+          research projects, mostly built on the same ROOT/Python analysis
+          toolchain.
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {researchProjects.map((project, i) => (
+          {visibleResearchProjects().map((project, i) => (
             <motion.div
               key={project.slug}
               initial={{ opacity: 0, y: 20 }}

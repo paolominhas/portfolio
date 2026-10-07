@@ -1,18 +1,19 @@
 /**
  * RESEARCH PROJECTS
  * ─────────────────────────────────────────────────────────────────
- * The four projects behind physics.paolo.org.uk/research. Metadata
- * for all four lives here (used by the /research index grid), but
- * only three route through the generic `research/[slug]/page.tsx`
+ * The projects behind physics.paolo.org.uk/research. Metadata
+ * for all of them lives here (used by the /research index grid), but
+ * only the non-bespoke ones route through the generic `research/[slug]/page.tsx`
  * template — `mphys` has its own bespoke route tree
  * (`research/mphys/**`) because it carries real interactive content
  * (a 3D globe, a detector-geometry explorer, a live collision
- * canvas) that doesn't fit a text-only template. Static routes take
- * priority over the `[slug]` dynamic segment in the App Router, so
- * `/research/mphys` resolves to the bespoke folder without any
- * special-casing needed at the routing level — `[slug]/page.tsx`
- * just excludes `"mphys"` from `generateStaticParams` so it doesn't
- * also try to render a (worse, non-interactive) version of that page.
+ * canvas) that doesn't fit a text-only template, and `option-pricing`
+ * likewise (`research/option-pricing/`: an in-browser pricing playground).
+ * Static routes take priority over the `[slug]` dynamic segment in the
+ * App Router, so `/research/mphys` resolves to the bespoke folder without
+ * any special-casing needed at the routing level — `[slug]/page.tsx`
+ * just excludes `bespokeRoute` entries from `generateStaticParams` so it
+ * doesn't also try to render a (worse, non-interactive) version of them.
  *
  * `content` is HTML (same convention as `arrangements.ts`'s
  * `programmeNote` and the old `projects.ts`) — short paragraphs, no
@@ -31,8 +32,19 @@ export interface ResearchProject {
   tags: string[];
   techStack: string[];
   content: string; // HTML, for the detail page
-  /** True only for mphys — tells the index card to route to the bespoke folder, not the [slug] template. */
+  /**
+   * True for entries with their own route folder (mphys, option-pricing) — the
+   * [slug] template skips them. The index card links to /research/<slug> either way.
+   */
   bespokeRoute?: boolean;
+  /**
+   * Draft entries are hidden from the index and 404 in production, but still
+   * render under `next dev` so you can preview them. Flip to false (or delete
+   * the line) to publish.
+   */
+  draft?: boolean;
+  /** Optional link to the source repo; the bespoke page shows a "View the code" link only when set. */
+  repoUrl?: string;
 }
 
 export const researchProjects: ResearchProject[] = [
@@ -105,7 +117,33 @@ export const researchProjects: ResearchProject[] = [
       <p><em>Fuller write-up in progress — this page currently covers the scope and toolchain; results and figures to follow.</em></p>
     `,
   },
+  {
+    slug: "option-pricing",
+    title: "Option Pricing Lab: Black–Scholes, Monte Carlo and Greeks",
+    subtitle:
+      "Pricing European options three ways in Python, with an interactive playground that shows how each method responds when the conditions change.",
+    role: "Independent learning project",
+    institution: "Self-directed",
+    period: "2026",
+    summary:
+      "A small Python library that prices European options by the Black–Scholes closed form and by Monte Carlo, then estimates the Greeks by bump-and-reprice, with an interactive in-browser playground and tests that check each method against the others.",
+    tags: ["Monte Carlo", "Quantitative Finance", "Python"],
+    techStack: ["Python", "NumPy", "SciPy", "TypeScript", "Recharts"],
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
+    // TODO(paolo): set repoUrl once the GitHub repo exists, then set draft to false to publish.
+    // repoUrl: "https://github.com/YOUR-HANDLE/option-pricing-lab",
+    draft: true,
+  },
 ];
+
+export function isPublished(project: ResearchProject): boolean {
+  return !project.draft || process.env.NODE_ENV !== "production";
+}
+
+export function visibleResearchProjects(): ResearchProject[] {
+  return researchProjects.filter(isPublished);
+}
 
 export function getResearchProject(slug: string) {
   return researchProjects.find((p) => p.slug === slug);
