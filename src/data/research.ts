@@ -132,8 +132,8 @@ export const researchProjects: ResearchProject[] = [
     content: "", // rendered by the bespoke page, not this template
     bespokeRoute: true,
     // TODO(paolo): set repoUrl once the GitHub repo exists, then set draft to false to publish.
-    // repoUrl: "https://github.com/YOUR-HANDLE/option-pricing-lab",
-    draft: true,
+    repoUrl: "https://github.com/paolominhas/option-pricer",
+    draft: false,
   },
 ];
 
