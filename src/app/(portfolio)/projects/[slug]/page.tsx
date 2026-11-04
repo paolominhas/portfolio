@@ -7,8 +7,10 @@ import type { Metadata } from 'next';
 export async function generateStaticParams() {
   // `external` entries (currently: mphys) route straight out to
   // physics.paolo.org.uk and have no internal detail page to build.
+  // `customPage` entries have their own route file (e.g. projects/euco-ticketing/page.tsx),
+  // so they must not also be generated here.
   return projects
-    .filter((project) => !project.external)
+    .filter((project) => !project.external && !project.customPage)
     .map((project) => ({
       slug: project.slug,
     }));
@@ -61,7 +63,7 @@ export default async function ProjectPage({ params }: PageProps) {
   // internal detail page — see projects.ts), throw 404. The /projects
   // index never links here for external entries; this only guards a
   // direct/stale URL hit.
-  if (!project || project.external) {
+  if (!project || project.external || project.customPage) {
     notFound(); 
   }
 

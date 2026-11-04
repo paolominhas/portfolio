@@ -32,25 +32,31 @@ export interface Project {
   excerpt: string;
   /** If set, the card links straight out to this URL instead of /projects/[slug]. */
   external?: string;
+  /**
+   * If true, this project has its own hand-built route at
+   * src/app/(portfolio)/projects/<slug>/page.tsx (a static segment, which
+   * Next prefers over [slug]). The index card still links to /projects/<slug>;
+   * [slug] just skips it so it isn't generated twice. `content` is then only
+   * used as a fallback summary.
+   */
+  customPage?: boolean;
 }
 
 export const projects: Project[] = [
   {
     id: 'euco-ticketing',
-    title: 'EUCO Ticketing Platform — Stripe, QR Check-In & a Scanning App',
+    title: 'EUCO Tickets — Stripe, Signed QR Tickets & an Offline Door App',
     slug: 'euco-ticketing',
+    customPage: true,
     description:
-      "A Stripe-based ticketing platform with QR check-in and a companion React Native door-scanning app, built to replace a manual box office — contributed to the orchestra's highest-attendance season to date.",
-    techStack: ['Stripe API', 'Next.js', 'React Native', 'FastAPI', 'PostgreSQL'],
+      "Ticketing for a student orchestra: Stripe payments, HMAC-signed QR tickets and an offline-capable door app — with an interactive write-up where you can try to forge a ticket.",
+    techStack: ['FastAPI', 'PostgreSQL', 'Stripe', 'Astro', 'Directus'],
     image: '/images/root-project-thumbnail.jpg',
     excerpt:
       "The orchestra's box office was entirely manual — cash, a paper list, no way to sell ahead of the night. This replaced it end to end.",
     content: `
-      <p>Edinburgh University Chamber Orchestra sold tickets the way most student societies do: on the door, for cash, off a paper list. It couldn't sell ahead of a concert, couldn't show real-time capacity, and didn't scale as audiences grew — all real constraints for an orchestra trying to run its highest-attendance seasons yet.</p>
-      <h2>The build</h2>
-      <p>A Stripe-integrated ticketing platform on the main EUCO site, handling online sales, QR-coded digital tickets, and Apple/Google Wallet passes. On the door, a companion React Native app scans each QR code against the same backend in real time, so check-in and sales share one source of truth rather than a spreadsheet reconciled after the fact.</p>
-      <h2>Why it mattered</h2>
-      <p>This removed the two things a manual box office can't do: sell in advance, and check attendance live during a concert. It shipped ahead of the orchestra's highest-attendance season to date, running through a full concert season without a single reported check-in failure.</p>
+      <p>Edinburgh University Chamber Orchestra sold tickets the way most student societies do: on the door, for cash, off a paper list. This replaced that with online sales through Stripe, QR tickets signed so they can't be forged, and a door app that keeps scanning when the venue's signal drops.</p>
+      <p>The full case study, with interactive demos, is at <a href="/projects/euco-ticketing">/projects/euco-ticketing</a>.</p>
     `,
   },
   {
@@ -77,7 +83,7 @@ export const projects: Project[] = [
     excerpt:
       "End-to-end builds: a headless CMS backend, containerised deployment pipeline, and a from-scratch redesign of EUCO's public site.",
     content: `
-      <p>Alongside physics research, I do freelance full-stack web development — most substantially for Diorama Consulting (an AI technology advisory firm) and for the Edinburgh University Chamber Orchestra's own public-facing site. The ticketing platform and scanning app built for EUCO are substantial enough to have their own write-up — see <a href="/projects/euco-ticketing">EUCO Ticketing Platform</a>. This entry covers the rest of the infrastructure work.</p>
+      <p>Alongside physics research, I do freelance full-stack web development — most substantially for Diorama Consulting (an AI technology advisory firm) and for the Edinburgh University Chamber Orchestra's own public-facing site. The ticketing platform and scanning app built for EUCO are substantial enough to have their own write-up — see the <a href="/projects/euco-ticketing">EUCO Tickets case study</a>. This entry covers the rest of the infrastructure work.</p>
       <h2>The stack</h2>
       <p>Both projects share a similar architecture: an Astro 5 frontend for fast, mostly-static pages, Tailwind CSS v4 for styling, and a Directus CMS backed by FastAPI and PostgreSQL for structured content that non-technical committee members can edit without touching code. Everything is containerised with Docker, served behind nginx and Cloudflare, and deployed to a DigitalOcean droplet via GitHub Actions CI/CD.</p>
       <h2>What that looked like in practice</h2>
