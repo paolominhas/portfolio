@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, Music, Clock, Calendar, Download, Music2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { arrangements } from "@/data/arrangements";
+import { publishedArrangements as arrangements } from "@/data/arrangements";
 import ArrangementContent from "@/components/music/ArrangementContent";
 import { CircledNumber } from "@/components/music/CircledNumber";
 import DownloadLink from "@/components/music/DownloadLink";

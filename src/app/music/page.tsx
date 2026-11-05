@@ -10,7 +10,8 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { arrangements } from "@/data/arrangements";
+import { publishedArrangements as arrangements } from "@/data/arrangements";
+import MusicComingSoon from "@/components/music/MusicComingSoon";
 import ArrangementCard from "@/components/music/ArrangementCard";
 import { CircledNumber, Struck } from "@/components/music/CircledNumber";
 
@@ -67,6 +68,10 @@ export default function MusicHome() {
   const visibleIndices = [activeIndex - 1, activeIndex, activeIndex + 1].filter(
     (i) => i >= 0 && i < total,
   );
+
+  // Nothing real to show yet: a calm holding page instead of an empty crate.
+  // (All hooks above have already run, so this early return is safe.)
+  if (total === 0) return <MusicComingSoon />;
 
   return (
     <div>

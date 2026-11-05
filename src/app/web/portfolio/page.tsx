@@ -25,7 +25,10 @@ export const metadata: Metadata = {
 
 export default function WebPortfolio() {
   const isProd = process.env.NODE_ENV === "production";
-  const projects = webProjects.filter((p) => !(p.caseStudyDraft && isProd));
+  // Every site is listed. A site whose write-up is still a draft links to the
+  // live site instead (and says the write-up is on its way); under `next dev`
+  // the draft page is linked so you can preview it.
+  const projects = webProjects;
 
   return (
     <div className="pt-40 pb-28 px-6 md:px-10 max-w-6xl mx-auto">
@@ -37,22 +40,23 @@ export default function WebPortfolio() {
       />
       <ScrollReveal on="load" delay={0.35}>
         <p className="text-lg text-navy/60 max-w-xl mb-16">
-          A handful of the sites I&apos;ve designed, built, and deployed. Where there is a story worth telling,
-          the card opens a case study.
+          Four sites I&apos;ve designed, built and deployed. Where a case study is written, the card opens it;
+          otherwise it goes to the live site.
         </p>
       </ScrollReveal>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
         {projects.map((project, i) => {
-          const internal = Boolean(project.caseStudy);
+          const internal = Boolean(project.caseStudy) && !(project.caseStudyDraft && isProd);
+          const pending = Boolean(project.caseStudy) && project.caseStudyDraft && isProd;
           return (
-            <ScrollReveal key={project.slug} delay={i * 0.08} scale={0.96} className={i % 3 === 0 ? "md:col-span-2" : ""}>
+            <ScrollReveal key={project.slug} delay={i * 0.08} scale={0.96}>
               <div className="group relative rounded-2xl bg-lilac-light/50 border-2 border-transparent hover:border-yellow focus-within:border-yellow transition-colors duration-300 overflow-hidden h-full">
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-navy">
                   <CardImage src={project.image} className="w-full h-full object-cover opacity-90 group-hover:scale-[1.04] group-hover:opacity-100 transition-all duration-700 ease-out" />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
                   <div className="absolute bottom-4 right-4 flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {internal ? "Read case study" : "View project"} <ArrowUpRight size={14} />
+                    {internal ? "Read case study" : "Visit live site"} <ArrowUpRight size={14} />
                   </div>
                 </div>
                 <div className="p-6 md:p-7">
@@ -79,6 +83,9 @@ export default function WebPortfolio() {
                       </span>
                     ))}
                   </div>
+                  {pending && (
+                    <p className="mt-4 text-xs font-mono uppercase tracking-wider text-navy/45">Case study coming soon</p>
+                  )}
                   {internal && (
                     <a
                       href={project.url}

@@ -21,7 +21,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "EUCO Tickets: a case study",
   description:
-    "How I built ticketing for a student orchestra: Stripe payments, HMAC-signed QR tickets and an offline-capable door app. Try forging a ticket, or get someone in twice.",
+    "How I built tickets.eu-co.co.uk, a standalone ticketing site for a student orchestra: Stripe payments, HMAC-signed QR tickets and an offline-capable door app. Try forging a ticket, or get someone in twice.",
   alternates: { canonical: "https://web.paolo.org.uk/portfolio/euco-tickets" },
   openGraph: {
     title: "EUCO Tickets: a case study",
@@ -52,7 +52,8 @@ export default async function EucoTicketsCaseStudy() {
         <p className="text-xs font-mono uppercase tracking-widest text-yellow mb-4">{cs.eyebrow}</p>
         <HeroText as="h1" text="EUCO Tickets." highlightWords={["Tickets."]} className="text-5xl md:text-7xl font-black tracking-tight text-white mb-6" />
         <ScrollReveal on="load" delay={0.35}>
-          <p className="text-xl text-white/80 max-w-3xl leading-relaxed mb-8">{cs.tagline}</p>
+          <p className="text-xl text-white/80 max-w-3xl leading-relaxed mb-4">{cs.tagline}</p>
+          <p className="text-sm text-white/55 max-w-3xl leading-relaxed mb-8 border-l-2 border-yellow/60 pl-4">{cs.scope}</p>
         </ScrollReveal>
         <dl className="grid sm:grid-cols-3 gap-4 mb-8 text-sm">
           {cs.meta.filter((m) => m.value).map((m) => (

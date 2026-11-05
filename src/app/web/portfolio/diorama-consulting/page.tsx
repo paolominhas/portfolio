@@ -2,22 +2,23 @@ import type { Metadata } from "next";
 import DraftScaffold, { type DraftSection } from "@/components/case-study/DraftScaffold";
 
 export const metadata: Metadata = {
-  title: "Diorama Consulting: a case study",
+  title: "Diorama Consulting: off WordPress, into Docker. A case study",
   robots: { index: false, follow: false },
 };
 
-// TODO(paolo): every factual claim below is a prompt, not a statement. The
-// brief says WordPress -> Astro + Keystatic + Docker; check details against
-// the real repo before writing them as fact.
+// TODO(paolo): every claim below is a prompt, not a statement. The shape of the
+// story: leave WordPress, keep the content and images, and join prebuilt web
+// apps into one stack with Docker. Check each detail against the real repo
+// and compose files before writing it as fact.
 const SECTIONS: DraftSection[] = [
   {
     id: "brief",
     eyebrow: "01 · The brief",
     title: "What the firm needed",
-    purpose: "Set the scene: who Diorama is, what the old site did badly, what 'better' meant to them.",
+    purpose: "Who Diorama are, what the old site did badly, and what better meant to them.",
     prompts: [
-      "Who are Diorama and who reads their site (clients, candidates, partners)?",
-      "What was wrong with the WordPress site: speed, upkeep, security, editing experience?",
+      "Who are Diorama, and who reads their site (clients, candidates, partners)?",
+      "What was wrong with the WordPress site: speed, upkeep, security, the editing experience?",
       "What did they ask for, and what did you suggest instead?",
     ],
     interactive: {
@@ -26,74 +27,72 @@ const SECTIONS: DraftSection[] = [
     },
   },
   {
-    id: "design",
-    eyebrow: "02 · Design",
-    title: "A design system, not a theme",
-    purpose: "Show how the visual direction came from the subject rather than a template.",
+    id: "leaving",
+    eyebrow: "02 · Leaving WordPress",
+    title: "Moving the content and the images",
+    purpose: "The unglamorous heart of the rebuild: nothing the firm cared about gets lost.",
     prompts: [
-      "What was the visual idea, and where did it come from?",
-      "Type, colour and spacing decisions, and one thing you tried and dropped",
-      "How the system keeps new pages consistent without you",
-    ],
-    interactive: {
-      name: "Live design tokens",
-      idea: "Colour, type-scale and spacing swatches rendered from the site's real CSS variables. Toggle light/dark if the site has both.",
-    },
-  },
-  {
-    id: "migration",
-    eyebrow: "03 · Migration",
-    title: "Leaving WordPress without losing anything",
-    purpose: "The unglamorous heart of a rebuild: content, URLs and search ranking.",
-    prompts: [
-      "How content moved across (export, script, by hand?)",
-      "How you preserved URLs and handled redirects",
+      "How pages and posts moved across (export, script, by hand?)",
+      "What happened to the media library: how many images, what formats, what you did to optimise them",
+      "How you kept URLs working and handled redirects, and what you checked afterwards",
       "What broke and how you found out",
     ],
     interactive: {
-      name: "Redirect map explorer",
-      idea: "A searchable table of old URL to new URL with a status badge (301, kept, retired). Only publish it if you're happy for old paths to be public.",
+      name: "Image pipeline: before and after",
+      idea: "Show one real image as it was in WordPress and as it is now, with file size and format under each, plus a total saved across the library (compute the number from the real files).",
     },
   },
   {
-    id: "cms",
-    eyebrow: "04 · Editing",
-    title: "How the team updates the site",
-    purpose: "Show that the site stays maintainable by non-developers.",
+    id: "apps",
+    eyebrow: "03 · Prebuilt apps",
+    title: "Plugging ready-made web apps into one site",
+    purpose: "The main idea: use proven tools instead of writing everything, and make them feel like one site.",
     prompts: [
-      "Why Keystatic (or whichever CMS is really in use): Git-backed content, no database?",
-      "What the editing workflow is, from change to live",
-      "What the team can and can't change without you",
+      "Which prebuilt apps are in the stack (CMS, analytics, contact service, chatbot, admin dashboards?) and why each was chosen over building it",
+      "How each is connected to the Astro site (proxy path, API call, embed)",
+      "What you built yourself to glue them together",
     ],
     interactive: {
-      name: "Content-model viewer",
-      idea: "Click a CMS collection (case study, person, post) to see its fields, and which page templates use it.",
+      name: "Stack map",
+      idea: "A diagram with one box per app. Click a box to see what it does, what it talks to, and where its data lives.",
     },
   },
   {
-    id: "deploy",
-    eyebrow: "05 · Deployment",
-    title: "Containerised and boring, on purpose",
-    purpose: "Explain how it's built and shipped, in plain English first.",
+    id: "docker",
+    eyebrow: "04 · Dockerisation",
+    title: "Everything in containers",
+    purpose: "How the stack is packaged, wired and kept running.",
     prompts: [
-      "Build and deploy pipeline in one paragraph",
-      "Where it runs, how it's monitored, how a rollback works",
-      "What you'd say to a non-technical client about why this matters",
+      "The compose layout: services, networks, volumes, and what is exposed to the internet",
+      "Reverse proxy, TLS and the domain cutover (including certificates issued ahead of time)",
+      "Build and deploy: how a change gets from Git to live, and how you roll back",
+      "Secrets and environment: how configuration is kept out of the images",
     ],
     interactive: {
-      name: "Request-path diagram",
-      idea: "A visitor's request animating through the proxy, container and static files, with a short caption at each hop.",
+      name: "Container topology",
+      idea: "Click a container to see its image, port, volumes and health check. Animate a visitor's request through proxy, site and service. Use values from the real compose file.",
     },
+  },
+  {
+    id: "operate",
+    eyebrow: "05 · Running it",
+    title: "Monitoring, backups and handover",
+    purpose: "What keeps it healthy after launch.",
+    prompts: [
+      "How you know it is up, and what alerts you",
+      "Backups, restores, and the last time you tested one",
+      "What the client can do themselves and what they ask you for",
+    ],
   },
   {
     id: "outcome",
     eyebrow: "06 · Outcome",
     title: "What changed",
-    purpose: "Only measured results. If you haven't measured it, don't claim it.",
+    purpose: "Only measured results. If you have not measured it, do not claim it.",
     prompts: [
       "Page speed and accessibility before vs after (with the tool and date)",
-      "Anything the client told you in their own words (with permission)",
-      "What you'd do differently",
+      "Anything the client said in their own words (with permission)",
+      "What you would do differently",
     ],
   },
 ];
@@ -103,7 +102,7 @@ export default function DioramaCaseStudy() {
     <DraftScaffold
       eyebrow="Case study · Diorama Consulting"
       title="Diorama Consulting."
-      tagline="TODO(paolo): one sentence on what you built and why it was a good fit for them."
+      tagline="TODO(paolo): one sentence: a WordPress site rebuilt as Astro, joined to prebuilt web apps and run in Docker."
       sections={SECTIONS}
     />
   );

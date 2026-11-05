@@ -100,3 +100,14 @@ export const arrangements: Arrangement[] = [
     placeholder: true,
   },
 ];
+
+/**
+ * What the site actually shows. The three entries above are placeholders
+ * (invented premiere dates and venues), so they are hidden in production
+ * until real arrangements replace them. They still render under `next dev`
+ * so the layouts can be worked on. Delete `placeholder: true` from an entry
+ * once it is real, and it appears.
+ */
+export const publishedArrangements: Arrangement[] = arrangements.filter(
+  (a) => !a.placeholder || process.env.NODE_ENV !== "production",
+);

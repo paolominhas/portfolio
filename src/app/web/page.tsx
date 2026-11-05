@@ -81,11 +81,11 @@ function HighlightCard({
 }
 
 export default function WebHomePage() {
-  const euco = webProjects.find((p) => p.slug === "euco");
+  const euco = webProjects.find((p) => p.slug === "euco-website");
   const diorama = webProjects.find((p) => p.slug === "diorama-consulting");
 
   if (!euco || !diorama) {
-    throw new Error("Expected 'euco' and 'diorama-consulting' entries in webProjects");
+    throw new Error("Expected 'euco-website' and 'diorama-consulting' entries in webProjects");
   }
 
   // Which "How it runs" stages are expanded to show their detail chips.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import WebNav from "@/components/web/WebNav";
 import WebFooter from "@/components/web/WebFooter";
+import { tutorials } from "@/data/web-data";
 
 /**
  * WEB LAYOUT
@@ -34,9 +35,11 @@ export const metadata: Metadata = {
   },
 };
 
+// "Writing" only appears in the nav once at least one post is written.
+const hasWriting = tutorials.some((t) => t.content || process.env.NODE_ENV !== "production");
 const webNavItems = [
   { name: "Work", path: "/portfolio" },
-  { name: "Writing", path: "/tutorials" },
+  ...(hasWriting ? [{ name: "Writing", path: "/tutorials" }] : []),
 ];
 
 export default function WebLayout({

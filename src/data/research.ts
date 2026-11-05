@@ -67,6 +67,21 @@ export const researchProjects: ResearchProject[] = [
     bespokeRoute: true,
   },
   {
+    slug: "grover",
+    title: "Grover's Algorithm on IBM Quantum",
+    subtitle:
+      "Quantum search built by hand in Qiskit, checked against the theory, and run ideally, in a noisy simulation and on real hardware.",
+    role: "Personal project",
+    institution: "Independent",
+    period: "2026",
+    summary:
+      "Grover's search algorithm in Qiskit with an interactive stepper (oracle, diffuser, the success-probability curve) and an honest look at what noise does to it on today's IBM devices.",
+    tags: ["Quantum Computing", "Qiskit", "Algorithms"],
+    techStack: ["Python", "Qiskit", "Qiskit Aer", "Qiskit IBM Runtime", "GitHub Actions"],
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
+  },
+  {
     slug: "ppss",
     title: "Searching for Lepton-Flavour Violation in Charmed Baryon Decays",
     subtitle:

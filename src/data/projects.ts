@@ -58,14 +58,14 @@ export const projects: Project[] = [
   {
     id: 'euco-ticketing',
     category: 'web',
-    title: 'EUCO Tickets — Stripe, Signed QR Tickets & an Offline Door App',
+    title: 'EUCO Tickets (tickets.eu-co.co.uk): Stripe, Signed QR Tickets & an Offline Door App',
     slug: 'euco-ticketing',
     description:
-      "Ticketing for a student orchestra: Stripe payments, HMAC-signed QR tickets and an offline-capable door app, with an interactive write-up where you can try to forge a ticket.",
+      "A standalone ticketing site for EUCO concerts, separate from the orchestra's main website: Stripe payments, HMAC-signed QR tickets and an offline-capable door app, with an interactive write-up where you can try to forge a ticket.",
     techStack: ['FastAPI', 'PostgreSQL', 'Stripe', 'Astro', 'Directus'],
     image: '/images/root-project-thumbnail.jpg',
     excerpt:
-      "The orchestra's box office was entirely manual — cash, a paper list, no way to sell ahead of the night. This replaced it end to end.",
+      "The orchestra's box office was entirely manual: cash, a paper list, no way to sell ahead of the night. This replaced it end to end.",
     content: '',
     external: `${WEB}/euco-tickets`,
   },
@@ -82,6 +82,20 @@ export const projects: Project[] = [
       "The full write-up — including an interactive 3D detector explorer and a live collision simulation — now lives on the physics site.",
     content: '',
     external: `${PHYSICS}/mphys`,
+  },
+  {
+    id: 'grover',
+    category: 'physics',
+    title: "Grover's Algorithm on IBM Quantum",
+    slug: 'grover',
+    description:
+      "Quantum search built by hand in Qiskit and tested against the closed-form theory, with an interactive stepper and results from an ideal run, a noisy simulation and (once run) real IBM hardware.",
+    techStack: ['Python', 'Qiskit', 'Qiskit IBM Runtime', 'GitHub Actions'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "A quadratic speed-up in theory; what happens to it when real gates are noisy.",
+    content: '',
+    external: `${PHYSICS}/grover`,
   },
   {
     id: 'ppss',
@@ -128,32 +142,47 @@ export const projects: Project[] = [
   {
     id: 'diorama-consulting',
     category: 'web',
-    title: 'Diorama Consulting — WordPress to Astro, Dockerised',
+    title: 'Diorama Consulting: Off WordPress, Into Docker',
     slug: 'diorama-consulting',
     description:
-      "A containerised Astro rebuild for an AI advisory firm: migrated off WordPress, with a headless CMS, analytics and a custom admin.",
-    techStack: ['Astro', 'Docker', 'Caddy', 'Keystatic'],
+      "An AI advisory firm's site moved off WordPress onto Astro and joined to prebuilt web apps (CMS, analytics, contact service, chatbot) as Docker containers behind one domain, with the old images and content migrated.",
+    techStack: ['Astro', 'Docker', 'Keystatic', 'PostHog'],
     image: '/images/root-project-thumbnail.jpg',
     excerpt:
-      "Moving a live business site off WordPress without losing its search ranking or its editors.",
+      "Moving a live business site off WordPress without losing its content, images or search ranking, and running the rest as containers.",
     content: '',
     external: `${WEB}/diorama-consulting`,
     draft: true, // TODO(paolo): remove once the page is written
   },
   {
-    id: 'directus-cms',
+    id: 'euco-website',
     category: 'web',
-    title: 'Giving a Student Society Its Own CMS (Directus)',
-    slug: 'directus-cms',
+    title: 'EUCO Website: a Directus CMS for a Student Orchestra',
+    slug: 'euco-website',
     description:
-      "How a Directus CMS runs the EUCO website: a few dozen collections, roles per committee post, custom dashboards, and a publish button that rebuilds the site.",
-    techStack: ['Directus', 'PostgreSQL', 'Vue extensions', 'GitHub Actions'],
+      "The orchestra's main website on Astro, run by a changing committee through a Directus CMS with roles, drafts and a publish button that rebuilds the site.",
+    techStack: ['Astro', 'Directus', 'PostgreSQL', 'Docker'],
     image: '/images/root-project-thumbnail.jpg',
     excerpt:
       "Designing a CMS for people who change every year, and the failure modes that taught me what to automate.",
     content: '',
-    external: `${WEB}/directus-cms`,
-    draft: true, // TODO(paolo): remove once the article is written
+    external: `${WEB}/euco-website`,
+    draft: true, // TODO(paolo): remove once the page is written
+  },
+  {
+    id: 'euco-education',
+    category: 'web',
+    title: 'EUCO Education Hub (edu.eu-co.co.uk): Open APIs, Lightweight Site',
+    slug: 'euco-education',
+    description:
+      "The orchestra's education site and my plan to enrich it with open music APIs and larger datasets while keeping the site itself lightweight.",
+    techStack: ['Next.js', 'Open APIs', 'Static generation', 'pdf.js'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "How to use big public datasets without shipping a big website: ingest at build time, ship static pages.",
+    content: '',
+    external: `${WEB}/euco-education`,
+    draft: true, // TODO(paolo): remove once the page is written
   },
   {
     id: 'option-pricing',

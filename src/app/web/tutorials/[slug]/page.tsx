@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { tutorials } from "@/data/web-data";
+import { tutorials as allTutorials } from "@/data/web-data";
 import ScrollReveal from "@/components/web/ScrollReveal";
 
 /**
@@ -14,6 +14,9 @@ import ScrollReveal from "@/components/web/ScrollReveal";
  * drop into a Server Component as long as it's not itself marked
  * "use client" at this file's top.
  */
+
+// Unwritten placeholders are hidden in production (they render under `next dev`).
+const tutorials = allTutorials.filter((t) => t.content || process.env.NODE_ENV !== "production");
 
 export function generateStaticParams() {
   return tutorials.map((tut) => ({ slug: tut.slug }));

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     default: "Music — Paolo Minhas",
   },
   description:
-    "A downloadable archive of chamber-ensemble arrangements, by Paolo Minhas.",
+    "Music by Paolo Minhas: chamber-ensemble arrangements and writing, coming soon.",
   openGraph: {
     siteName: "Music — Paolo Minhas",
     url: "https://music.paolo.org.uk",

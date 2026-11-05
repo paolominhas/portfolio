@@ -24,8 +24,11 @@ export interface Stat {
 
 export const caseStudy = {
   slug: "euco-ticketing",
-  eyebrow: "Case study · Edinburgh University Chamber Orchestra",
+  eyebrow: "Case study · tickets.eu-co.co.uk",
   title: "EUCO Tickets",
+  /** Shown under the tagline: says what this case study is, and is not, about. */
+  scope:
+    "This is about tickets.eu-co.co.uk only: the ticketing site, its backend and the door app. It is a separate site from the orchestra's main website (www.eu-co.co.uk), which is written up on its own page.",
   tagline:
     "A box office for a student orchestra: online sales, signed QR tickets, and a door app that keeps working when the venue's Wi-Fi doesn't.",
   meta: [
@@ -142,9 +145,9 @@ export const caseStudy = {
         cost: "Offline, two doors can't see each other. Sync settles it afterwards, and the app flags the clash instead of hiding it.",
       },
       {
-        title: "Static main site, server-rendered ticket site",
-        why: "The public site is fast, cacheable and cheap to host. Checkout, ticket pages and the door app need live data, so they sit on a separate server-rendered site.",
-        cost: "Two front-ends to deploy, and committee content on the static site goes live on a rebuild rather than instantly.",
+        title: "A separate, server-rendered ticket site",
+        why: "The orchestra's main website is static: fast, cacheable and cheap to host. Checkout, ticket pages and the door app need live data, so they live on their own server-rendered site at tickets.eu-co.co.uk.",
+        cost: "Two front-ends to deploy, and content the committee edits for the main site goes live on a rebuild rather than instantly.",
       },
       {
         title: "Directus for content, Postgres for facts",
@@ -200,8 +203,8 @@ export const archNodes: ArchNode[] = [
   { id: "directus", label: "Directus CMS", sub: "content", x: 40, y: 180, kind: "store",
     owns: "Everything a committee member can edit",
     detail: "The backend reads concerts and ticket types from here at purchase time and never writes back. Publishing a story or concert triggers a rebuild of the static site." },
-  { id: "main", label: "Main site", sub: "Astro, static", x: 300, y: 30, kind: "front",
-    owns: "eu-co.co.uk: concerts, news, About",
+  { id: "main", label: "Main website", sub: "separate site", x: 300, y: 30, kind: "front",
+    owns: "www.eu-co.co.uk: concerts, news, About. A separate project from the ticket site.",
     detail: "Pre-built pages, rebuilt on publish and every three hours as a safety net. A live settings call handles anything that can't wait for a rebuild, like a sales-paused notice." },
   { id: "tickets", label: "Ticket site", sub: "Astro, server-rendered", x: 300, y: 330, kind: "front",
     owns: "Checkout, order pages, ticket pages, the door app",

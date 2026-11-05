@@ -142,23 +142,25 @@ export default function SimulationPlayer({
 
   if (state.status === "loading") {
     return (
-      <div className="rounded-xl border border-white/10 bg-zinc-900/50 aspect-square max-w-md mx-auto animate-pulse flex items-center justify-center">
+      <div className="my-10 rounded-xl border border-white/10 bg-zinc-900/50 aspect-square max-w-md mx-auto animate-pulse flex items-center justify-center">
         <span className="text-zinc-600 text-sm font-mono">Loading simulation…</span>
       </div>
     );
   }
 
   if (state.status === "error") {
+    // Visitors get a calm message; the technical detail is for you, under `next dev` only.
+    const dev = process.env.NODE_ENV !== "production";
     return (
-      <div className="rounded-xl border border-white/10 bg-zinc-900/50 p-6 text-center">
-        <p className="text-zinc-500 text-sm">
-          Couldn't load <code className="font-mono">{simulationId}</code>:{" "}
-          {state.message}
-        </p>
-        <p className="text-zinc-600 text-xs mt-2">
-          Check that <code className="font-mono">public/simulations/{simulationId}/</code> exists
-          and has been exported (see the simulations README).
-        </p>
+      <div role="status" className="my-10 rounded-xl border border-white/10 bg-zinc-900/50 p-6 text-center">
+        <p className="text-zinc-400 text-sm">This recording is not available right now.</p>
+        {dev && (
+          <p className="text-zinc-600 text-xs mt-3">
+            Couldn&apos;t load <code className="font-mono">{simulationId}</code>: {state.message}. Check that{" "}
+            <code className="font-mono">public/simulations/{simulationId}/</code> exists and has been exported (see
+            the simulations README).
+          </p>
+        )}
       </div>
     );
   }
