@@ -21,13 +21,13 @@ const exploreLinks = [
   {
     name: 'Physics',
     description:
-      'MPhys research, live particle-physics simulations, and the HIBEAM detector work.',
+      'Some research, live particle-physics simulations and other interesting things.',
     href: 'https://physics.paolo.org.uk',
   },
   {
     name: 'Web Development',
     description:
-      'Freelance full-stack work — case studies, stack, and how projects run end to end.',
+      'Freelance full-stack work with case studies, my stack and how projects run end to end.',
     href: 'https://web.paolo.org.uk',
   },
   {
@@ -78,10 +78,8 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            I build production systems — payment infrastructure, deployment
-            pipelines, and detector simulations. Currently finishing a
-            Physics Master&apos;s at Edinburgh while shipping full-stack
-            work for a chamber orchestra and an AI advisory firm.
+            I have built payment infrastructure, deployment
+            pipelines and detector simulations. Have a look at stuff I've done and see if you like any of it!
           </motion.p>
 
           {/* Call to Actions */}

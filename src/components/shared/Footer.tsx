@@ -101,9 +101,9 @@ export default function Footer({
               Paolo Minhas
             </p>
             <p className={`text-sm leading-relaxed max-w-xs ${styles.body}`}>
-              Physicist and developer based in Edinburgh, UK — building
-              simulations, arrangements, websites, and tutoring across four
-              small corners of the internet.
+              Physics grad and developer based in Reading, UK. Building
+              simulations, arrangements, websites and tutoring across four
+              small corners of the internet :)
             </p>
           </div>
 

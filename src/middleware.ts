@@ -81,6 +81,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Match all paths except static files and Next.js internals
-    "/((?!_next/static|_next/image|favicon.ico|icon.svg|images/|.*\\.(?:svg|png|jpg|jpeg|gif|ico|css|js|woff|woff2)).*)",
+    "/((?!_next/static|_next/image|favicon.ico|icon.svg|images/|.*\\.(?:svg|png|jpg|jpeg|gif|ico|css|js|mjs|map|json|bin|root|html|wasm|webp|avif|pdf|mp3|mp4|webm|woff|woff2|ttf)).*)",
   ],
 };
