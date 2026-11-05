@@ -10,6 +10,12 @@ import Playground from "./Playground";
 /**
  * OPTION PRICING LAB — page content
  *
+ * Lives on the main site at /projects/option-pricing (quantitative finance, not physics).
+ * Keeps the physics visual system on purpose, so the page supplies its own
+ * --accent variables and Bodoni font (see the route file), and uses
+ * overflow-x-clip, not overflow-hidden, on <article>: overflow-hidden would
+ * stop the playground's sticky value bar and controls column from sticking.
+ *
  * Same visual system as MphysContent (abyss + stars, ember glow, Bodoni
  * headlines, max-w-3xl reading column) with one wider section for the
  * playground. The numbers in the "Results" section are from the Python
@@ -80,16 +86,16 @@ function Table({ head, rows }: { head: string[]; rows: string[][] }) {
 
 export default function OptionPricingContent({ repoUrl }: { repoUrl?: string }) {
   return (
-    <article className="relative min-h-screen overflow-hidden bg-abyss bg-stars pb-32 text-white/70 selection:bg-ember/30">
+    <article className="relative min-h-screen overflow-x-clip bg-abyss bg-stars pb-32 text-white/70 selection:bg-ember/30">
       {/* HEADER */}
       <header className="relative overflow-hidden border-b border-white/5 px-6 pb-20 pt-32">
         <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-ember/15 blur-[130px]" />
         <div className="relative z-10 mx-auto max-w-3xl">
           <Link
-            href="/research"
+            href="/projects?cat=quant"
             className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white/40 transition-colors hover:text-white"
           >
-            <ArrowLeft size={14} /> Back to Research
+            <ArrowLeft size={14} /> Back to Projects
           </Link>
           <div className="mb-6 flex flex-wrap gap-2">
             {["Monte Carlo", "Quantitative Finance", "Python", "TypeScript"].map((t) => (

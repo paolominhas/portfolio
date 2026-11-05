@@ -15,6 +15,10 @@
  * keeps working. Only entries without `external` (the print-design and
  * concert-production write-ups below) render a page here.
  *
+ * Categories (CATEGORIES below) drive the filter chips on /projects. A project
+ * belongs to exactly one. Option pricing is 'quant', not 'physics': it is
+ * quantitative finance, so it lives on this site, not under physics research.
+ *
  * Flags
  *   draft   shown on the index and sitemap only under `next dev`, so a card can
  *           exist before the page behind it is written.
@@ -22,8 +26,18 @@
  *           redirects (web-development, which was split into case studies).
  */
 
+export type ProjectCategory = 'physics' | 'web' | 'quant' | 'music';
+
+export const CATEGORIES: { id: ProjectCategory; label: string; blurb: string }[] = [
+  { id: 'physics', label: 'Physics', blurb: 'Detectors, neutrinos, flavour physics and signal processing' },
+  { id: 'web', label: 'Web & software', blurb: 'Sites, platforms and the infrastructure behind them' },
+  { id: 'quant', label: 'Finance & quant', blurb: 'Pricing, simulation and numerical methods' },
+  { id: 'music', label: 'Music & events', blurb: 'Design, production and fundraising for a student orchestra' },
+];
+
 export interface Project {
   id: string;
+  category: ProjectCategory;
   title: string;
   slug: string;
   description: string;
@@ -43,6 +57,7 @@ const WEB = 'https://web.paolo.org.uk/portfolio';
 export const projects: Project[] = [
   {
     id: 'euco-ticketing',
+    category: 'web',
     title: 'EUCO Tickets — Stripe, Signed QR Tickets & an Offline Door App',
     slug: 'euco-ticketing',
     description:
@@ -56,6 +71,7 @@ export const projects: Project[] = [
   },
   {
     id: 'mphys',
+    category: 'physics',
     title: 'MPhys Thesis — HIBEAM Prototype TPC',
     slug: 'mphys',
     description:
@@ -69,6 +85,7 @@ export const projects: Project[] = [
   },
   {
     id: 'ppss',
+    category: 'physics',
     title: 'Lepton-Flavour Violation in Charmed Baryon Decays (LHCb)',
     slug: 'ppss',
     description:
@@ -82,6 +99,7 @@ export const projects: Project[] = [
   },
   {
     id: 'globes',
+    category: 'physics',
     title: 'Sterile-Neutrino Sensitivity at DUNE (GLoBES)',
     slug: 'globes',
     description:
@@ -95,6 +113,7 @@ export const projects: Project[] = [
   },
   {
     id: 'dune-nd',
+    category: 'physics',
     title: 'DUNE Near Detector: CP-Violation Uncertainties',
     slug: 'dune-nd',
     description:
@@ -108,6 +127,7 @@ export const projects: Project[] = [
   },
   {
     id: 'diorama-consulting',
+    category: 'web',
     title: 'Diorama Consulting — WordPress to Astro, Dockerised',
     slug: 'diorama-consulting',
     description:
@@ -122,6 +142,7 @@ export const projects: Project[] = [
   },
   {
     id: 'directus-cms',
+    category: 'web',
     title: 'Giving a Student Society Its Own CMS (Directus)',
     slug: 'directus-cms',
     description:
@@ -135,7 +156,48 @@ export const projects: Project[] = [
     draft: true, // TODO(paolo): remove once the article is written
   },
   {
+    id: 'option-pricing',
+    category: 'quant',
+    title: 'Option Pricing Lab: Black–Scholes, Monte Carlo and Greeks',
+    slug: 'option-pricing',
+    description:
+      'Pricing European options three ways in Python, with an in-browser playground that shows how each method responds when the market changes.',
+    techStack: ['Python', 'NumPy / SciPy', 'TypeScript', 'Recharts'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      'Closed form, Monte Carlo and bump-and-reprice Greeks, each checked against the others.',
+    content: '', // rendered by the bespoke page at (portfolio)/projects/option-pricing
+  },
+  {
+    id: 'audio-sample-cleaner',
+    category: 'physics',
+    title: 'Audio Sample Cleaner: Denoising in Frequency Space',
+    slug: 'audio-sample-cleaner',
+    description:
+      'Record sound on an Arduino, transform it with a Fourier transform, keep only the spectral peaks, and listen to the difference.',
+    techStack: ['Python', 'NumPy / SciPy', 'Arduino', 'Raspberry Pi'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt: 'A note is a few sharp spikes in frequency space; noise is the grass between them.',
+    content: '',
+    external: `${PHYSICS}/audio-sample-cleaner`,
+    draft: true, // TODO(paolo): remove together with `draft` in research.ts once written
+  },
+  {
+    id: 'hibeam',
+    category: 'physics',
+    title: 'What is HIBEAM?',
+    slug: 'hibeam',
+    description: 'Moved to physics.paolo.org.uk/hibeam.',
+    techStack: [],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt: 'Moved to physics.paolo.org.uk/hibeam.',
+    content: '',
+    external: 'https://physics.paolo.org.uk/hibeam',
+    hidden: true, // kept so any old /projects/hibeam link still lands on the explainer
+  },
+  {
     id: 'web-development',
+    category: 'web',
     title: 'Web Development & Digital Infrastructure',
     slug: 'web-development',
     description: 'Moved to web.paolo.org.uk.',
@@ -148,6 +210,7 @@ export const projects: Project[] = [
   },
   {
     id: 'concert-design',
+    category: 'music',
     title: 'Concert Programme & Ticket Design',
     slug: 'concert-design',
     description:
@@ -163,6 +226,7 @@ export const projects: Project[] = [
   },
   {
     id: 'concert-production',
+    category: 'music',
     title: 'Concert Production & Fundraising Leadership',
     slug: 'concert-production',
     description:

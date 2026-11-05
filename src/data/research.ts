@@ -7,8 +7,9 @@
  * template — `mphys` has its own bespoke route tree
  * (`research/mphys/**`) because it carries real interactive content
  * (a 3D globe, a detector-geometry explorer, a live collision
- * canvas) that doesn't fit a text-only template, and `option-pricing`
- * likewise (`research/option-pricing/`: an in-browser pricing playground).
+ * canvas) that doesn't fit a text-only template. (The option pricer used to be
+ * here too; it is quantitative finance, so it now lives on the main site at
+ * /projects/option-pricing, and the old physics URL redirects.)
  * Static routes take priority over the `[slug]` dynamic segment in the
  * App Router, so `/research/mphys` resolves to the bespoke folder without
  * any special-casing needed at the routing level — `[slug]/page.tsx`
@@ -33,7 +34,7 @@ export interface ResearchProject {
   techStack: string[];
   content: string; // HTML, for the detail page
   /**
-   * True for entries with their own route folder (mphys, option-pricing) — the
+   * True for entries with their own route folder (mphys) — the
    * [slug] template skips them. The index card links to /research/<slug> either way.
    */
   bespokeRoute?: boolean;
@@ -176,24 +177,6 @@ export const researchProjects: ResearchProject[] = [
     content: `
       <p>TODO(paolo): one paragraph on why a note is a few sharp spikes in frequency space and noise is the grass between them.</p>
     `,
-  },
-  {
-    slug: "option-pricing",
-    title: "Option Pricing Lab: Black–Scholes, Monte Carlo and Greeks",
-    subtitle:
-      "Pricing European options three ways in Python, with an interactive playground that shows how each method responds when the conditions change.",
-    role: "Independent learning project",
-    institution: "Self-directed",
-    period: "2026",
-    summary:
-      "A small Python library that prices European options by the Black–Scholes closed form and by Monte Carlo, then estimates the Greeks by bump-and-reprice, with an interactive in-browser playground and tests that check each method against the others.",
-    tags: ["Monte Carlo", "Quantitative Finance", "Python"],
-    techStack: ["Python", "NumPy", "SciPy", "TypeScript", "Recharts"],
-    content: "", // rendered by the bespoke page, not this template
-    bespokeRoute: true,
-    // TODO(paolo): set repoUrl once the GitHub repo exists, then set draft to false to publish.
-    repoUrl: "https://github.com/paolominhas/option-pricer",
-    draft: false,
   },
 ];
 

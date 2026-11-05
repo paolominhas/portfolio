@@ -100,7 +100,7 @@ export default function MphysContent() {
       {/* CONTINUATION OF ARTICLE CONTENT */}
       <div className="max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-white/60">
         <p>
-          A team of around 20 physicists are currently working on HIBEAM (High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow with simulations we ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
+          A team of around 20 physicists are currently working on <Link href="/hibeam" className="text-[var(--accent)]/80 hover:text-[var(--accent)] transition-colors">HIBEAM</Link> (High-Intensity Baryon Extraction and Measurement, which basically means measuring neutrons) based in Lund, Sweden. Comparing the data they obtained in Krakow with simulations we ran at the University of Edinburgh in Scotland allowed us to find out how well our detector worked.
         </p>
 
         <h2 className="font-bodoni text-3xl font-medium text-white mt-16 mb-6">Shooting protons or neutrons?</h2>
