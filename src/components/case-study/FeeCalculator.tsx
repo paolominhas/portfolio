@@ -56,51 +56,51 @@ export default function FeeCalculator() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6 space-y-5">
+      <div className="rounded-2xl border border-white/10 bg-navy-deep/60 p-6 space-y-5">
         <div className="space-y-3">
           {tickets.map((t) => (
             <div key={t.id} className="flex items-center justify-between gap-4">
               <div>
                 <div className="text-sm font-semibold text-white">{t.name}</div>
-                <div className="text-xs text-zinc-500">{t.pence ? gbp(t.pence) : "Free"} (example price)</div>
+                <div className="text-xs text-white/55">{t.pence ? gbp(t.pence) : "Free"} (example price)</div>
               </div>
               <div className="flex items-center gap-2">
-                <button type="button" aria-label={`Fewer ${t.name} tickets`} onClick={() => setQty({ ...qty, [t.id]: Math.max(0, (qty[t.id] ?? 0) - 1) })} className="h-8 w-8 rounded-lg border border-white/15 text-zinc-300 hover:border-indigo-400/60">−</button>
+                <button type="button" aria-label={`Fewer ${t.name} tickets`} onClick={() => setQty({ ...qty, [t.id]: Math.max(0, (qty[t.id] ?? 0) - 1) })} className="h-8 w-8 rounded-lg border border-white/15 text-white/80 hover:border-yellow/60">−</button>
                 <span className="w-6 text-center tabular-nums text-white">{qty[t.id] ?? 0}</span>
-                <button type="button" aria-label={`More ${t.name} tickets`} onClick={() => setQty({ ...qty, [t.id]: Math.min(10, (qty[t.id] ?? 0) + 1) })} className="h-8 w-8 rounded-lg border border-white/15 text-zinc-300 hover:border-indigo-400/60">+</button>
+                <button type="button" aria-label={`More ${t.name} tickets`} onClick={() => setQty({ ...qty, [t.id]: Math.min(10, (qty[t.id] ?? 0) + 1) })} className="h-8 w-8 rounded-lg border border-white/15 text-white/80 hover:border-yellow/60">+</button>
               </div>
             </div>
           ))}
         </div>
         <div>
-          <label htmlFor="code" className="text-xs uppercase tracking-widest text-zinc-500 block mb-1">Discount code</label>
-          <select id="code" value={codeId} onChange={(e) => setCodeId(e.target.value)} className="w-full rounded-lg bg-zinc-950 border border-white/10 p-2 text-sm text-zinc-200">
+          <label htmlFor="code" className="text-xs uppercase tracking-widest text-white/55 block mb-1">Discount code</label>
+          <select id="code" value={codeId} onChange={(e) => setCodeId(e.target.value)} className="w-full rounded-lg bg-black/30 border border-white/10 p-2 text-sm text-white/90">
             {codes.map((c) => <option key={c.code} value={c.code}>{c.label}</option>)}
           </select>
         </div>
-        <label className="flex items-center gap-2 text-sm text-zinc-400">
-          <input type="checkbox" checked={feeOn} onChange={(e) => setFeeOn(e.target.checked)} className="accent-indigo-500" />
+        <label className="flex items-center gap-2 text-sm text-white/70">
+          <input type="checkbox" checked={feeOn} onChange={(e) => setFeeOn(e.target.checked)} className="accent-yellow" />
           Booking fee switched on in the CMS
         </label>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6" aria-live="polite">
-        <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">What the server charges</p>
+      <div className="rounded-2xl border border-white/10 bg-navy-deep/60 p-6" aria-live="polite">
+        <p className="text-xs uppercase tracking-widest text-white/55 mb-3">What the server charges</p>
         <table className="w-full text-sm mb-4">
           <tbody>
             {calc.lines.map((l) => (
               <tr key={l.id} className="border-b border-white/5">
-                <td className="py-2 text-zinc-300">{l.q} × {l.name}</td>
-                <td className="py-2 text-right tabular-nums text-zinc-400">
-                  {l.unit !== l.pence && <span className="line-through text-zinc-600 mr-2">{gbp(l.pence)}</span>}
+                <td className="py-2 text-white/80">{l.q} × {l.name}</td>
+                <td className="py-2 text-right tabular-nums text-white/70">
+                  {l.unit !== l.pence && <span className="line-through text-white/45 mr-2">{gbp(l.pence)}</span>}
                   {gbp(l.unit)} each
                 </td>
               </tr>
             ))}
             {calc.fee > 0 && (
               <tr className="border-b border-white/5">
-                <td className="py-2 text-zinc-300">Booking fee (one per paid order)</td>
-                <td className="py-2 text-right tabular-nums text-zinc-400">{gbp(calc.fee)}</td>
+                <td className="py-2 text-white/80">Booking fee (one per paid order)</td>
+                <td className="py-2 text-right tabular-nums text-white/70">{gbp(calc.fee)}</td>
               </tr>
             )}
             <tr>
@@ -109,10 +109,10 @@ export default function FeeCalculator() {
             </tr>
           </tbody>
         </table>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-4">{route}</p>
+        <p className="text-sm text-white/70 leading-relaxed mb-4">{route}</p>
         {calc.seats > 0 && code.kind !== "none" && calc.ticketPence > 0 && <p className="text-xs text-amber-300/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 mb-3">A discount code waives the booking fee: the fee exists to cover Stripe&apos;s charges on full-price orders.</p>}
-        <details className="text-xs text-zinc-500">
-          <summary className="cursor-pointer text-zinc-400">Why whole pennies?</summary>
+        <details className="text-xs text-white/55">
+          <summary className="cursor-pointer text-white/70">Why whole pennies?</summary>
           <p className="mt-2 leading-relaxed">Amounts are integers of pence everywhere (database, Stripe, maths). 20% off £6.00 is 480p exactly; a percentage that lands between pennies rounds half up, in one place, on the server. Floating-point pounds would drift and the totals would stop matching Stripe&apos;s.</p>
         </details>
       </div>

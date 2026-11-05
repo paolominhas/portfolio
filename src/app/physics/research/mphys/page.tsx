@@ -4,30 +4,28 @@ import MphysContent from '@/components/physics/MphysContent';
 export const metadata: Metadata = {
   title: 'MPhys Thesis — HIBEAM Prototype TPC',
   description:
-    'High-Intensity Baryon Extraction and Measurement (HIBEAM) experiment searching for neutron conversions — MPhys dE/dx analysis of the prototype TPC detector.',
+    'MPhys dE/dx analysis of the prototype time projection chamber for HIBEAM (High-Intensity Baryon Extraction and Measurement), the neutron-conversion experiment planned at the European Spallation Source.',
+  alternates: { canonical: 'https://physics.paolo.org.uk/research/mphys' },
 };
 
 export default function MphysResearchPage() {
+  // This page is Paolo's thesis write-up, so it is an Article *about* HIBEAM,
+  // not the HIBEAM project itself (the old markup described it as the project,
+  // with the ESS as sponsor, which is not accurate for a personal site). The
+  // explainer at /hibeam is the page that answers "what is HIBEAM".
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "ResearchProject",
-    "name": "HIBEAM",
-    "alternateName": "High-Intensity Baryon Extraction and Measurement",
-    "description": "A high-precision particle physics experiment located at the European Spallation Source (ESS)...",
+    "@type": "Article",
+    "headline": "MPhys Thesis: HIBEAM Prototype TPC",
     "url": "https://physics.paolo.org.uk/research/mphys",
-    "location": {
-      "@type": "Place",
-      "name": "European Spallation Source (ESS)",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Lund",
-        "addressCountry": "Sweden"
-      }
+    "author": { "@type": "Person", "name": "Paolo Minhas", "url": "https://paolo.org.uk" },
+    "about": {
+      "@type": "Thing",
+      "name": "HIBEAM",
+      "alternateName": "High-Intensity Baryon Extraction and Measurement",
+      "url": "https://physics.paolo.org.uk/hibeam"
     },
-    "sponsor": {
-      "@type": "Organization",
-      "name": "European Spallation Source"
-    }
+    "mentions": { "@type": "Organization", "name": "European Spallation Source", "url": "https://ess.eu" }
   };
 
   return (

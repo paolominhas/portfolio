@@ -51,7 +51,7 @@ export default function QrSignatureLab() {
   }, [presented, supported]);
 
   if (!supported) {
-    return <p className="text-zinc-400 text-sm border border-white/10 rounded-xl p-4">This demo needs the browser&apos;s Web Crypto API, which is only available on secure (https) pages.</p>;
+    return <p className="text-white/70 text-sm border border-white/10 rounded-xl p-4">This demo needs the browser&apos;s Web Crypto API, which is only available on secure (https) pages.</p>;
   }
 
   const raw = presented ? b64urlDecode(presented) : null;
@@ -68,40 +68,40 @@ export default function QrSignatureLab() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6">
-      <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6 space-y-5">
+      <div className="rounded-2xl border border-white/10 bg-navy-deep/60 p-6 space-y-5">
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs uppercase tracking-widest text-zinc-500">Ticket id (random UUID)</label>
-            <button type="button" onClick={() => void issue()} className="inline-flex items-center gap-1 text-xs text-indigo-300 hover:text-white">
+            <label className="text-xs uppercase tracking-widest text-white/55">Ticket id (random UUID)</label>
+            <button type="button" onClick={() => void issue()} className="inline-flex items-center gap-1 text-xs text-lilac hover:text-white">
               <RefreshCw size={12} /> New ticket
             </button>
           </div>
-          <code className="block text-sm text-zinc-200 break-all">{ticketId || "…"}</code>
+          <code className="block text-sm text-white/90 break-all">{ticketId || "…"}</code>
         </div>
 
         <div>
-          <label htmlFor="sig" className="text-xs uppercase tracking-widest text-zinc-500 block mb-1">What the QR code carries (editable)</label>
+          <label htmlFor="sig" className="text-xs uppercase tracking-widest text-white/55 block mb-1">What the QR code carries (editable)</label>
           <textarea
             id="sig"
             value={presented}
             onChange={(e) => { setPresented(e.target.value); setNote("You edited it."); }}
             rows={3}
             spellCheck={false}
-            className="w-full rounded-lg bg-zinc-950 border border-white/10 p-3 font-mono text-xs text-zinc-200 focus:outline-none focus:border-indigo-400/70"
+            className="w-full rounded-lg bg-black/30 border border-white/10 p-3 font-mono text-xs text-white/90 focus:outline-none focus:border-yellow/70"
           />
-          <p className="text-xs text-zinc-500 mt-1">{note}</p>
+          <p className="text-xs text-white/55 mt-1">{note}</p>
         </div>
 
         <div className="font-mono text-[11px] leading-relaxed space-y-1">
-          <div><span className="text-indigo-300">ticket id · 16 bytes </span><span className="text-zinc-400 break-all">{idHex ?? "—"}</span></div>
-          <div><span className="text-emerald-300">HMAC-SHA256 · 32 bytes </span><span className="text-zinc-400 break-all">{macHex ?? "—"}</span></div>
+          <div><span className="text-lilac">ticket id · 16 bytes </span><span className="text-white/70 break-all">{idHex ?? "—"}</span></div>
+          <div><span className="text-emerald-300">HMAC-SHA256 · 32 bytes </span><span className="text-white/70 break-all">{macHex ?? "—"}</span></div>
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Attack it</p>
+          <p className="text-xs uppercase tracking-widest text-white/55 mb-2">Attack it</p>
           <div className="flex flex-wrap gap-2">
             {attacks.map((a) => (
-              <button key={a.label} type="button" onClick={() => void a.run()} className="text-xs px-3 py-1.5 rounded-lg border border-white/15 bg-zinc-900 text-zinc-300 hover:border-indigo-400/60 hover:text-white transition-colors">
+              <button key={a.label} type="button" onClick={() => void a.run()} className="text-xs px-3 py-1.5 rounded-lg border border-white/15 bg-navy-deep/60 text-white/80 hover:border-yellow/60 hover:text-white transition-colors">
                 {a.label}
               </button>
             ))}
@@ -109,27 +109,27 @@ export default function QrSignatureLab() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6 flex flex-col" aria-live="polite">
-        <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">Scanner verdict</p>
+      <div className="rounded-2xl border border-white/10 bg-navy-deep/60 p-6 flex flex-col" aria-live="polite">
+        <p className="text-xs uppercase tracking-widest text-white/55 mb-3">Scanner verdict</p>
         {verdict?.ok ? (
           <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-5 mb-4">
             <div className="flex items-center gap-2 text-emerald-300 font-semibold text-lg"><CheckCircle2 /> Signature valid</div>
-            <p className="text-sm text-zinc-300 mt-2">The MAC matches the ticket id it was issued for.{verdict.ticketId === ticketId ? "" : " (But this id is a different ticket from the one above.)"}</p>
+            <p className="text-sm text-white/80 mt-2">The MAC matches the ticket id it was issued for.{verdict.ticketId === ticketId ? "" : " (But this id is a different ticket from the one above.)"}</p>
           </div>
         ) : (
           <div className="rounded-xl bg-rose-500/10 border border-rose-500/30 p-5 mb-4">
             <div className="flex items-center gap-2 text-rose-300 font-semibold text-lg"><ShieldAlert /> {verdict ? (verdict.reason === "malformed" ? "Not a ticket" : "Signature rejected") : "Checking…"}</div>
-            <p className="text-sm text-zinc-300 mt-2">{verdict && !verdict.ok ? verdict.detail : ""}</p>
+            <p className="text-sm text-white/80 mt-2">{verdict && !verdict.ok ? verdict.detail : ""}</p>
           </div>
         )}
-        <div className="text-sm text-zinc-400 space-y-3 leading-relaxed">
+        <div className="text-sm text-white/70 space-y-3 leading-relaxed">
           <p>
-            <strong className="text-zinc-200">How it works.</strong> The QR value is the ticket id followed by an HMAC-SHA256 of it. Without the secret, which lives only on the server, nobody can produce a matching pair, and changing even one bit of either half breaks the check.
+            <strong className="text-white/90">How it works.</strong> The QR value is the ticket id followed by an HMAC-SHA256 of it. Without the secret, which lives only on the server, nobody can produce a matching pair, and changing even one bit of either half breaks the check.
           </p>
           <p>
-            <strong className="text-zinc-200">What it doesn&apos;t do.</strong> A valid signature only proves a ticket was issued. Whether it has already been used or refunded is state, so the server still looks at the ticket row (under a lock) on every scan.
+            <strong className="text-white/90">What it doesn&apos;t do.</strong> A valid signature only proves a ticket was issued. Whether it has already been used or refunded is state, so the server still looks at the ticket row (under a lock) on every scan.
           </p>
-          <p className="text-xs text-zinc-500">The secret in this demo is public and fake. It runs the same maths as backend/app/qr.py via the browser&apos;s Web Crypto.</p>
+          <p className="text-xs text-white/55">The secret in this demo is public and fake. It runs the same maths as backend/app/qr.py via the browser&apos;s Web Crypto.</p>
         </div>
       </div>
     </div>

@@ -154,41 +154,41 @@ export default function DoorSimulator() {
     <div className="space-y-6">
       <div className="grid lg:grid-cols-12 gap-6">
         {/* Tickets to present */}
-        <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
-          <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">1 · Hold a ticket up to the camera</p>
+        <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-navy-deep/60 p-5">
+          <p className="text-xs uppercase tracking-widest text-white/55 mb-3">1 · Hold a ticket up to the camera</p>
           <div className="grid grid-cols-2 gap-2">
             {CARDS.map((c) => (
-              <button key={c.id} type="button" onClick={() => scan(c)} className="group text-left rounded-xl border border-white/10 bg-zinc-950/60 p-3 hover:border-indigo-400/60 transition-colors">
-                <QrCode size={28} className="text-zinc-500 group-hover:text-indigo-300 mb-2" />
+              <button key={c.id} type="button" onClick={() => scan(c)} className="group text-left rounded-xl border border-white/10 bg-black/25 p-3 hover:border-yellow/60 transition-colors">
+                <QrCode size={28} className="text-white/55 group-hover:text-yellow mb-2" />
                 <div className="text-sm font-semibold text-white">{c.name}</div>
-                <div className="text-xs text-zinc-500">{c.type}</div>
-                <div className="text-xs text-zinc-400 mt-1">{c.blurb}</div>
+                <div className="text-xs text-white/55">{c.type}</div>
+                <div className="text-xs text-white/70 mt-1">{c.blurb}</div>
               </button>
             ))}
           </div>
         </div>
 
         {/* The phone */}
-        <div className="lg:col-span-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-5" aria-live="polite">
-          <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">2 · The door phone</p>
+        <div className="lg:col-span-4 rounded-2xl border border-white/10 bg-navy-deep/60 p-5" aria-live="polite">
+          <p className="text-xs uppercase tracking-widest text-white/55 mb-3">2 · The door phone</p>
           <div className="flex gap-2 mb-3">
             {devices.map((d, i) => (
-              <button key={d.name} type="button" onClick={() => setActive(i)} className={`flex-1 text-sm rounded-lg border px-3 py-2 ${i === active ? "border-indigo-400/70 bg-indigo-500/10 text-white" : "border-white/10 text-zinc-400"}`}>
+              <button key={d.name} type="button" onClick={() => setActive(i)} className={`flex-1 text-sm rounded-lg border px-3 py-2 ${i === active ? "border-yellow/70 bg-yellow/10 text-white" : "border-white/10 text-white/70"}`}>
                 {d.name}
                 <span className={`ml-2 inline-block h-2 w-2 rounded-full ${d.online ? "bg-emerald-400" : "bg-rose-400"}`} />
                 {d.queue.length > 0 && <span className="ml-2 text-[10px] text-amber-300">{d.queue.length} queued</span>}
               </button>
             ))}
           </div>
-          <button type="button" onClick={() => toggleWifi(active)} className="w-full flex items-center justify-center gap-2 text-sm rounded-lg border border-white/15 px-3 py-2 text-zinc-200 hover:border-indigo-400/60 mb-4">
+          <button type="button" onClick={() => toggleWifi(active)} className="w-full flex items-center justify-center gap-2 text-sm rounded-lg border border-white/15 px-3 py-2 text-white/90 hover:border-yellow/60 mb-4">
             {dev.online ? <><Wifi size={16} /> Signal on. Tap to lose it</> : <><WifiOff size={16} /> No signal. Tap to reconnect</>}
           </button>
-          <div className={`rounded-xl border p-5 min-h-[130px] ${dev.last ? TONE[dev.last.outcome] : "border-white/10 text-zinc-500"}`}>
+          <div className={`rounded-xl border p-5 min-h-[130px] ${dev.last ? TONE[dev.last.outcome] : "border-white/10 text-white/55"}`}>
             {dev.last ? (
               <>
                 <div className="text-2xl font-bold">{LABEL[dev.last.outcome]}</div>
-                <div className="text-sm text-zinc-200 mt-1">{dev.last.who}</div>
-                <div className="text-xs text-zinc-300/80 mt-2">{dev.last.text}</div>
+                <div className="text-sm text-white/90 mt-1">{dev.last.who}</div>
+                <div className="text-xs text-white/70 mt-2">{dev.last.text}</div>
                 <div className="text-[10px] uppercase tracking-widest mt-3 opacity-70">decided by {dev.last.via === "server" ? "the server" : "this phone's downloaded list"}</div>
               </>
             ) : (
@@ -198,38 +198,38 @@ export default function DoorSimulator() {
         </div>
 
         {/* Server */}
-        <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
-          <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3">3 · The server&apos;s record</p>
+        <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-navy-deep/60 p-5">
+          <p className="text-xs uppercase tracking-widest text-white/55 mb-3">3 · The server&apos;s record</p>
           <ul className="space-y-2 text-sm">
             {CARDS.filter((c) => ledger[c.id]).map((c) => {
               const r = ledger[c.id];
               return (
                 <li key={c.id} className="flex justify-between gap-2">
-                  <span className="text-zinc-300">{c.name}</span>
-                  <span className={r.status === "used" ? "text-emerald-300" : "text-zinc-500"}>{r.status === "used" ? `in ${r.at} · ${r.by}` : "not arrived"}</span>
+                  <span className="text-white/80">{c.name}</span>
+                  <span className={r.status === "used" ? "text-emerald-300" : "text-white/55"}>{r.status === "used" ? `in ${r.at} · ${r.by}` : "not arrived"}</span>
                 </li>
               );
             })}
           </ul>
-          <button type="button" onClick={reset} className="mt-5 inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-white">
+          <button type="button" onClick={reset} className="mt-5 inline-flex items-center gap-1 text-xs text-white/70 hover:text-white">
             <RotateCcw size={12} /> Reset the evening
           </button>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4 font-mono text-xs" aria-live="polite">
-        <p className="text-zinc-500 uppercase tracking-widest mb-2">Event log</p>
+      <div className="rounded-2xl border border-white/10 bg-black/30 p-4 font-mono text-xs" aria-live="polite">
+        <p className="text-white/55 uppercase tracking-widest mb-2">Event log</p>
         {log.length === 0 ? (
-          <p className="text-zinc-600">Nothing yet. Try this: switch both doors offline, scan Alex M. on Door 1 and again on Door 2, then reconnect them one after the other.</p>
+          <p className="text-white/45">Nothing yet. Try this: switch both doors offline, scan Alex M. on Door 1 and again on Door 2, then reconnect them one after the other.</p>
         ) : (
           <ul className="space-y-1">
             {log.map((l, i) => (
-              <li key={i} className={l.tone === "ok" ? "text-emerald-300" : l.tone === "bad" ? "text-rose-300" : l.tone === "warn" ? "text-amber-300" : "text-zinc-400"}>{l.text}</li>
+              <li key={i} className={l.tone === "ok" ? "text-emerald-300" : l.tone === "bad" ? "text-rose-300" : l.tone === "warn" ? "text-amber-300" : "text-white/70"}>{l.text}</li>
             ))}
           </ul>
         )}
       </div>
-      <p className="text-sm text-zinc-500 max-w-3xl leading-relaxed">
+      <p className="text-sm text-white/55 max-w-3xl leading-relaxed">
         Two phones that are both offline can&apos;t know about each other, so both admit the same ticket. When they reconnect the server settles it: the first scan to arrive is recorded and the other is flagged for a human, not silently dropped. That is the honest trade for never turning a queue away at the door.
       </p>
     </div>

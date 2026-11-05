@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useRef, Suspense } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useTexture, Line, Text, Billboard } from '@react-three/drei';
-import * as THREE from 'three';
+import MphysGlobe from '@/components/physics/MphysGlobe';
 import AnnihilationSim from '@/components/annihilationsim';
 import EnergyHistogram from '@/components/graph';
 
@@ -52,133 +50,11 @@ const InteractiveMagneticFigure = () => (
 );
 
 // ---------------------------------------------------------
-// 2. 3D GLOBE COMPONENTS
-// ---------------------------------------------------------
-function get3DPosition(lat: number, lng: number, radius: number) {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-  const x = -(radius * Math.sin(phi) * Math.cos(theta));
-  const y = radius * Math.cos(phi);
-  const z = radius * Math.sin(phi) * Math.sin(theta);
-  return new THREE.Vector3(x, y, z);
-}
-
-const locations = [
-  { name: 'ESS, Lund', lat: 55.7047, lng: 13.1910, offset: [0.3, 0.4, 0] },
-  { name: 'University of Edinburgh', lat: 55.95, lng: -3.19, offset: [-0.6, 0.6, 0] },
-  { name: 'IFJ PAN, Krakow', lat: 50.0647, lng: 19.9450, offset: [0.4, -0.3, 0] },
-];
-
-function Earth({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
-  const earthGroupRef = useRef<THREE.Group>(null);
-  const earthTexture = useTexture('/images/earth.jpg');
-
-  // Troika Text instances (drei's <Text>) expose `fillOpacity`, which
-  // isn't part of THREE.Object3D — a minimal structural interface is
-  // enough for what this component actually reads/writes.
-  const textRefs = useRef<({ fillOpacity?: number } | null)[]>([]);
-  const lineMatRefs = useRef<(THREE.Material | null)[]>([]);
-
-  const globeRadius = 2.5;
-
-  useFrame((state) => {
-    if (!containerRef.current || !earthGroupRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const scrollableDistance = rect.height - window.innerHeight;
-    const progress = Math.min(Math.max(-rect.top / scrollableDistance, 0), 1);
-
-    // ZOOM & PAN
-    const zoomProgress = Math.min(progress / 0.5, 1);
-    state.camera.position.z = THREE.MathUtils.lerp(12, 6, zoomProgress);
-
-    const panProgress = Math.min(progress / 0.8, 1);
-    earthGroupRef.current.position.y = THREE.MathUtils.lerp(0, -1.25, panProgress);
-
-    // ROTATE
-    const rotationProgress = Math.min(progress / 0.8, 1);
-    earthGroupRef.current.rotation.y = (rotationProgress * 1.2) + 0.5 + Math.PI;
-    earthGroupRef.current.rotation.x = rotationProgress * (Math.PI / 6);
-
-    // FADE IN
-    let opacity = 0;
-    if (progress > 0.8) {
-      opacity = Math.min((progress - 0.8) * 10, 1);
-    }
-
-    textRefs.current.forEach((textNode) => {
-      if (textNode) textNode.fillOpacity = opacity;
-    });
-
-    lineMatRefs.current.forEach((mat) => {
-      if (mat) {
-        mat.transparent = true;
-        mat.opacity = opacity * 0.4;
-      }
-    });
-  });
-
-  return (
-    <group ref={earthGroupRef}>
-      <mesh>
-        <sphereGeometry args={[globeRadius, 64, 64]} />
-        <meshStandardMaterial map={earthTexture} roughness={0.8} />
-      </mesh>
-
-      {locations.map((loc, i) => {
-        const startPos = get3DPosition(loc.lat, loc.lng, globeRadius);
-        const endPos = startPos.clone().multiplyScalar(1.2);
-
-        endPos.x += loc.offset[0];
-        endPos.y += loc.offset[1];
-        endPos.z += loc.offset[2];
-
-        const anchorX = loc.offset[0] > 0 ? 'left' : 'right';
-
-        return (
-          <group key={i}>
-            <mesh position={startPos}>
-              <sphereGeometry args={[0.03, 16, 16]} />
-              <meshBasicMaterial color="#FF6B3D" />
-            </mesh>
-
-            <Line
-              points={[startPos, endPos]}
-              color="white"
-              lineWidth={1}
-              ref={(el) => {
-                if (el) lineMatRefs.current[i] = el.material;
-              }}
-            />
-
-            <Billboard position={endPos}>
-              <Text
-                ref={(el) => { textRefs.current[i] = el; }}
-                fontSize={0.11}
-                color="#ffffff"
-                anchorX={anchorX}
-                anchorY="middle"
-                letterSpacing={0.05}
-                fillOpacity={0}
-              >
-                {loc.name}
-              </Text>
-            </Billboard>
-          </group>
-        );
-      })}
-    </group>
-  );
-}
-
-// ---------------------------------------------------------
 // 3. THE MAIN CONTENT COMPONENT
 // ---------------------------------------------------------
 export default function MphysContent() {
-  const globeContainerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <article className="min-h-screen bg-abyss bg-stars text-white/70 selection:bg-ember/30 pb-32 relative overflow-hidden">
+    <article className="min-h-screen bg-abyss bg-stars text-white/70 selection:bg-ember/30 pb-32 relative overflow-x-clip">
 
       {/* HEADER */}
       <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
@@ -218,18 +94,8 @@ export default function MphysContent() {
         </p>
       </div>
 
-      {/* SCROLLYTELLING GLOBE SECTION */}
-      <div ref={globeContainerRef} className="h-[250vh] relative w-full my-12">
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-to-b from-transparent via-abyss/60 to-transparent">
-          <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
-            <ambientLight intensity={0.2} />
-            <directionalLight position={[5, 3, 5]} intensity={2} />
-            <Suspense fallback={null}>
-              <Earth containerRef={globeContainerRef} />
-            </Suspense>
-          </Canvas>
-        </div>
-      </div>
+      {/* SCROLLYTELLING GLOBE SECTION (see MphysGlobe.tsx for what was fixed and why) */}
+      <MphysGlobe />
 
       {/* CONTINUATION OF ARTICLE CONTENT */}
       <div className="max-w-3xl mx-auto px-6 text-lg md:text-xl leading-relaxed space-y-8 text-white/60">

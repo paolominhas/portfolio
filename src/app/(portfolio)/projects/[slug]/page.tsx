@@ -1,96 +1,81 @@
 import { projects } from '@/data/projects';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 
+// Drafts 404 in production (a redirect to an unpublished page would just dead-end).
+// `hidden` entries still resolve so old links like /projects/web-development keep working.
+const available = projects.filter((p) => !p.draft || process.env.NODE_ENV !== 'production');
+
 export async function generateStaticParams() {
-  // `external` entries (currently: mphys) route straight out to
-  // physics.paolo.org.uk and have no internal detail page to build.
-  // `customPage` entries have their own route file (e.g. projects/euco-ticketing/page.tsx),
-  // so they must not also be generated here.
-  return projects
-    .filter((project) => !project.external && !project.customPage)
-    .map((project) => ({
-      slug: project.slug,
-    }));
+  // Every project gets a slug. Internal ones render below; `external` ones
+  // (physics and web projects that now live on their own subdomain) redirect
+  // to that page, so /projects/mphys, /projects/euco-ticketing and so on
+  // keep working for anyone who bookmarked or linked them.
+  return available.map((project) => ({ slug: project.slug }));
 }
 
-// 1. Unify the interface: params is a Promise for both Page and Metadata
 type PageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
 
-// 2. Fix Metadata: Await the params, then find the project
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug;
-  
-  // Find the project from your imported array
-  const project = projects.find((p) => p.slug === slug);
+  const { slug } = await params;
+  const project = available.find((p) => p.slug === slug);
 
-  // Fallback if the URL slug is invalid
-  if (!project) {
-    return {
-      title: 'Project Not Found'
-    }
+  if (!project || project.external) {
+    return { title: 'Project Not Found', robots: { index: false } };
   }
 
   return {
     title: project.title,
-    description: project.excerpt, // Ensure 'excerpt' exists in your projects data
+    description: project.excerpt,
     alternates: {
-      canonical: `/projects/${project.slug}`, // Fixed path from /blog/ to /projects/
+      canonical: `/projects/${project.slug}`,
     },
     openGraph: {
-      images: project.image ? [project.image] : [], // Ensure 'coverImage' exists
+      images: project.image ? [project.image] : [],
     },
-  }
+  };
 }
 
-// 3. Make the component async
 export default async function ProjectPage({ params }: PageProps) {
-  // AWAIT the params before trying to use the slug
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug;
+  const { slug } = await params;
+  const project = available.find((p) => p.slug === slug);
 
-  // Find the project
-  const project = projects.find((p) => p.slug === slug);
-
-  // If still not found, or if this is an `external` entry (no
-  // internal detail page — see projects.ts), throw 404. The /projects
-  // index never links here for external entries; this only guards a
-  // direct/stale URL hit.
-  if (!project || project.external || project.customPage) {
-    notFound(); 
+  if (!project) {
+    notFound();
+  }
+  if (project.external) {
+    permanentRedirect(project.external);
   }
 
   return (
     <article className="min-h-screen pt-32 px-6 md:px-20 max-w-4xl mx-auto">
-      <Link 
-        href="/projects" 
+      <Link
+        href="/projects"
         className="inline-flex items-center text-zinc-400 hover:text-white mb-8 transition-colors"
       >
-        {/* 4. Fix: Removed curly braces around the component */}
         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Projects
       </Link>
 
       <header className="mb-12">
         <h1 className="text-4xl md:text-6xl font-bold mb-6">{project.title}</h1>
         <div className="flex gap-3">
-            {project.techStack.map(t => (
-                <span key={t} className="px-3 py-1 border border-white/10 rounded-full text-sm text-zinc-300">
-                    {t}
-                </span>
-            ))}
+          {project.techStack.map((t) => (
+            <span key={t} className="px-3 py-1 border border-white/10 rounded-full text-sm text-zinc-300">
+              {t}
+            </span>
+          ))}
         </div>
       </header>
 
-      <div 
+      <div
         className="prose prose-invert prose-lg max-w-none text-zinc-300"
-        dangerouslySetInnerHTML={{ __html: project.content }} 
+        dangerouslySetInnerHTML={{ __html: project.content }}
       />
     </article>
   );

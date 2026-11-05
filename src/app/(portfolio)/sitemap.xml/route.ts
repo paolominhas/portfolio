@@ -1,5 +1,5 @@
 // app/sitemap.xml/route.ts
-import { projects } from '@/data/projects'; // Assuming this is where your data lives
+import { visibleProjects } from '@/data/projects';
 
 // THIS IS THE MAGIC LINE: 
 // It forces Next.js to render this file ONLY at build time, 
@@ -25,7 +25,9 @@ export async function GET() {
 `;
 
   // 3. Loop through your projects and attach their media
-  projects.forEach((project) => {
+  // External projects live on their own subdomain and /projects/<slug> only redirects,
+  // so they don't belong in this sitemap.
+  visibleProjects().filter((p) => !p.external).forEach((project) => {
     xml += `  <url>
     <loc>${baseUrl}/projects/${project.slug}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>

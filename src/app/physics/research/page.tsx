@@ -56,10 +56,10 @@ export default function ResearchIndex() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Projects spanning detector physics, flavour physics, and neutrino
-          oscillations — an MPhys thesis, a summer placement, and further
-          research projects, mostly built on the same ROOT/Python analysis
-          toolchain.
+          Projects spanning detector physics, flavour physics and neutrino
+          oscillations: an MPhys thesis, two summer placements and a senior
+          honours project, mostly built on ROOT and Python, plus a few
+          side projects where the same ideas turn up somewhere unexpected.
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

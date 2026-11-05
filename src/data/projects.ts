@@ -1,24 +1,25 @@
 /**
  * PORTFOLIO PROJECTS
  * ─────────────────────────────────────────────────────────────────
- * The four physics research projects that used to live here
- * (hibeam/ppss/globes/dune-nd) have moved to
- * physics.paolo.org.uk/research/** — see src/data/research.ts. That's
- * their real home now: richer physics-specific detail pages, in the
- * physics subdomain's actual design system, without duplicating
- * content in two places.
+ * One card per project on paolo.org.uk/projects. Most projects now live on
+ * the subdomain that suits them, and the card here just points there
+ * (`external` set), the way MPhys always has:
  *
- * MPhys stays represented here as a single card (`external` set), so
- * it's still visible from the main portfolio project list — it just
- * routes straight out to the physics site instead of rendering a
- * portfolio-hosted detail page. `projects/[slug]/page.tsx` skips
- * `external` entries in `generateStaticParams`, since there's no
- * internal detail page to build for them.
+ *   physics.paolo.org.uk/research/**   MPhys, the two internships, the senior
+ *                                      honours project (see src/data/research.ts)
+ *   web.paolo.org.uk/portfolio/**      EUCO Tickets, Diorama, the Directus article
+ *                                      (see src/data/web-data.ts)
  *
- * The other three entries are real non-physics project write-ups —
- * web development, print/graphic design, and event production —
- * replacing the old physics stubs so /projects actually represents
- * the breadth of what gets built here.
+ * `projects/[slug]/page.tsx` does not build a detail page for `external`
+ * entries; it redirects /projects/<slug> to the external URL, so any old link
+ * keeps working. Only entries without `external` (the print-design and
+ * concert-production write-ups below) render a page here.
+ *
+ * Flags
+ *   draft   shown on the index and sitemap only under `next dev`, so a card can
+ *           exist before the page behind it is written.
+ *   hidden  never shown on the index or sitemap; kept purely so an old URL
+ *           redirects (web-development, which was split into case studies).
  */
 
 export interface Project {
@@ -30,34 +31,28 @@ export interface Project {
   content: string; // HTML — ignored for `external` entries
   image: string;
   excerpt: string;
-  /** If set, the card links straight out to this URL instead of /projects/[slug]. */
+  /** If set, the card links straight out to this URL and /projects/<slug> redirects there. */
   external?: string;
-  /**
-   * If true, this project has its own hand-built route at
-   * src/app/(portfolio)/projects/<slug>/page.tsx (a static segment, which
-   * Next prefers over [slug]). The index card still links to /projects/<slug>;
-   * [slug] just skips it so it isn't generated twice. `content` is then only
-   * used as a fallback summary.
-   */
-  customPage?: boolean;
+  draft?: boolean;
+  hidden?: boolean;
 }
+
+const PHYSICS = 'https://physics.paolo.org.uk/research';
+const WEB = 'https://web.paolo.org.uk/portfolio';
 
 export const projects: Project[] = [
   {
     id: 'euco-ticketing',
     title: 'EUCO Tickets — Stripe, Signed QR Tickets & an Offline Door App',
     slug: 'euco-ticketing',
-    customPage: true,
     description:
-      "Ticketing for a student orchestra: Stripe payments, HMAC-signed QR tickets and an offline-capable door app — with an interactive write-up where you can try to forge a ticket.",
+      "Ticketing for a student orchestra: Stripe payments, HMAC-signed QR tickets and an offline-capable door app, with an interactive write-up where you can try to forge a ticket.",
     techStack: ['FastAPI', 'PostgreSQL', 'Stripe', 'Astro', 'Directus'],
     image: '/images/root-project-thumbnail.jpg',
     excerpt:
       "The orchestra's box office was entirely manual — cash, a paper list, no way to sell ahead of the night. This replaced it end to end.",
-    content: `
-      <p>Edinburgh University Chamber Orchestra sold tickets the way most student societies do: on the door, for cash, off a paper list. This replaced that with online sales through Stripe, QR tickets signed so they can't be forged, and a door app that keeps scanning when the venue's signal drops.</p>
-      <p>The full case study, with interactive demos, is at <a href="/projects/euco-ticketing">/projects/euco-ticketing</a>.</p>
-    `,
+    content: '',
+    external: `${WEB}/euco-tickets`,
   },
   {
     id: 'mphys',
@@ -70,26 +65,86 @@ export const projects: Project[] = [
     excerpt:
       "The full write-up — including an interactive 3D detector explorer and a live collision simulation — now lives on the physics site.",
     content: '',
-    external: 'https://physics.paolo.org.uk/research/mphys',
+    external: `${PHYSICS}/mphys`,
+  },
+  {
+    id: 'ppss',
+    title: 'Lepton-Flavour Violation in Charmed Baryon Decays (LHCb)',
+    slug: 'ppss',
+    description:
+      "An XGBoost event selection and a CLs limit for the forbidden decay Λc⁺ → p e⁻ μ⁺, from a summer internship in the LHCb group at IFJ PAN, Kraków.",
+    techStack: ['Python', 'XGBoost', 'ROOT / RooFit', 'zfit'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "Digging a decay that the Standard Model forbids out of an overwhelming background, and then saying how rare it must be.",
+    content: '',
+    external: `${PHYSICS}/ppss`,
+  },
+  {
+    id: 'globes',
+    title: 'Sterile-Neutrino Sensitivity at DUNE (GLoBES)',
+    slug: 'globes',
+    description:
+      "Recreating DUNE's published oscillation sensitivities in GLoBES, then adding a sterile neutrino and a smeared near detector to see why the near detector matters.",
+    techStack: ['GLoBES', 'C', 'SNU library', 'Python'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "A summer project on what the DUNE experiment will be able to tell us about a hypothetical fourth neutrino, before any data exists.",
+    content: '',
+    external: `${PHYSICS}/globes`,
+  },
+  {
+    id: 'dune-nd',
+    title: 'DUNE Near Detector: CP-Violation Uncertainties',
+    slug: 'dune-nd',
+    description:
+      "Senior Honours project on simulated DUNE near-detector events: where reconstructed neutrino energy can and can't be trusted, and how to avoid the worst of it.",
+    techStack: ['ROOT (C++)', 'CAFAna', 'GENIE'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "Why choosing events by their final state beats choosing them by interaction type, and what escaping neutrons do to an energy spectrum.",
+    content: '',
+    external: `${PHYSICS}/dune-nd`,
+  },
+  {
+    id: 'diorama-consulting',
+    title: 'Diorama Consulting — WordPress to Astro, Dockerised',
+    slug: 'diorama-consulting',
+    description:
+      "A containerised Astro rebuild for an AI advisory firm: migrated off WordPress, with a headless CMS, analytics and a custom admin.",
+    techStack: ['Astro', 'Docker', 'Caddy', 'Keystatic'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "Moving a live business site off WordPress without losing its search ranking or its editors.",
+    content: '',
+    external: `${WEB}/diorama-consulting`,
+    draft: true, // TODO(paolo): remove once the page is written
+  },
+  {
+    id: 'directus-cms',
+    title: 'Giving a Student Society Its Own CMS (Directus)',
+    slug: 'directus-cms',
+    description:
+      "How a Directus CMS runs the EUCO website: a few dozen collections, roles per committee post, custom dashboards, and a publish button that rebuilds the site.",
+    techStack: ['Directus', 'PostgreSQL', 'Vue extensions', 'GitHub Actions'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "Designing a CMS for people who change every year, and the failure modes that taught me what to automate.",
+    content: '',
+    external: `${WEB}/directus-cms`,
+    draft: true, // TODO(paolo): remove once the article is written
   },
   {
     id: 'web-development',
     title: 'Web Development & Digital Infrastructure',
     slug: 'web-development',
-    description:
-      'Freelance full-stack work for Diorama Consulting and the Edinburgh University Chamber Orchestra — Astro 5, Tailwind v4, Directus/FastAPI/PostgreSQL, containerised and deployed on DigitalOcean.',
-    techStack: ['Astro', 'Next.js', 'Tailwind CSS', 'Directus', 'FastAPI', 'Docker', 'GitHub Actions'],
+    description: 'Moved to web.paolo.org.uk.',
+    techStack: [],
     image: '/images/root-project-thumbnail.jpg',
-    excerpt:
-      "End-to-end builds: a headless CMS backend, containerised deployment pipeline, and a from-scratch redesign of EUCO's public site.",
-    content: `
-      <p>Alongside physics research, I do freelance full-stack web development — most substantially for Diorama Consulting (an AI technology advisory firm) and for the Edinburgh University Chamber Orchestra's own public-facing site. The ticketing platform and scanning app built for EUCO are substantial enough to have their own write-up — see the <a href="/projects/euco-ticketing">EUCO Tickets case study</a>. This entry covers the rest of the infrastructure work.</p>
-      <h2>The stack</h2>
-      <p>Both projects share a similar architecture: an Astro 5 frontend for fast, mostly-static pages, Tailwind CSS v4 for styling, and a Directus CMS backed by FastAPI and PostgreSQL for structured content that non-technical committee members can edit without touching code. Everything is containerised with Docker, served behind nginx and Cloudflare, and deployed to a DigitalOcean droplet via GitHub Actions CI/CD.</p>
-      <h2>What that looked like in practice</h2>
-      <p>For EUCO specifically: a full Directus CMS integration (schema design, bulk data import), image and SVG asset optimisation, a glassmorphism header with animated dropdown navigation, and a sponsor parallax banner — plus a three-hourly static-rebuild cron so committee-edited content goes live without a manual redeploy.</p>
-      <p>For Diorama: DevOps work migrating the domain from WordPress to a Dockerised Astro + Caddy stack, a hero carousel and admin suite, a Keystatic CMS overhaul, PostHog analytics, and a FastAPI + SQLite + Resend contact-form backend.</p>
-    `,
+    excerpt: 'Moved to web.paolo.org.uk.',
+    content: '',
+    external: WEB,
+    hidden: true, // kept so /projects/web-development still redirects
   },
   {
     id: 'concert-design',
@@ -124,3 +179,10 @@ export const projects: Project[] = [
     `,
   },
 ];
+
+/** Projects to show on the index and in the sitemap (drafts only under `next dev`, hidden never). */
+export function visibleProjects(): Project[] {
+  return projects.filter(
+    (p) => !p.hidden && (!p.draft || process.env.NODE_ENV !== 'production')
+  );
+}

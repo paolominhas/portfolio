@@ -1,6 +1,6 @@
 /**
  * EUCO TICKETING CASE STUDY: all the words and numbers for
- * /projects/euco-ticketing live here, so editing the page is editing this
+ * web.paolo.org.uk/portfolio/euco-tickets live here, so editing the page is editing this
  * file. The components in src/components/case-study/ only render it.
  *
  * Conventions

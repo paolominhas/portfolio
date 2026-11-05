@@ -7,11 +7,11 @@ const W = 150;
 const H = 64;
 
 const KIND_STYLE: Record<ArchNode["kind"], { fill: string; stroke: string }> = {
-  people: { fill: "#27272a", stroke: "#a1a1aa" },
-  front: { fill: "#1e1b4b", stroke: "#818cf8" },
-  core: { fill: "#312e81", stroke: "#a5b4fc" },
-  store: { fill: "#022c22", stroke: "#34d399" },
-  external: { fill: "#3b0764", stroke: "#c084fc" },
+  people: { fill: "#1a1b6e", stroke: "#c4c6f0" },
+  front: { fill: "#2a2ca3", stroke: "#A78BFA" },
+  core: { fill: "#1b1d8f", stroke: "#FFDD44" },
+  store: { fill: "#053b2e", stroke: "#34d399" },
+  external: { fill: "#4c1d95", stroke: "#c4b5fd" },
 };
 
 // The order in which edges light up for "Trace a purchase".
@@ -81,16 +81,16 @@ export default function ArchitectureDiagram() {
           type="button"
           onClick={() => setTraceIdx(0)}
           disabled={traceIdx !== null}
-          className="text-sm px-4 py-2 rounded-lg border border-white/15 bg-zinc-900 text-zinc-200 hover:border-indigo-400/60 disabled:opacity-60 transition-colors"
+          className="text-sm px-4 py-2 rounded-lg border border-white/15 bg-navy-deep/60 text-white/90 hover:border-yellow/60 disabled:opacity-60 transition-colors"
         >
           {traceIdx === null ? "▶ Trace a ticket purchase" : "Tracing…"}
         </button>
-        <span className="text-xs text-zinc-500">
+        <span className="text-xs text-white/55">
           {traceNow ? `${byId[traceNow[0]].label} → ${byId[traceNow[1]].label}: ${archEdges.find((e) => e.from === traceNow[0] && e.to === traceNow[1])?.label}` : "Or select any box."}
         </span>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-zinc-900/40">
+      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-navy-deep/50">
         <svg viewBox="0 0 1010 420" className="min-w-[760px] w-full h-auto" role="group" aria-label="EUCO ticketing architecture diagram">
           <defs>
             <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -99,12 +99,12 @@ export default function ArchitectureDiagram() {
           </defs>
           {edges.map((e) => {
             const hot = e.tracing || e.connected;
-            const colour = e.tracing ? "#fbbf24" : e.connected ? "#818cf8" : "#52525b";
+            const colour = e.tracing ? "#FFDD44" : e.connected ? "#A78BFA" : "#7e82d0";
             return (
               <g key={e.i} style={{ color: colour }} opacity={traceNow && !e.tracing ? 0.25 : hot ? 1 : 0.55}>
                 <line x1={e.p1.x} y1={e.p1.y} x2={e.p2.x} y2={e.p2.y} stroke={colour} strokeWidth={e.tracing ? 3 : hot ? 2 : 1.25} markerEnd="url(#arr)" />
                 {(e.connected || e.tracing) && (
-                  <text x={e.p1.x + (e.p2.x - e.p1.x) * e.t} y={e.p1.y + (e.p2.y - e.p1.y) * e.t - 6} textAnchor="middle" fontSize="12" fill={colour} className="font-mono" stroke="#09090b" strokeWidth="4" paintOrder="stroke">
+                  <text x={e.p1.x + (e.p2.x - e.p1.x) * e.t} y={e.p1.y + (e.p2.y - e.p1.y) * e.t - 6} textAnchor="middle" fontSize="12" fill={colour} className="font-mono" stroke="#0A0B5E" strokeWidth="4" paintOrder="stroke">
                     {e.label}
                   </text>
                 )}
@@ -131,19 +131,19 @@ export default function ArchitectureDiagram() {
                 }}
                 className="cursor-pointer outline-none focus-visible:[&>rect]:stroke-white"
               >
-                <rect x={n.x} y={n.y} width={W} height={H} rx={12} fill={st.fill} stroke={tracing ? "#fbbf24" : active ? "#ffffff" : st.stroke} strokeWidth={active || tracing ? 2.5 : 1.25} />
-                <text x={n.x + W / 2} y={n.y + 28} textAnchor="middle" fontSize="14" fontWeight="600" fill="#fafafa">{n.label}</text>
-                <text x={n.x + W / 2} y={n.y + 47} textAnchor="middle" fontSize="11" fill="#a1a1aa">{n.sub}</text>
+                <rect x={n.x} y={n.y} width={W} height={H} rx={12} fill={st.fill} stroke={tracing ? "#FFDD44" : active ? "#ffffff" : st.stroke} strokeWidth={active || tracing ? 2.5 : 1.25} />
+                <text x={n.x + W / 2} y={n.y + 28} textAnchor="middle" fontSize="14" fontWeight="600" fill="#ffffff">{n.label}</text>
+                <text x={n.x + W / 2} y={n.y + 47} textAnchor="middle" fontSize="11" fill="#c7c9f5">{n.sub}</text>
               </g>
             );
           })}
         </svg>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-6" aria-live="polite">
+      <div className="mt-4 rounded-2xl border border-white/10 bg-navy-deep/60 p-6" aria-live="polite">
         <h3 className="text-xl font-semibold text-white mb-1">{node.label}</h3>
-        <p className="text-sm font-mono text-indigo-300 mb-3">Owns: {node.owns}</p>
-        <p className="text-zinc-400 leading-relaxed">{node.detail}</p>
+        <p className="text-sm font-mono text-lilac mb-3">Owns: {node.owns}</p>
+        <p className="text-white/70 leading-relaxed">{node.detail}</p>
       </div>
     </div>
   );

@@ -1,63 +1,62 @@
-'use client';
-import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
-import { projects } from '@/data/projects'; // Import your data
+import type { Metadata } from "next";
+import { visibleProjects } from "@/data/projects";
+import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
 
-export default function ProjectsIndex() {
+/**
+ * PROJECTS INDEX (server component).
+ *
+ * Builds the list on the server (drafts and hidden entries removed), emits
+ * metadata + an ItemList for search engines, and hands the cards to the
+ * client-side explorer for search, category and tool filtering. All cards
+ * are in the initial HTML.
+ */
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Physics research, web development, quantitative finance and orchestra production: projects by Paolo Minhas, searchable by category and tool.",
+  alternates: { canonical: "https://paolo.org.uk/projects" },
+};
+
+export default function ProjectsPage() {
+  const projects = visibleProjects().map((p) => ({
+    id: p.id,
+    title: p.title,
+    slug: p.slug,
+    description: p.description,
+    excerpt: p.excerpt,
+    techStack: p.techStack,
+    category: p.category,
+    external: p.external,
+  }));
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Projects: Paolo Minhas",
+    url: "https://paolo.org.uk/projects",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: p.title,
+        url: p.external ?? `https://paolo.org.uk/projects/${p.slug}`,
+      })),
+    },
+  };
+
   return (
     <section className="pt-32 px-6 md:px-20 max-w-7xl mx-auto pb-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Selected Projects
+        Projects
       </h1>
-      <p className="text-zinc-400 max-w-2xl mb-12">
-        Physics research, freelance web development, and the design/production
-        work that comes with running a student orchestra — a mix of code and
-        everything around it.
+      <p className="text-zinc-400 max-w-2xl mb-10">
+        Physics research, web development, quantitative finance and orchestra production. Search, or filter by category and tool.
+        Physics and web projects open on their own sites; the badge on each card says where.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project) => {
-          const isExternal = Boolean(project.external);
-          const href = isExternal ? project.external! : `/projects/${project.slug}`;
-
-          return (
-            <Link
-              key={project.id}
-              href={href}
-              target={isExternal ? '_blank' : undefined}
-              rel={isExternal ? 'noopener noreferrer' : undefined}
-              className="group relative block bg-zinc-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300"
-            >
-              {/* Hover Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-              <div className="p-8 relative z-10">
-                <div className="flex items-start justify-between mb-4 gap-4">
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <span key={tech} className="text-xs font-mono text-zinc-400 bg-zinc-800/50 px-2 py-1 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  {isExternal && (
-                    <span className="shrink-0 inline-flex items-center gap-1 text-[10px] uppercase tracking-widest text-zinc-500 group-hover:text-zinc-300 transition-colors">
-                      physics.paolo.org.uk <ArrowUpRight size={12} />
-                    </span>
-                  )}
-                </div>
-
-                <h2 className="text-2xl font-bold mb-3 group-hover:text-white transition-colors">
-                  {project.title}
-                </h2>
-
-                <p className="text-zinc-400 line-clamp-2">
-                  {project.description}
-                </p>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+      <ProjectsExplorer projects={projects} />
     </section>
   );
 }

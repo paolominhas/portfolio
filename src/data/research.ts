@@ -43,8 +43,10 @@ export interface ResearchProject {
    * the line) to publish.
    */
   draft?: boolean;
-  /** Optional link to the source repo; the bespoke page shows a "View the code" link only when set. */
+  /** Optional link to the source repo; both the bespoke and generic pages show a "View the code" link when set. */
   repoUrl?: string;
+  /** Optional extra links (report, poster, slides) shown under the write-up on the generic page. */
+  resources?: { label: string; href: string }[];
 }
 
 export const researchProjects: ResearchProject[] = [
@@ -65,56 +67,114 @@ export const researchProjects: ResearchProject[] = [
   },
   {
     slug: "ppss",
-    title: "Charmed Λ Baryon Decays (LHCb)",
+    title: "Searching for Lepton-Flavour Violation in Charmed Baryon Decays",
     subtitle:
-      "Boosted-decision-tree signal/background separation for charmed lambda baryon decay channels.",
-    role: "PPSS summer internship",
+      "A machine-learning event selection and a CLs limit for the forbidden decay Λc⁺ → p e⁻ μ⁺, using LHCb data.",
+    role: "Summer internship",
     institution: "Institute of Nuclear Physics, Polish Academy of Sciences (IFJ PAN), Kraków",
-    period: "Summer 2026",
+    period: "Summer 2025",
     summary:
-      "Working with Prof. Dr hab. Mariusz Witek's group on the LHCb collaboration, building an XGBoost-based classifier to separate genuine charmed Λ baryon decay signal from combinatorial background.",
+      "Working with Prof. Mariusz Witek's LHCb group, I built an XGBoost event selection to dig a lepton-flavour-violating charmed-baryon decay out of an overwhelming combinatorial background, then set a statistical limit on its rate.",
     tags: ["LHCb", "Flavour Physics", "Machine Learning"],
-    techStack: ["ROOT", "Python", "XGBoost"],
+    techStack: ["Python", "XGBoost", "ROOT / RooFit", "zfit", "uproot"],
+    repoUrl: "https://github.com/paolominhas/PPSS-IFJ-PAN-Summer-Internship-2025",
+    resources: [
+      { label: "Final presentation (PDF)", href: "https://github.com/paolominhas/PPSS-IFJ-PAN-Summer-Internship-2025/blob/main/FinalProjectPresentation.pdf" },
+      { label: "Project notes (PDF)", href: "https://github.com/paolominhas/PPSS-IFJ-PAN-Summer-Internship-2025/blob/main/ProjectNotes.pdf" },
+    ],
     content: `
-      <p>The PPSS (Programme for Polish Summer Studentships) placed this project inside the LHCb collaboration's charm-physics effort, under Prof. Dr hab. Mariusz Witek at IFJ PAN in Kraków — one of LHCb's home institutes and a major contributor to the experiment's tracking and physics-analysis software.</p>
-      <p>Charmed Λ baryon decays are a useful probe of both the strong-interaction dynamics that bind quarks into baryons and, in some channels, of CP violation in the charm sector — but the genuine signal sits under a large combinatorial background from unrelated tracks that happen to reconstruct into a similar invariant mass. Separating the two by hand-tuned cuts alone leaves signal on the table; a multivariate classifier does better.</p>
-      <p>The core of the project was building and validating a Boosted Decision Tree (via XGBoost) trained on kinematic and vertex-quality variables from ROOT ntuples, to assign each candidate decay a signal-likeness score rather than a hard pass/fail cut — the standard approach for squeezing more usable signal out of LHCb data without inflating the background.</p>
+      <p>Why is there more matter than antimatter? One ingredient is CP violation; another, more speculative one, is that the three charged-lepton flavours might not be strictly separate. In the Standard Model, a decay that turns a muon into an electron (without a neutrino to carry the flavour away) is suppressed to branching fractions around 10<sup>−54</sup>. In models that explain the tiny neutrino masses with heavy right-handed neutrinos, some of these decays could be big enough to see. The charmed baryon decay Λ<sub>c</sub><sup>+</sup> → p e<sup>−</sup> μ<sup>+</sup> is one such channel: forbidden in the Standard Model, so any signal at all would be new physics.</p>
+      <p>This project, done with Timur Knyazev under Prof. Dr hab. Mariusz Witek at IFJ PAN, was the event-selection and limit-setting chain for a search in LHCb data. It is a student exercise on a collaboration dataset, so treat it as preliminary: the collaboration's own analysis is separate.</p>
+      <h2>The problem: a needle in a very large haystack</h2>
+      <p>The data came pre-selected as ROOT ntuples with 675 variables per candidate. A simulated signal sample had 1,727 events; the background was real data, 214,977 candidates, almost all of them unrelated tracks that happen to reconstruct near the Λ<sub>c</sub> mass. Simple cuts on one variable at a time throw away signal; a classifier can use many weak hints together.</p>
+      <h2>The method</h2>
+      <ul>
+        <li><strong>Choose the variables.</strong> A first model ranked 36 candidate variables and kept the 18 most useful (vertex quality, flight distance, impact parameter, transverse momenta, particle-ID, isolation). The shortlist then trained a second, more tightly tuned model.</li>
+        <li><strong>Train a boosted decision tree</strong> (XGBoost: 100 trees, depth 3, learning rate 0.1) to give each candidate a signal-likeness score from 0 to 1, using Monte Carlo as signal and the high-mass sideband of real data as background.</li>
+        <li><strong>Pick the cut with Punzi's figure of merit</strong>, which chooses the score threshold that gives the best sensitivity without needing to know the signal yield in advance. The optimum came out at a BDT score of about 0.25.</li>
+        <li><strong>Fit the invariant mass</strong> with a signal shape taken from simulation (a Crystal Ball plus a Gaussian) in RooFit and zfit.</li>
+        <li><strong>Normalise to a known decay.</strong> The rate is measured relative to the well-measured Λ<sub>c</sub><sup>+</sup> → p φ(→ μ<sup>+</sup>μ<sup>−</sup>) reference channel, which cancels most detector effects.</li>
+        <li><strong>Set a limit with the CLs method.</strong> With no significant excess, the result is a 90% confidence-level upper limit on the branching fraction rather than a discovery.</li>
+      </ul>
+      <h2>What I took from it</h2>
+      <p>The unglamorous parts were the lesson: a model that overtrains looks brilliant until you test it on events it hasn't seen, and careful tuning mattered a great deal. The repository has the training scripts, the results plots, my notes and the final presentation. The data files are too large to host.</p>
     `,
   },
   {
     slug: "globes",
-    title: "GLoBES Simulations of DUNE Detectors",
+    title: "Sterile-Neutrino Sensitivity at DUNE with GLoBES",
     subtitle:
-      "Oscillation-sensitivity studies for DUNE detector configurations using the GLoBES simulator.",
-    role: "Research project",
-    institution: "University of Edinburgh",
-    period: "2025",
+      "Recreating DUNE's published oscillation sensitivities, then adding a sterile neutrino and a smeared near detector.",
+    role: "Summer project (Career Development Summer Scholarship)",
+    institution: "School of Physics and Astronomy, University of Edinburgh",
+    period: "June–July 2025",
     summary:
-      "Using the General Long Baseline Experiment Simulator (GLoBES) to model neutrino oscillation sensitivity for different DUNE detector configurations — how far-detector design choices affect what the experiment can actually measure.",
+      "Simulating DUNE's near and far detectors in GLoBES to see how sensitive the experiment is to CP violation, the neutrino mass ordering, and a hypothetical fourth (sterile) neutrino, and why the near detector matters so much for the last of these.",
     tags: ["Neutrino Physics", "DUNE", "Simulation"],
-    techStack: ["GLoBES", "C", "Python"],
+    techStack: ["GLoBES", "C", "SNU library", "Python", "Mathematica"],
+    repoUrl: "https://github.com/paolominhas/DUNE-GLoBES-Simulation-Internship-2025",
+    resources: [
+      { label: "Project report (PDF)", href: "https://github.com/paolominhas/DUNE-GLoBES-Simulation-Internship-2025/blob/main/Report.pdf" },
+      { label: "Poster (PDF)", href: "https://github.com/paolominhas/DUNE-GLoBES-Simulation-Internship-2025/blob/main/Poster.pdf" },
+    ],
     content: `
-      <p>DUNE (the Deep Underground Neutrino Experiment) measures neutrino oscillations by comparing a near detector close to the beam source with a far detector 1,300 km away in South Dakota. What the experiment can ultimately say about oscillation parameters — mass splittings, mixing angles, CP violation in the lepton sector — depends heavily on detector configuration choices made long before any data is taken.</p>
-      <p>GLoBES (the General Long Baseline Experiment Simulator) is the standard tool the neutrino community uses to answer "what would we actually be able to measure" questions like this ahead of time: it takes a beam spectrum, detector response, and systematic-error model, and propagates them through to statistical sensitivity on the oscillation parameters.</p>
-      <p>This project used GLoBES to compare sensitivity outcomes across candidate DUNE far-detector configurations, quantifying the trade-offs between design choices in terms of what they'd cost or gain in oscillation-measurement precision.</p>
+      <p>DUNE fires a neutrino beam from Fermilab to a detector 1,300 km away in South Dakota and looks for the beam's flavours changing on the way. Before data arrives (the experiment is expected to come online around 2027), physicists use simulators to ask what the experiment <em>could</em> tell us. GLoBES, the General Long Baseline Experiment Simulator, is the standard tool: give it a beam, a detector and a systematic-error model, and it returns a χ² for any pair of competing hypotheses.</p>
+      <h2>Step 1: reproduce the published numbers</h2>
+      <p>I first checked that my simulation agreed with DUNE's technical design report: the neutrino mass ordering (normal against inverted) and sensitivity to the CP-violating phase δ<sub>CP</sub>. The δ<sub>CP</sub> curve matched well apart from a dip around δ<sub>CP</sub>/π = 0.5; near maximal CP violation (δ<sub>CP</sub> around ±π/2) the sensitivity reaches the 5σ level particle physics uses for discovery.</p>
+      <h2>Step 2: add a sterile neutrino</h2>
+      <p>A sterile neutrino is a hypothetical fourth neutrino that doesn't feel the weak force, so it can only show itself through oscillations. I extended the simulation to a 3+1 model with the SNU library, then proved the extension didn't break anything: with the sterile parameters set to zero it must reproduce the ordinary three-neutrino result, and the two χ² surfaces came out identical.</p>
+      <p>At the far detector the sensitivity to the sterile mass splitting Δm²<sub>41</sub> and mixing angle θ<sub>24</sub> has a conspicuous dip where Δm²<sub>41</sub> approaches the ordinary atmospheric splitting: the sterile effect then looks like a small change to the standard parameters and the two can't be told apart.</p>
+      <h2>Step 3: the near detector</h2>
+      <p>The near detector, only 574 m from the source, sees the beam before the ordinary oscillation has developed, but a Δm² near 1 eV² oscillates over exactly that distance. I added it as a new detector with ten GLoBES files spread along the decay pipe, so the neutrino source is a smeared line rather than a point. Adding it lifted the sensitivity to the sterile parameters substantially, and reproduced the shape of the design-report curve, including the dip. The remaining differences probably come from systematics and from simplifications, notably treating the source as a point in the final combined plot.</p>
+      <p>This was a learning project: it was my first time using C, Makefiles and GLoBES (segmentation faults included), and the repository's README is partly a template I was practising with. The report and poster have the real description.</p>
     `,
   },
   {
     slug: "dune-nd",
-    title: "Data Analysis of the DUNE Near Detector",
+    title: "DUNE Near Detector: Constraining CP-Violation Uncertainties",
     subtitle:
-      "ROOT-based analysis of near-detector data from the DUNE experiment.",
-    role: "Dissertation project", // NOTE: confirm exact degree-level attribution (BSc/MSc) with Paolo before publishing
-    institution: "University of Edinburgh",
-    period: "2025–2026",
+      "Using simulated near-detector events to find where reconstructed neutrino energy can and can't be trusted.",
+    role: "Senior Honours Project",
+    institution: "School of Physics and Astronomy, University of Edinburgh",
+    period: "2025",
     summary:
-      "Analysis of near-detector data from DUNE using ROOT — characterising near-detector event samples as a cross-check against the physics assumptions that far-detector oscillation measurements depend on.",
+      "A ten-week analysis of simulated DUNE near-detector events, comparing reconstructed with true neutrino energy for different interaction types to find where measurement uncertainties bite hardest, and how to avoid them.",
     tags: ["Neutrino Physics", "DUNE", "Data Analysis"],
-    techStack: ["ROOT (C++)", "Python"],
+    techStack: ["ROOT (C++)", "CAFAna", "GENIE simulation"],
+    repoUrl: "https://github.com/paolominhas/CPV-DUNE-ND",
+    resources: [
+      { label: "Senior Honours report (PDF)", href: "https://github.com/paolominhas/CPV-DUNE-ND/blob/main/SeniorHonoursReport.pdf" },
+    ],
     content: `
-      <p>The near detector in a long-baseline experiment like DUNE sits close enough to the beam source that it sees a huge, largely un-oscillated neutrino flux — its job isn't to see oscillations directly, but to pin down the un-oscillated flux, cross sections, and detector response precisely enough that the far-detector's oscillated sample can be interpreted with confidence.</p>
-      <p>This project worked directly with near-detector event data in ROOT, building the reconstruction and characterisation pipeline needed to turn raw event samples into the kind of well-understood inputs a full oscillation analysis depends on.</p>
-      <p><em>Fuller write-up in progress — this page currently covers the scope and toolchain; results and figures to follow.</em></p>
+      <p>DUNE wants to know whether neutrinos and antineutrinos oscillate differently (CP violation), one of the clues to why the universe is made of matter. The measurement compares what a far detector sees with what the beam was <em>before</em> it oscillated, and that prediction is only as good as the near detector's grasp of the beam, the cross-sections and its own energy reconstruction. This project asked where that reconstruction goes wrong.</p>
+      <h2>What I did</h2>
+      <ul>
+        <li>Analysed GENIE-simulated events for the liquid-argon (ND-LAr) and high-pressure gas (ND-GAr) near detectors, in both neutrino-rich (FHC) and antineutrino-rich (RHC) beams, using the DUNE analysis framework CAFAna and ROOT macros.</li>
+        <li>Plotted the beam's energy spectra and separated events by interaction type: quasi-elastic, resonant, deep-inelastic and meson-exchange (MEC).</li>
+        <li>Compared three ways of reconstructing the neutrino energy (the simulation's reconstruction, an energy-conservation sum, and the quasi-elastic formula) against the true energy, interaction by interaction.</li>
+      </ul>
+      <h2>What I found</h2>
+      <p>The liquid-argon detector shows large spurious peaks at low reconstructed energy, traced to neutrons that escape without being counted, so the gas detector's low-energy performance is needed alongside it. Selecting events by their <em>final state</em> (for example charged-current with no pions, CC0π) rather than by interaction label gave much better reconstruction, because the final state already includes effects such as two-particle-two-hole interactions and final-state interactions that the label hides. The report notes that the gas detector has since been removed from the baseline design for funding reasons, which makes smarter analysis, not just better hardware, more important.</p>
+      <p>The macros are in the repository; the full argument, with every figure, is in the report.</p>
+    `,
+  },
+  {
+    slug: "audio-sample-cleaner",
+    title: "Audio Sample Cleaner: Denoising in Frequency Space",
+    subtitle:
+      "A microphone, an Arduino, a Raspberry Pi and a Fourier transform: keeping only the notes that matter.",
+    role: "Data handling project, later extended",
+    institution: "University of Edinburgh",
+    period: "2024",
+    summary:
+      "Record sound on an Arduino, move it to a Raspberry Pi, transform to frequency space, keep only the spectral peaks, transform back, and listen to the difference.",
+    tags: ["Signal Processing", "Fourier Analysis", "Python"],
+    techStack: ["Python", "NumPy / SciPy", "Arduino", "Raspberry Pi"],
+    repoUrl: "https://github.com/paolominhas/audio-sample-cleaner",
+    // TODO(paolo): write the piece (see PHYSICS-AND-WEB-PLAN.md, Block 4), then delete this line to publish.
+    draft: true,
+    content: `
+      <p>TODO(paolo): one paragraph on why a note is a few sharp spikes in frequency space and noise is the grass between them.</p>
     `,
   },
   {

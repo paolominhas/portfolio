@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, MapPin, Calendar, Wrench } from "lucide-react";
-import { researchProjects, getResearchProject } from "@/data/research";
+import { ArrowLeft, MapPin, Calendar, Wrench, Github, FileText } from "lucide-react";
+import { researchProjects, getResearchProject, isPublished } from "@/data/research";
 
 /**
  * GENERIC RESEARCH DETAIL PAGE
@@ -18,7 +18,7 @@ import { researchProjects, getResearchProject } from "@/data/research";
 
 export function generateStaticParams() {
   return researchProjects
-    .filter((p) => !p.bespokeRoute)
+    .filter((p) => !p.bespokeRoute && isPublished(p))
     .map((p) => ({ slug: p.slug }));
 }
 
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ResearchDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const project = getResearchProject(slug);
-  if (!project || project.bespokeRoute) notFound();
+  if (!project || project.bespokeRoute || !isPublished(project)) notFound();
 
   return (
     <div className="relative bg-abyss bg-stars min-h-screen overflow-hidden">
@@ -108,6 +108,35 @@ export default async function ResearchDetailPage({ params }: PageProps) {
             prose-strong:text-white"
           dangerouslySetInnerHTML={{ __html: project.content }}
         />
+
+        {(project.repoUrl || (project.resources && project.resources.length > 0)) && (
+          <div className="mt-14 pt-8 border-t border-white/10">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">Code and documents</h2>
+            <div className="flex flex-wrap gap-3">
+              {project.repoUrl && (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border border-white/15 text-white/80 hover:border-[var(--accent-border)] hover:text-white transition-colors"
+                >
+                  <Github size={15} /> View the code on GitHub
+                </a>
+              )}
+              {project.resources?.map((r) => (
+                <a
+                  key={r.href}
+                  href={r.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border border-white/15 text-white/80 hover:border-[var(--accent-border)] hover:text-white transition-colors"
+                >
+                  <FileText size={15} /> {r.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </article>
     </div>
   );

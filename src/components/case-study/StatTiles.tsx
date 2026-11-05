@@ -36,17 +36,17 @@ export default function StatTiles({ stats, liveUpdatedAt }: { stats: (Stat & { l
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
         {shown.map((s) => (
-          <div key={s.id} className="rounded-xl border border-white/10 bg-zinc-900/50 p-4">
+          <div key={s.id} className="rounded-xl border border-white/10 bg-navy-deep/60 p-4">
             <div className="text-3xl font-bold text-white tabular-nums">
               <CountUp to={s.value as number} />
               {s.suffix}
             </div>
-            <div className="text-xs text-zinc-400 mt-1">{s.label}</div>
+            <div className="text-xs text-white/70 mt-1">{s.label}</div>
             {s.live && <div className="text-[10px] uppercase tracking-widest text-emerald-400 mt-2">live</div>}
           </div>
         ))}
       </div>
-      {anyLive && when && <p className="text-xs text-zinc-500 mt-3">Live totals from the EUCO platform, refreshed hourly. Last read {when}. Totals only, no personal data.</p>}
+      {anyLive && when && <p className="text-xs text-white/55 mt-3">Live totals from the EUCO platform, refreshed hourly. Last read {when}. Totals only, no personal data.</p>}
     </div>
   );
 }

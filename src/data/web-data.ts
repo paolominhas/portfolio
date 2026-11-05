@@ -151,6 +151,13 @@ export interface WebProject {
   /** Fake-browser-chrome bar colour for <SitePreview />, matching the site's own palette. */
   chromeColor: string;
   tags: string[];
+  /**
+   * Path of an on-site case study (e.g. "/portfolio/euco-tickets"). When set,
+   * the card links to it and the live site becomes a secondary link.
+   */
+  caseStudy?: string;
+  /** Draft case studies are hidden from the grid in production. */
+  caseStudyDraft?: boolean;
   /** Marks example/placeholder entries so they're easy to find and swap for real case studies. */
   placeholder?: boolean;
   content: string;
@@ -168,19 +175,22 @@ export const webProjects: WebProject[] = [
     images: ["/images/web/diorama-1.jpg", "/images/web/diorama-2.jpg", "/images/web/diorama-3.jpg"],
     chromeColor: "#0F172A",
     tags: ["Astro", "Docker", "Keystatic CMS"],
+    caseStudy: "/portfolio/diorama-consulting",
+    caseStudyDraft: true,
     content: "",
   },
   {
     slug: "euco",
     title: "Edinburgh University Chamber Orchestra",
     description:
-      "Full website rebuild from Create React App to Next.js 15, plus a Stripe ticketing platform with QR check-in and a companion React Native scanning app, replacing a fully manual box office.",
-    outcome: "Rebuilt information architecture, live Stripe ticket sales with QR check-in, editorial concert pages.",
+      "A website rebuild on Astro with a Directus CMS, plus a Stripe ticketing platform with signed QR tickets and an offline-capable door-scanning web app, replacing a fully manual box office.",
+    outcome: "Live Stripe ticket sales, QR check-in at the door, editorial concert pages. Read the ticketing case study.",
     url: "https://www.eu-co.co.uk",
     image: "/images/web/euco.jpg",
     images: ["/images/web/euco-1.jpg", "/images/web/euco-2.jpg", "/images/web/euco-3.jpg"],
     chromeColor: "#4A1420",
-    tags: ["Next.js", "Stripe", "React Native", "Docker"],
+    tags: ["Astro", "Directus", "Stripe", "FastAPI", "Docker"],
+    caseStudy: "/portfolio/euco-tickets",
     content: "",
   },
 ];
@@ -224,3 +234,4 @@ export const tutorials: Tutorial[] = [
     content: "",
   },
 ];
+
