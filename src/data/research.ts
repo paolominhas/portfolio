@@ -90,7 +90,7 @@ export const researchProjects: ResearchProject[] = [
     institution: "Institute of Nuclear Physics, Polish Academy of Sciences (IFJ PAN), Kraków",
     period: "Summer 2025",
     summary:
-      "Working with Prof. Mariusz Witek's LHCb group, I built an XGBoost event selection to dig a lepton-flavour-violating charmed-baryon decay out of an overwhelming combinatorial background, then set a statistical limit on its rate.",
+      "Working with Prof. Mariusz Witek's LHCb group, I built an XGBoost event selection to dig a lepton-flavour-violating charmed-baryon decay out of an overwhelming combinatorial background, then worked through a preliminary statistical limit on its rate. The page is an interactive report with live toys, real figures and my day-by-day notes.",
     tags: ["LHCb", "Flavour Physics", "Machine Learning"],
     techStack: ["Python", "XGBoost", "ROOT / RooFit", "zfit", "uproot"],
     repoUrl: "https://github.com/paolominhas/PPSS-IFJ-PAN-Summer-Internship-2025",
@@ -98,23 +98,8 @@ export const researchProjects: ResearchProject[] = [
       { label: "Final presentation (PDF)", href: "https://github.com/paolominhas/PPSS-IFJ-PAN-Summer-Internship-2025/blob/main/FinalProjectPresentation.pdf" },
       { label: "Project notes (PDF)", href: "https://github.com/paolominhas/PPSS-IFJ-PAN-Summer-Internship-2025/blob/main/ProjectNotes.pdf" },
     ],
-    content: `
-      <p>Why is there more matter than antimatter? One ingredient is CP violation; another, more speculative one, is that the three charged-lepton flavours might not be strictly separate. In the Standard Model, a decay that turns a muon into an electron (without a neutrino to carry the flavour away) is suppressed to branching fractions around 10<sup>−54</sup>. In models that explain the tiny neutrino masses with heavy right-handed neutrinos, some of these decays could be big enough to see. The charmed baryon decay Λ<sub>c</sub><sup>+</sup> → p e<sup>−</sup> μ<sup>+</sup> is one such channel: forbidden in the Standard Model, so any signal at all would be new physics.</p>
-      <p>This project, done with Timur Knyazev under Prof. Dr hab. Mariusz Witek at IFJ PAN, was the event-selection and limit-setting chain for a search in LHCb data. It is a student exercise on a collaboration dataset, so treat it as preliminary: the collaboration's own analysis is separate.</p>
-      <h2>The problem: a needle in a very large haystack</h2>
-      <p>The data came pre-selected as ROOT ntuples with 675 variables per candidate. A simulated signal sample had 1,727 events; the background was real data, 214,977 candidates, almost all of them unrelated tracks that happen to reconstruct near the Λ<sub>c</sub> mass. Simple cuts on one variable at a time throw away signal; a classifier can use many weak hints together.</p>
-      <h2>The method</h2>
-      <ul>
-        <li><strong>Choose the variables.</strong> A first model ranked 36 candidate variables and kept the 18 most useful (vertex quality, flight distance, impact parameter, transverse momenta, particle-ID, isolation). The shortlist then trained a second, more tightly tuned model.</li>
-        <li><strong>Train a boosted decision tree</strong> (XGBoost: 100 trees, depth 3, learning rate 0.1) to give each candidate a signal-likeness score from 0 to 1, using Monte Carlo as signal and the high-mass sideband of real data as background.</li>
-        <li><strong>Pick the cut with Punzi's figure of merit</strong>, which chooses the score threshold that gives the best sensitivity without needing to know the signal yield in advance. The optimum came out at a BDT score of about 0.25.</li>
-        <li><strong>Fit the invariant mass</strong> with a signal shape taken from simulation (a Crystal Ball plus a Gaussian) in RooFit and zfit.</li>
-        <li><strong>Normalise to a known decay.</strong> The rate is measured relative to the well-measured Λ<sub>c</sub><sup>+</sup> → p φ(→ μ<sup>+</sup>μ<sup>−</sup>) reference channel, which cancels most detector effects.</li>
-        <li><strong>Set a limit with the CLs method.</strong> With no significant excess, the result is a 90% confidence-level upper limit on the branching fraction rather than a discovery.</li>
-      </ul>
-      <h2>What I took from it</h2>
-      <p>The unglamorous parts were the lesson: a model that overtrains looks brilliant until you test it on events it hasn't seen, and careful tuning mattered a great deal. The repository has the training scripts, the results plots, my notes and the final presentation. The data files are too large to host.</p>
-    `,
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
   },
   {
     slug: "globes",
