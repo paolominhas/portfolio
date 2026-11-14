@@ -1,150 +1,97 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import Image from "next/image";
+import type { Metadata } from "next";
+import ExperienceLog, { type LogEntry } from "@/components/instrument/ExperienceLog";
+
+/**
+ * ABOUT (paolo.org.uk/about)
+ *
+ * Same content as before, re-set in the Instruments system: a portrait with
+ * two readouts beside the opening statement, then links, tools and the
+ * experience log (a strip chart over a list; see ExperienceLog).
+ */
+
+export const metadata: Metadata = { title: "About" };
+
+const skills = ["Python", "TypeScript", "JavaScript", "C++", "Next.js", "Astro", "React", "React Native", "FastAPI", "Tailwind", "Docker", "PostgreSQL", "Stripe API", "ROOT", "Geant4", "GLoBES"];
+
+const experience: LogEntry[] = [
+  { title: "Student @ University of Edinburgh", when: "2022 - 2026", text: "Integrated Master's (MPhys) in Physics, direct entry", from: 2022.7, to: 2026.45 },
+  { title: "Intern Researcher @ IFJ PAN Kraków, PL", when: "2025", text: "Applied ML to energy fitting in ROOT and Python for charmed lambda baryon decays (LHCb)", from: 2025.5, to: 2025.72 },
+  { title: "Summer Researcher @ University of Edinburgh, UK", when: "2025", text: "Simulated the effect of the sterile neutrino on DUNE detector sensitivity", from: 2025.42, to: 2025.58 },
+  { title: "Front of House @ Edinburgh Playhouse (ATG)", when: "Jul 2024 - Present", text: "Usher and bartender at Europe's largest all-seated theatre, working during high-pressure shows", from: 2024.5, to: null },
+];
+
+const links = [
+  { name: "Visit EUCO site", href: "https://eu-co.co.uk" },
+  { name: "eu-co.co.uk GitHub repo", href: "https://github.com/paolominhas/EUCO-Website" },
+  { name: "This site's GitHub repo", href: "https://github.com/paolominhas/portfolio" },
+];
 
 export default function AboutPage() {
   return (
-    <section className="pt-32 pb-20 px-6 md:px-20 max-w-7xl mx-auto">
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        
-        {/* Left Column: Image & Quick Stats */}
-        <div className="space-y-8">
-            <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 bg-zinc-900">
-                {/* Save your photo as public/me.jpg */}
-                <Image 
-                    src="/images/me_new.jpg" 
-                    alt="Profile Picture" 
-                    fill 
-                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500" 
-                />
-            </div>
+    <div className="mx-auto max-w-[90rem] px-5 pb-28 pt-28 md:px-8 md:pt-36">
+      <div className="in-enter grid gap-x-12 gap-y-10 lg:grid-cols-12">
+        <h1 className="in-display text-[length:var(--step-5)] lg:col-span-12">About me</h1>
 
-            {/* Tech Stack Grid */}
-            <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-xl">
-                    <h3 className="text-zinc-400 text-sm mb-1">Location</h3>
-                    <p className="font-semibold text-white">Edinburgh, UK</p>
-                </div>
-                <div className="p-4 bg-zinc-900/50 border border-white/5 rounded-xl">
-                    <h3 className="text-zinc-400 text-sm mb-1">Degree Subject</h3>
-                    <p className="font-semibold text-white">Physics (Particle Physics)</p>
-                </div>
-            </div>
+        <div className="lg:col-span-4">
+          <div className="group relative aspect-[4/5] overflow-hidden rounded-[3px] border border-[var(--line)] bg-[var(--plate)]">
+            <Image src="/images/me_new.jpg" alt="Paolo Minhas" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0" />
+          </div>
+          <dl className="mt-4 border-t border-[var(--line)]">
+            {[
+              ["Location", "Edinburgh, UK"],
+              ["Degree subject", "Physics (Particle Physics)"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex items-baseline justify-between gap-6 border-b border-[var(--line)] py-3">
+                <dt className="in-label">{k}</dt>
+                <dd className="m-0 text-right font-medium">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        {/* Right Column: Narrative & Details */}
-        <div className="space-y-8">
-            <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-                About Me
-            </h1>
-            
-            <div className="prose prose-invert prose-lg text-zinc-300">
-                <p>
-                    I&apos;m finishing an integrated Master&apos;s in Physics at Edinburgh,
-                    alongside freelance full-stack web development and research 
-                    on the HIBEAM experiment at the European Spallation Source.
-                </p>
-                <p>
-                    Outside physics, I run digital infrastructure for Edinburgh University
-                    Chamber Orchestra — including a Stripe ticketing platform I designed and
-                    built for their site. You can see the live site here:
-                </p>
-            </div>
-
-            <div className="max-w-7xl mx-auto w-full mb-8">                
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-6">
-                    <div>
-                        <h1 className="text-2l font-bold text-white">Edinburgh University Chamber Orchestra</h1>
-                        <p className="text-zinc-400 mt-2">You can also buy tickets for their upcoming concerts!</p>
-                    </div>
-                    
-                    <a 
-                        href="https://eu-co.co.uk" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center shrink-0 px-6 py-3 bg-white text-black text-sm font-bold rounded-full hover:bg-zinc-200 transition-colors"
-                    >
-                        Visit EUCO Site
-                        <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                </div>
-            </div>
-
-            <div className="max-w-7xl mx-auto w-full mb-8">                
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-6">
-                    <a 
-                        href="https://github.com/paolominhas/EUCO-Website" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center shrink-0 px-6 py-3 bg-white text-black text-sm font-bold rounded-full hover:bg-zinc-200 transition-colors"
-                    >
-                        Visit eu-co.co.uk GitHub repo
-                        <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                    <a 
-                        href="https://github.com/paolominhas/portfolio" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center shrink-0 px-6 py-3 bg-white text-black text-sm font-bold rounded-full hover:bg-zinc-200 transition-colors"
-                    >
-                        Visit this site's GitHub repo
-                        <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                </div>
-            </div>
-           
-
-
-            {/* Skills Section */}
-            <div>
-                <h2 className="text-xl font-bold text-white mb-4">My Coding Experience</h2>
-                <div className="flex flex-wrap gap-2">
-                    {['Python', 'TypeScript', 'JavaScript', 'C++', 'Next.js', 'Astro', 'React', 'React Native', 'FastAPI', 'Tailwind', 'Docker', 'PostgreSQL', 'Stripe API', 'ROOT', 'Geant4', 'GLoBES'].map((skill) => (
-                        <span key={skill} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm hover:bg-white/10 transition-colors">
-                            {skill}
-                        </span>
-                    ))}
-                </div>
-            </div>
-
-             {/* Experience "Timeline" */}
-            <div>
-                <h2 className="text-xl font-bold text-white mb-4">Experience</h2>
-                <div className="space-y-6 border-l border-zinc-800 pl-6 relative">
-                    {/* Item 1 */}
-                    <div className="relative">
-                        <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-500 rounded-full border-4 border-zinc-950" />
-                        <h3 className="text-lg font-semibold text-white">Student @ University of Edinburgh</h3>
-                        <p className="text-zinc-500 text-sm mb-2">2022 - 2026</p>
-                        <p className="text-zinc-400">Integrated Master&apos;s (MPhys) in Physics, direct entry</p>
-                    </div>
-
-                    <div className="relative">
-                        <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-800 rounded-full border-4 border-zinc-950" />
-                        <h3 className="text-lg font-semibold text-white">Intern Researcher @ IFJ PAN Kraków, PL</h3>
-                        <p className="text-zinc-500 text-sm mb-2">2025</p>
-                        <p className="text-zinc-400">Applied ML to energy fitting in ROOT and Python for charmed lambda baryon decays (LHCb)</p>
-                    </div>
-
-                    <div className="relative">
-                        <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-800 rounded-full border-4 border-zinc-950" />
-                        <h3 className="text-lg font-semibold text-white">Summer Researcher @ University of Edinburgh, UK</h3>
-                        <p className="text-zinc-500 text-sm mb-2">2025</p>
-                        <p className="text-zinc-400">Simulated the effect of the sterile neutrino on DUNE detector sensitivity</p>
-                    </div>
-
-                    <div className="relative">
-                        <div className="absolute -left-[29px] top-1 w-3 h-3 bg-zinc-800 rounded-full border-4 border-zinc-950" />
-                        <h3 className="text-lg font-semibold text-white">Front of House @ Edinburgh Playhouse (ATG)</h3>
-                        <p className="text-zinc-500 text-sm mb-2">Jul 2024 - Present</p>
-                        <p className="text-zinc-400">Usher and bartender at Europe&apos;s largest all-seated theatre, working during high-pressure shows</p>
-                    </div>
-                </div>
-            </div>
-
+        <div className="lg:col-span-7 lg:col-start-6">
+          <p className="max-w-[34ch] text-[length:var(--step-2)] font-medium leading-[1.25] tracking-tight">
+            I&apos;m finishing an integrated Master&apos;s in Physics at Edinburgh, alongside freelance full-stack web development and research on
+            the HIBEAM experiment at the European Spallation Source.
+          </p>
+          <p className="in-prose mt-7">
+            Outside physics, I run digital infrastructure for Edinburgh University Chamber Orchestra, including a Stripe ticketing platform I
+            designed and built for their site. You can see the live site, and buy tickets for their upcoming concerts, at eu-co.co.uk.
+          </p>
+          <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} target="_blank" rel="noopener noreferrer" className="in-link">
+                  {l.name}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </section>
+
+      <section aria-labelledby="tools-h" className="mt-24 grid gap-x-12 gap-y-6 md:mt-32 lg:grid-cols-12">
+        <h2 id="tools-h" className="in-display text-[length:var(--step-3)] lg:col-span-4">
+          My coding experience
+        </h2>
+        <ul className="flex flex-wrap content-start border-l border-t border-[var(--line)] lg:col-span-7 lg:col-start-6">
+          {skills.map((s) => (
+            <li key={s} className="border-b border-r border-[var(--line)] px-4 py-2.5 font-mono text-[0.8rem] transition-colors hover:bg-[var(--signal)] hover:text-[var(--signal-ink)]">
+              {s}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="exp-h" className="mt-24 grid gap-x-12 gap-y-6 md:mt-32 lg:grid-cols-12">
+        <h2 id="exp-h" className="in-display text-[length:var(--step-3)] lg:col-span-4">
+          Experience
+        </h2>
+        <div className="lg:col-span-7 lg:col-start-6">
+          <ExperienceLog entries={experience} axis={[2022, 2027]} />
+        </div>
+      </section>
+    </div>
   );
 }

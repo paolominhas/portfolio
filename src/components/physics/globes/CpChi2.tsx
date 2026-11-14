@@ -66,15 +66,15 @@ export default function CpChi2({ part }: { part: "cpv" | "valid" }) {
       />
       <div className="grid sm:grid-cols-3 gap-3 mt-4 text-sm">
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Highest point</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Highest point</p>
           <p className="text-white/70">χ² = <span className="text-white">{peak.toFixed(0)}</span> (σ ≈ {Math.sqrt(peak).toFixed(1)}) at δCP/π = {peakAt.toFixed(2)}</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">The two humps</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">The two humps</p>
           <p className="text-white/70">negative side χ² ≈ <span className="text-white">{pNeg.v.toFixed(0)}</span> at {pNeg.x.toFixed(2)}; positive side <span className="text-white">{pPos.v.toFixed(0)}</span> at {pPos.x.toFixed(2)}</p>
         </div>
         <div className="rounded-xl border border-[var(--accent)]/40 bg-[var(--accent)]/[0.06] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] mb-1">Reading it honestly</p>
+          <p className="text-xs font-mono tracking-normal text-[var(--accent)] mb-1">Reading it honestly</p>
           <p className="text-white/70">This is χ², so the 5σ line is at 25. The published TDR curve is σ and peaks near 5σ for its staged 7-year exposure; this one is higher, and rough between δCP/π ≈ 0.45 and 0.65, which includes the dip at 0.5 the report mentions.</p>
         </div>
       </div>

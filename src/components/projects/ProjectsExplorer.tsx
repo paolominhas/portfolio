@@ -130,40 +130,32 @@ export default function ProjectsExplorer({ projects }: { projects: ExplorerProje
   };
   const toggleTool = (t: string) => setTools((cur) => (cur.includes(t) ? cur.filter((x) => x !== t) : [...cur, t]));
 
-  const chip = (active: boolean) =>
-    `inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors ${
-      active ? "border-white bg-white text-black" : "border-white/15 text-zinc-300 hover:border-white/40 hover:text-white"
-    }`;
-
   return (
     <div>
       {/* Search + sort */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+      <div className="mb-7 flex flex-col gap-x-10 gap-y-4 sm:flex-row sm:items-end">
         <label className="relative flex-1">
-          <span className="sr-only">Search projects</span>
-          <Search size={16} aria-hidden className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+          <span className="in-label mb-1 block">Search</span>
           <input
             ref={searchRef}
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setQ("")}
-            placeholder="Search projects, tools, topics…  ( / )"
-            className="w-full rounded-xl bg-zinc-900/70 border border-white/10 focus:border-white/40 outline-none pl-11 pr-10 py-3 text-white placeholder:text-zinc-500"
+            placeholder="Projects, tools, topics…  ( / )"
+            className="in-field pr-9"
           />
-          {q && (
-            <button type="button" onClick={() => setQ("")} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-zinc-500 hover:text-white">
-              <X size={16} />
+          {q ? (
+            <button type="button" onClick={() => setQ("")} aria-label="Clear search" className="absolute bottom-2.5 right-0 p-1 text-[var(--ink-2)] hover:text-[var(--ink)]">
+              <X size={18} />
             </button>
+          ) : (
+            <Search size={18} aria-hidden className="absolute bottom-3.5 right-1 text-[var(--ink-2)]" />
           )}
         </label>
-        <label className="flex items-center gap-2 text-sm text-zinc-400">
-          <span>Sort</span>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as Sort)}
-            className="rounded-xl bg-zinc-900/70 border border-white/10 focus:border-white/40 outline-none px-3 py-3 text-white"
-          >
+        <label className="flex items-center gap-3">
+          <span className="in-label">Sort</span>
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="in-chip bg-[var(--ground)] !text-[var(--ink)]">
             <option value="featured">Featured</option>
             <option value="az">A to Z</option>
           </select>
@@ -171,52 +163,43 @@ export default function ProjectsExplorer({ projects }: { projects: ExplorerProje
       </div>
 
       {/* Categories */}
-      <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2 mb-4">
-        <button type="button" onClick={() => setCat("all")} aria-pressed={cat === "all"} className={chip(cat === "all")}>
-          All <span className="text-xs opacity-60">{countFor("all")}</span>
+      <div role="group" aria-label="Filter by category" className="mb-4 flex flex-wrap gap-2">
+        <button type="button" onClick={() => setCat("all")} aria-pressed={cat === "all"} className="in-chip">
+          All <small>{countFor("all")}</small>
         </button>
         {CATEGORIES.map((c) => (
-          <button key={c.id} type="button" onClick={() => setCat(c.id)} aria-pressed={cat === c.id} title={c.blurb} className={chip(cat === c.id)}>
-            {c.label} <span className="text-xs opacity-60">{countFor(c.id)}</span>
+          <button key={c.id} type="button" onClick={() => setCat(c.id)} aria-pressed={cat === c.id} title={c.blurb} className="in-chip">
+            {c.label} <small>{countFor(c.id)}</small>
           </button>
         ))}
       </div>
 
       {/* Tools */}
       {toolOptions.length > 0 && (
-        <div role="group" aria-label="Filter by tool" className="flex flex-wrap items-center gap-2 mb-8">
-          <span className="text-xs uppercase tracking-widest text-zinc-500 mr-1">Tools</span>
-          {toolOptions.map((t) => {
-            const on = tools.includes(t);
-            return (
-              <button
-                key={t}
-                type="button"
-                onClick={() => toggleTool(t)}
-                aria-pressed={on}
-                className={`rounded-md px-2.5 py-1 text-xs font-mono transition-colors ${on ? "bg-white text-black" : "bg-zinc-800/60 text-zinc-400 hover:text-white"}`}
-              >
-                {t}
-              </button>
-            );
-          })}
+        <div role="group" aria-label="Filter by tool" className="mb-10 flex flex-wrap items-center gap-2">
+          <span className="in-label mr-1">Tools</span>
+          {toolOptions.map((t) => (
+            <button key={t} type="button" onClick={() => toggleTool(t)} aria-pressed={tools.includes(t)} className="in-chip !min-h-[1.9rem] !px-2.5 font-mono !text-[0.75rem]">
+              {t}
+            </button>
+          ))}
         </div>
       )}
 
       {/* Status line */}
-      <div className="flex items-center justify-between mb-6 min-h-[1.5rem]">
-        <p aria-live="polite" className="text-sm text-zinc-500">
+      <div className="mb-3 flex min-h-[1.5rem] items-center justify-between">
+        <p aria-live="polite" className="in-label">
           {filtering ? `${shown.length} of ${projects.length} projects` : `${projects.length} projects`}
         </p>
         {filtering && (
-          <button type="button" onClick={reset} className="text-sm text-zinc-400 hover:text-white underline underline-offset-4">
+          <button type="button" onClick={reset} className="in-link text-sm">
             Clear filters
           </button>
         )}
       </div>
 
-      {/* Cards: all stay in the DOM, filtering toggles `hidden`. Sorted order applied via CSS order. */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Rows: all stay in the DOM, filtering toggles `hidden`. Sorted order applied via CSS order. */}
+      <div className="flex flex-col border-t border-[var(--line)]">
         {projects.map((project) => {
           const isExternal = Boolean(project.external);
           const href = isExternal ? project.external! : `/projects/${project.slug}`;
@@ -229,49 +212,47 @@ export default function ProjectsExplorer({ projects }: { projects: ExplorerProje
               rel={isExternal ? "noopener noreferrer" : undefined}
               hidden={!shownIds.has(project.id)}
               style={order !== undefined && order >= 0 ? { order } : undefined}
-              className="group relative block bg-zinc-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300 [&[hidden]]:hidden"
+              className="in-row group grid grid-cols-1 items-start gap-x-8 gap-y-3 py-7 md:grid-cols-[11rem_minmax(0,1fr)_15rem] md:px-4 [&[hidden]]:hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-              {hasCover(project.slug) && (
-                <div className="relative z-10 aspect-[16/8] overflow-hidden border-b border-white/10">
-                  <div className="absolute inset-0 motion-safe:group-hover:scale-[1.035] transition-transform duration-500 ease-out">
-                    <CoverArt kind={coverForSlug(project.slug)} className="w-full h-full" />
-                  </div>
-                </div>
-              )}
-              <div className="p-8 relative z-10">
-                <div className="flex items-center justify-between mb-4 gap-4">
-                  <span className="text-[10px] uppercase tracking-widest text-zinc-400 border border-white/15 rounded-full px-2.5 py-1">
-                    {catLabel[project.category]}
+              <span className="hidden md:block">
+                {hasCover(project.slug) ? (
+                  <span className="block aspect-[16/10] overflow-hidden rounded-[3px] border border-[var(--line)]">
+                    <CoverArt kind={coverForSlug(project.slug)} className="h-full w-full" />
                   </span>
-                  {isExternal && (
-                    <span className="shrink-0 inline-flex items-center gap-1 text-[10px] uppercase tracking-widest text-zinc-500 group-hover:text-zinc-300 transition-colors">
-                      {hostOf(project.external!)} <ArrowUpRight size={12} />
-                    </span>
-                  )}
-                </div>
-                <h2 className="text-2xl font-bold mb-3 group-hover:text-white transition-colors">{project.title}</h2>
-                <p className="text-zinc-400 line-clamp-2 mb-5">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className={`text-xs font-mono px-2 py-1 rounded ${tools.includes(tech) ? "bg-white text-black" : "text-zinc-400 bg-zinc-800/50"}`}
-                    >
+                ) : (
+                  <span className="in-label block pt-2">{catLabel[project.category]}</span>
+                )}
+              </span>
+              <span>
+                <span className="in-label mb-1 block md:hidden">{catLabel[project.category]}</span>
+                <h2 className="text-[length:var(--step-2)] font-semibold leading-tight transition-colors group-hover:text-[var(--signal)]">{project.title}</h2>
+                <span className="mt-2 block max-w-[64ch] leading-relaxed text-[var(--ink-2)]">{project.description}</span>
+              </span>
+              <span className="md:pt-2 md:text-right">
+                {hasCover(project.slug) && <span className="in-label hidden md:block">{catLabel[project.category]}</span>}
+                <span className="in-label block">
+                  {project.techStack.map((tech, i) => (
+                    <span key={tech} className={tools.includes(tech) ? "text-[var(--signal)]" : undefined}>
                       {tech}
+                      {i < project.techStack.length - 1 ? ", " : ""}
                     </span>
                   ))}
-                </div>
-              </div>
+                </span>
+                {isExternal && (
+                  <span className="in-label mt-2 inline-flex items-center gap-1 text-[var(--ink)]">
+                    Opens {hostOf(project.external!)} <ArrowUpRight size={12} />
+                  </span>
+                )}
+              </span>
             </Link>
           );
         })}
       </div>
 
       {shown.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-white/15 p-10 text-center">
-          <p className="text-zinc-300 mb-2">No projects match{q.trim() ? <> “{q.trim()}”</> : " those filters"}.</p>
-          <button type="button" onClick={reset} className="text-sm text-zinc-400 hover:text-white underline underline-offset-4">
+        <div className="border-b border-[var(--line)] py-12">
+          <p className="mb-3 text-[length:var(--step-1)]">No projects match{q.trim() ? <> “{q.trim()}”</> : " those filters"}.</p>
+          <button type="button" onClick={reset} className="in-link">
             Clear filters
           </button>
         </div>

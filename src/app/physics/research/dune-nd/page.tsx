@@ -1,3 +1,4 @@
+import NextProject from "@/components/physics/research/NextProject";
 import type { Metadata } from "next";
 import DuneNdContent from "@/components/physics/dune-nd/DuneNdContent";
 
@@ -26,6 +27,7 @@ export default function DuneNdPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <DuneNdContent />
+      <NextProject slug="dune-nd" />
     </>
   );
 }

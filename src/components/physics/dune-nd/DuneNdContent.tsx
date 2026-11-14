@@ -50,7 +50,7 @@ const H2 = ({ id, n, children }: { id: string; n: number; children: React.ReactN
 
 const Plain = ({ children }: { children: React.ReactNode }) => (
   <div className="max-w-[44rem] my-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
-    <p className="text-xs font-mono uppercase tracking-[0.18em] text-white/40 mb-2">In plain English</p>
+    <p className="text-xs font-mono tracking-[0.02em] text-white/40 mb-2">In plain English</p>
     <div className="text-white/70 text-base leading-relaxed">{children}</div>
   </div>
 );
@@ -73,7 +73,7 @@ export default function DuneNdContent() {
           </Link>
           <div className="flex flex-wrap gap-2 mb-6">
             {["Neutrino physics", "DUNE", "Near detector", "Data analysis"].map((t) => (
-              <span key={t} className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">
+              <span key={t} className="px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">
                 {t}
               </span>
             ))}
@@ -130,7 +130,7 @@ export default function DuneNdContent() {
         <div className="max-w-[44rem] overflow-x-auto rounded-xl border border-white/10">
           <table className="w-full text-left text-sm">
             <caption className="text-left text-xs text-white/40 px-4 pt-3 pb-2">What comes off the target (the report’s Table 1, from NA61/SHINE measurements)</caption>
-            <thead className="text-[11px] uppercase tracking-wider text-white/45 bg-white/[0.03]">
+            <thead className="text-[11px] tracking-normal text-white/45 bg-white/[0.03]">
               <tr><th className="px-4 py-2 font-normal">Particle</th><th className="px-4 py-2 font-normal">Decays to</th><th className="px-4 py-2 font-normal">Share of the beam</th></tr>
             </thead>
             <tbody className="text-white/70">
@@ -163,7 +163,7 @@ export default function DuneNdContent() {
         <p className="sm:hidden text-[11px] text-white/40 mb-1">Swipe the table sideways to see every column.</p>
                 <div className="max-w-[44rem] overflow-x-auto rounded-xl border border-white/10">
           <table className="w-full text-left text-sm min-w-[34rem]">
-            <thead className="text-[11px] uppercase tracking-wider text-white/45 bg-white/[0.03]">
+            <thead className="text-[11px] tracking-normal text-white/45 bg-white/[0.03]">
               <tr><th className="px-4 py-2 font-normal">Interaction</th><th className="px-4 py-2 font-normal">What happens</th><th className="px-4 py-2 font-normal">What goes wrong for the energy</th></tr>
             </thead>
             <tbody className="text-white/70 align-top">
@@ -308,8 +308,8 @@ export default function DuneNdContent() {
                 <span>{v.what}</span>
               </summary>
               <div className="mt-3 pl-6 text-sm text-white/65 space-y-2">
-                <p><span className="text-white/40 font-mono text-[11px] uppercase tracking-wider mr-2">How</span>{v.how}</p>
-                <p><span className="text-[#5FD0A8] font-mono text-[11px] uppercase tracking-wider mr-2">Result</span>{v.result}</p>
+                <p><span className="text-white/40 font-mono text-[11px] tracking-normal mr-2">How</span>{v.how}</p>
+                <p><span className="text-[#5FD0A8] font-mono text-[11px] tracking-normal mr-2">Result</span>{v.result}</p>
               </div>
             </details>
           ))}

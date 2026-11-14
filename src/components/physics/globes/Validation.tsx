@@ -48,19 +48,19 @@ export default function Validation() {
       />
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5 text-sm">
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Probability, 100 points</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Probability, 100 points</p>
           <p className="text-white/70">median difference <span className="text-white">{r.median.toExponential(1)}</span>; worst <span className="text-white">{r.max.toExponential(1)}</span> at {r.at.toFixed(2)} GeV (fastest oscillation)</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Events, far detector</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Events, far detector</p>
           <p className="text-white/70">νe appearance totals agree with both saved GLoBES event files to <span className="text-white">{(V.eventsRelErr * 100).toFixed(2)}%</span> (δCP = 0° and 285°)</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">3 flavours vs 3+1 at zero</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">3 flavours vs 3+1 at zero</p>
           <p className="text-white/70">χ² curves differ by at most <span className="text-white">{V.chi3v31MaxAbs}</span> (≤ {(V.chi3v31MaxRel * 100).toFixed(1)}%)</p>
         </div>
         <div className="rounded-xl border border-[var(--accent)]/40 bg-[var(--accent)]/[0.06] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-[var(--accent)] mb-1">Not reproduced</p>
+          <p className="text-xs font-mono tracking-normal text-[var(--accent)] mb-1">Not reproduced</p>
           <p className="text-white/70">The near detector’s absolute event totals (needs a factor {V.ndRatio} that is not constant in energy)</p>
         </div>
       </div>

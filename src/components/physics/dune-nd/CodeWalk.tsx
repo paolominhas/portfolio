@@ -9,7 +9,7 @@ export default function CodeWalk() {
   const m = MACROS[i];
   return (
     <div className="my-10 rounded-2xl border border-[var(--accent-border)] bg-white/[0.03] p-5 md:p-8">
-      <p className="text-xs font-mono uppercase tracking-[0.2em] text-[var(--accent)] mb-2">The code</p>
+      <p className="text-xs font-mono tracking-[0.02em] text-[var(--accent)] mb-2">The code</p>
       <h3 className="font-bodoni text-2xl md:text-3xl text-white mb-5">Five macros, five questions</h3>
       <div role="tablist" aria-label="Macros" className="flex flex-wrap gap-1.5 mb-6">
         {MACROS.map((x, k) => (
@@ -36,7 +36,7 @@ export default function CodeWalk() {
         <div className="min-w-0">
           <p className="text-white font-bodoni text-xl mb-2">{m.title}</p>
           <p className="text-white/65 text-base leading-relaxed">{m.plain}</p>
-          <p className="mt-4 text-xs font-mono uppercase tracking-wider text-white/40">Produces</p>
+          <p className="mt-4 text-xs font-mono tracking-normal text-white/40">Produces</p>
           <p className="text-white/70 text-sm">{m.figs} of the report</p>
         </div>
       </div>

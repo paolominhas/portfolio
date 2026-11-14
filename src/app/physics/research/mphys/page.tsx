@@ -1,3 +1,4 @@
+import NextProject from "@/components/physics/research/NextProject";
 import type { Metadata } from 'next';
 import MphysContent from '@/components/physics/MphysContent';
 
@@ -35,6 +36,7 @@ export default function MphysResearchPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <MphysContent />
+      <NextProject slug="mphys" />
     </>
   );
 }

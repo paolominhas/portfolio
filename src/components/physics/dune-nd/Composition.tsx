@@ -122,10 +122,10 @@ export default function Composition() {
           </div>
         </div>
         <div className="min-w-0">
-          <p className="text-xs uppercase tracking-wider text-white/40 mb-2">Share of the sample, by energy</p>
+          <p className="text-xs tracking-normal text-white/40 mb-2">Share of the sample, by energy</p>
           <div className="rounded-xl border border-white/10 overflow-hidden text-sm">
             <table className="w-full text-left">
-              <thead className="bg-white/[0.04] text-[11px] uppercase tracking-wider text-white/45">
+              <thead className="bg-white/[0.04] text-[11px] tracking-normal text-white/45">
                 <tr><th className="px-3 py-2 font-normal">GeV</th>{LAY.map((k) => <th key={k} className="px-2 py-2 font-normal" style={{ color: COLOR[k] }}>{k === "QE" ? "CCQE" : k}</th>)}</tr>
               </thead>
               <tbody className="font-mono text-xs text-white/75">

@@ -1,3 +1,4 @@
+import NextProject from "@/components/physics/research/NextProject";
 import type { Metadata } from "next";
 import PpssContent from "@/components/physics/ppss/PpssContent";
 
@@ -26,6 +27,7 @@ export default function PpssPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PpssContent />
+      <NextProject slug="ppss" />
     </>
   );
 }

@@ -74,20 +74,20 @@ export default function LimitCalculator() {
 
       <div className="grid gap-3 sm:grid-cols-3 mt-6 text-center" aria-live="polite">
         <div className="rounded-lg border border-white/10 p-3">
-          <div className="text-xs uppercase tracking-wider text-white/40">n_sig / n_ref</div>
+          <div className="text-xs tracking-normal text-white/40">n_sig / n_ref</div>
           <div className="font-bodoni text-2xl text-white">{isFinite(ratioYield) ? ratioYield.toFixed(4) : "–"}</div>
         </div>
         <div className="rounded-lg border border-white/10 p-3">
-          <div className="text-xs uppercase tracking-wider text-white/40">ε_ref / ε_sig</div>
+          <div className="text-xs tracking-normal text-white/40">ε_ref / ε_sig</div>
           <div className="font-bodoni text-2xl text-white">{isFinite(ratioEff) ? ratioEff.toFixed(4) : "–"}</div>
         </div>
         <div className="rounded-lg border border-white/10 p-3">
-          <div className="text-xs uppercase tracking-wider text-white/40">B_ref</div>
+          <div className="text-xs tracking-normal text-white/40">B_ref</div>
           <div className="font-bodoni text-2xl text-white"><Sci x={brRef} d={3} /></div>
         </div>
       </div>
       <div className="mt-4 rounded-xl border border-[var(--accent)]/50 bg-[var(--accent)]/[0.07] p-5 text-center">
-        <div className="text-xs uppercase tracking-wider text-white/45">Branching-fraction limit</div>
+        <div className="text-xs tracking-normal text-white/45">Branching-fraction limit</div>
         <div className="font-bodoni text-3xl md:text-4xl text-white">B(Λc⁺ → p e μ) &lt; <Sci x={brSig} /></div>
         <div className="mt-2 text-sm text-white/60">
           {isFinite(vsPdg) ? `${vsPdg.toFixed(0)} times smaller than the previous limit you entered.` : ""}

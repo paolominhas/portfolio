@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import WebNav from "@/components/web/WebNav";
-import WebFooter from "@/components/web/WebFooter";
+import Rail from "@/components/instrument/Rail";
+import Backplate from "@/components/instrument/Backplate";
+import { SpecimenProvider } from "@/components/instrument/Specimen";
+import { availableSpecimens } from "@/lib/specimens";
+import { bricolage, fontVars } from "@/fonts";
 import { tutorials } from "@/data/web-data";
 
 /**
@@ -48,10 +51,13 @@ export default function WebLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-paper text-navy selection:bg-yellow selection:text-navy">
-      <WebNav navItems={webNavItems} homeHref="https://paolo.org.uk" />
+    <div data-skin="web" className={`${fontVars} ${bricolage.variable} min-h-screen bg-paper text-navy selection:bg-yellow selection:text-navy`}>
+      <SpecimenProvider available={availableSpecimens()}>
+      {/* The shared Instruments rail and footer replace the old web-only nav and footer. */}
+      <Rail skin="web" siteLabel="Web" items={webNavItems} cta={{ name: "Let's talk", href: "https://paolo.org.uk/contact" }} />
       <main className="relative z-10">{children}</main>
-      <WebFooter />
+      <Backplate skin="web" siteLabel="Web" items={webNavItems} />
+  </SpecimenProvider>
     </div>
   );
 }

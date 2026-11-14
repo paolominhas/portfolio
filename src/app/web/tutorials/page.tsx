@@ -44,10 +44,10 @@ export default function TutorialsIndex() {
                 <p className="text-sm text-navy/60">{tut.description}</p>
               </div>
               <div className="mt-4 md:mt-0 flex gap-3 shrink-0">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-navy/50 bg-paper border border-navy/10 px-2.5 py-1 rounded-full">
+                <span className="font-mono text-[11px] text-navy/50 bg-paper border border-navy/10 px-2.5 py-1 rounded-[3px]">
                   {tut.date}
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-navy bg-yellow/25 border border-yellow/40 px-2.5 py-1 rounded-full">
+                <span className="font-mono text-[11px] text-navy bg-yellow/25 border border-yellow/40 px-2.5 py-1 rounded-[3px]">
                   {tut.difficulty}
                 </span>
               </div>

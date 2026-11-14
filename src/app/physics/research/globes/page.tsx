@@ -1,3 +1,4 @@
+import NextProject from "@/components/physics/research/NextProject";
 import type { Metadata } from "next";
 import GlobesContent from "@/components/physics/globes/GlobesContent";
 
@@ -26,6 +27,7 @@ export default function GlobesPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <GlobesContent />
+      <NextProject slug="globes" />
     </>
   );
 }

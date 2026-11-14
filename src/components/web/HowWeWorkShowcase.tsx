@@ -54,9 +54,7 @@ export default function HowWeWorkShowcase() {
     <section className="bg-paper px-6 md:px-10 py-20 md:py-28">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal className="mb-14 md:mb-16 max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-            01 — How we work
-          </p>
+          <p className="in-label mb-3">How we work</p>
           <HeroText
             as="h2"
             text="A website should earn its keep."

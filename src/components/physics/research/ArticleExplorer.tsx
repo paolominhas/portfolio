@@ -36,7 +36,7 @@ export default function ArticleExplorer({ articles }: { articles: PhysicsArticle
           key: a.slug,
           href: `/articles/${a.slug}`,
           cover: coverForSlug(a.slug),
-          kicker: (a.tags[0] ?? "Article").toUpperCase(),
+          kicker: a.tags[0] ?? "Article",
           title: a.title,
           standfirst: a.excerpt,
           chips: a.tags,
@@ -63,7 +63,7 @@ export default function ArticleExplorer({ articles }: { articles: PhysicsArticle
   return (
     <div>
       <style>{CARD_CSS}</style>
-      <div className="max-w-2xl mb-5">
+      <div className="max-w-2xl mb-7">
         <SearchBox q={q} setQ={setQ} label="Search articles" placeholder="Search articles and topics…  ( / )" />
       </div>
       {topics.length > 0 && (

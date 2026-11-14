@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Specimen from "@/components/instrument/Specimen";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import BeamlineDiagram from "@/components/physics/hibeam/BeamlineDiagram";
 import { FAQ, GLOSSARY, QUICK_FACTS, REVIEWED, REVIEWED_ISO, SOURCES, URL } from "@/data/hibeam";
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["https://physics.paolo.org.uk/hibeam/og"] },
 };
 
-const H2 = "font-bodoni text-3xl md:text-4xl font-medium text-white mt-16 mb-5 scroll-mt-28";
+const H2 = "in-display text-[length:var(--step-3)] text-white mt-20 mb-5 scroll-mt-28";
 const P = "text-lg leading-relaxed text-white/65";
 const A = "text-[var(--accent)] hover:underline";
 
@@ -96,11 +97,12 @@ export default function HibeamPage() {
 
       <header className="relative overflow-hidden border-b border-white/5 px-6 pb-16 pt-32">
         <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-ember/15 blur-[130px]" />
+        <Specimen slot="physics-hibeam" className="absolute right-[max(1.5rem,calc(50%-41rem))] top-28 z-0 hidden w-[min(20vw,17rem)] xl:block" />
         <div className="relative z-10 mx-auto max-w-3xl">
-          <Link href="/research" className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white/40 transition-colors hover:text-white">
+          <Link href="/research" className="in-label mb-10 inline-flex items-center gap-2 transition-colors hover:text-white">
             <ArrowLeft size={14} /> Research
           </Link>
-          <h1 className="mb-6 font-bodoni text-5xl font-medium leading-tight tracking-tight text-white md:text-7xl">What is HIBEAM?</h1>
+          <h1 className="in-display mb-7 text-[clamp(3rem,8vw,6.2rem)] text-white">What is HIBEAM?</h1>
           <p className="text-xl md:text-2xl font-light leading-relaxed text-white/80">
             HIBEAM is a planned neutron experiment at the <strong className="font-medium text-white">European Spallation Source</strong> in Lund,
             Sweden. It will look for neutrons turning into <em>antineutrons</em> or into hypothetical <em>sterile neutrons</em>: processes the
@@ -139,11 +141,11 @@ export default function HibeamPage() {
         <section aria-labelledby="facts">
           <h2 id="facts" className={H2}>HIBEAM at a glance</h2>
           <div className="overflow-x-auto rounded-xl border border-white/10">
-            <table className="w-full min-w-[420px] border-collapse text-left text-base">
+            <table className="w-full border-collapse text-left text-base">
               <tbody>
                 {QUICK_FACTS.map((f) => (
                   <tr key={f.label} className="border-b border-white/10 last:border-0">
-                    <th scope="row" className="w-40 align-top px-4 py-3 text-xs font-mono font-normal uppercase tracking-wider text-white/40">{f.label}</th>
+                    <th scope="row" className="w-28 sm:w-40 align-top px-3 sm:px-4 py-3 in-label font-normal">{f.label}</th>
                     <td className="px-4 py-3 text-white/75">{f.value}</td>
                   </tr>
                 ))}

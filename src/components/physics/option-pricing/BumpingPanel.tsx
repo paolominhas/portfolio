@@ -191,7 +191,7 @@ export default function BumpingPanel({ p, kind }: { p: OptionParams; kind: Optio
         <div className="overflow-x-auto">
           <table className="w-full min-w-[480px] border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-white/10 text-[11px] font-mono uppercase tracking-wider text-white/40">
+              <tr className="border-b border-white/10 text-[11px] font-mono tracking-normal text-white/40">
                 <th className="py-2 pr-4 font-normal">Greek</th>
                 <th className="py-2 pr-4 text-right font-normal">Analytic</th>
                 <th className="py-2 pr-4 text-right font-normal">Bump and reprice</th>

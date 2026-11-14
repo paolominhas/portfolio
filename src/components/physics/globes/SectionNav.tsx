@@ -26,7 +26,7 @@ export default function SectionNav({ items }: { items: NavItem[] }) {
   return (
     <>
       <nav aria-label="Report sections" className="hidden xl:block fixed left-6 top-40 w-48 z-30">
-        <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35 mb-3">Contents</p>
+        <p className="text-[10px] font-mono tracking-[0.02em] text-white/35 mb-3">Contents</p>
         <ol className="space-y-2 text-sm">
           {items.map((i, k) => (
             <li key={i.id}>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { visibleProjects } from "@/data/projects";
+import Specimen from "@/components/instrument/Specimen";
 import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
 
 /**
@@ -47,15 +48,16 @@ export default function ProjectsPage() {
   };
 
   return (
-    <section className="pt-32 px-6 md:px-20 max-w-7xl mx-auto pb-24">
+    <section className="mx-auto max-w-[90rem] px-5 pb-28 pt-28 md:px-8 md:pt-36">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Projects
-      </h1>
-      <p className="text-zinc-400 max-w-2xl mb-10">
-        Physics research, web development, quantitative finance and orchestra production. Search, or filter by category and tool.
-        Physics and web projects open on their own sites; the badge on each card says where.
-      </p>
+      <div className="in-enter relative mb-12">
+        <Specimen slot="main-projects" className="absolute -top-4 right-0 hidden w-[min(30vw,26rem)] lg:block" />
+        <h1 className="in-display text-[length:var(--step-5)]">Projects</h1>
+        <p className="in-prose mt-6">
+          Physics research, web development, quantitative finance and orchestra production. Search, or filter by category and tool.
+          Physics and web projects open on their own sites; each row says where.
+        </p>
+      </div>
       <ProjectsExplorer projects={projects} />
     </section>
   );

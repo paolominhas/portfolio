@@ -99,7 +99,7 @@ export default function BeamlineDiagram() {
         ))}
       </div>
       <div role="tabpanel" aria-live="polite" className="mt-4 text-white/70 leading-relaxed">
-        <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-1">{cur.range}</p>
+        <p className="text-xs font-mono tracking-normal text-white/40 mb-1">{cur.range}</p>
         <p>{cur.text}</p>
       </div>
       <figcaption className="mt-4 text-xs text-white/40">

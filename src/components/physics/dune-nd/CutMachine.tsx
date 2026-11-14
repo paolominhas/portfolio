@@ -64,7 +64,7 @@ function Verdict({ ok, name, code, why }: { ok: boolean; name: string; code: str
     <div className={`rounded-xl border p-4 ${ok ? "border-[#2F9E7C]/60 bg-[#2F9E7C]/[0.08]" : "border-white/10 bg-white/[0.02]"}`}>
       <div className="flex items-baseline justify-between gap-3">
         <p className="text-white text-sm font-semibold">{name}</p>
-        <span className={`text-xs font-mono uppercase tracking-wider ${ok ? "text-[#5FD0A8]" : "text-white/40"}`}>{ok ? "passes" : "rejected"}</span>
+        <span className={`text-xs font-mono tracking-normal ${ok ? "text-[#5FD0A8]" : "text-white/40"}`}>{ok ? "passes" : "rejected"}</span>
       </div>
       <p className="font-mono text-[11px] text-white/40 mt-0.5">{code}</p>
       <p className="text-xs text-white/60 mt-2 leading-relaxed">{why}</p>
@@ -105,7 +105,7 @@ export default function CutMachine() {
       </div>
       <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8">
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs uppercase tracking-wider text-white/40 mb-2">Particles in the final state</p>
+          <p className="text-xs tracking-normal text-white/40 mb-2">Particles in the final state</p>
           <div className="flex items-center justify-between gap-3 py-1.5 border-b border-white/5">
             <span className="text-white/80 text-sm">
               Muon from a νμ charged-current event <span className="font-mono text-[10px] text-white/35">LepPDG == 13</span>

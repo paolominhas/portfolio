@@ -61,9 +61,9 @@ export default function MphysContent() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-ember/15 blur-[130px] rounded-full pointer-events-none"></div>
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <div className="flex flex-wrap justify-center gap-2 mb-6">
-            <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">Particle Physics</span>
-            <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">C++ Simulation</span>
-            <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">European Spallation Source</span>
+            <span className="px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">Particle Physics</span>
+            <span className="px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">C++ Simulation</span>
+            <span className="px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">European Spallation Source</span>
           </div>
           <h1 className="font-bodoni text-5xl md:text-7xl font-medium text-white tracking-tight mb-6 leading-tight [text-shadow:0_4px_40px_rgba(255,107,61,0.15)]">
             Vanishing Neutrons
@@ -137,7 +137,7 @@ export default function MphysContent() {
           <div className="absolute bottom-0 left-0 w-full bg-abyss/85 backdrop-blur-md border-t border-[var(--accent-border)] p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-2 h-2 rounded-full bg-ember shadow-[0_0_8px_#FF6B3D]"></div>
-              <p className="text-xs font-bold text-[var(--accent)] uppercase tracking-[0.2em]">
+              <p className="text-xs font-bold text-[var(--accent)] tracking-[0.02em]">
                 The Prototype TPC
               </p>
             </div>
@@ -174,7 +174,7 @@ export default function MphysContent() {
 
         {/* --- ACKNOWLEDGEMENTS FOOTNOTE --- */}
         <footer className="mt-24 pt-8 border-t border-white/10">
-          <h4 className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">
+          <h4 className="text-xs font-semibold text-white/40 tracking-normal mb-4">
             Acknowledgements
           </h4>
           <p className="text-sm md:text-base text-white/40 leading-relaxed">

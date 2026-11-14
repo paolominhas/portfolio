@@ -66,7 +66,7 @@ export default function Playground() {
         aria-hidden
         className="sticky top-20 z-20 mb-4 flex items-baseline justify-between rounded-xl border border-white/10 bg-abyss/90 px-4 py-2 backdrop-blur lg:hidden"
       >
-        <span className="text-[11px] font-mono uppercase tracking-wider text-white/40">
+        <span className="text-[11px] font-mono tracking-normal text-white/40">
           Black–Scholes {kind} price
         </span>
         <span className="font-mono text-lg tabular-nums text-[var(--accent)]">
@@ -91,7 +91,7 @@ export default function Playground() {
           />
 
           <div>
-            <div className="mb-2 text-xs font-mono uppercase tracking-wider text-white/50">
+            <div className="mb-2 text-xs font-mono tracking-normal text-white/50">
               Presets
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -201,7 +201,7 @@ export default function Playground() {
         <div className="min-w-0">
           <Card className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-white/40">
+              <div className="text-[11px] font-mono tracking-normal text-white/40">
                 Black–Scholes price of the {kind}
               </div>
               <div className="mt-1 font-mono text-3xl tabular-nums text-[var(--accent)]">

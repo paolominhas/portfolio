@@ -124,7 +124,7 @@ export default function BdtLab() {
                 ["Gap", (model.aucTrain[trees] - model.aucTest[trees]).toFixed(3)],
               ].map(([k, v]) => (
                 <div key={k} className="rounded-lg border border-white/10 p-3">
-                  <div className="text-xs uppercase tracking-wider text-white/40">{k}</div>
+                  <div className="text-xs tracking-normal text-white/40">{k}</div>
                   <div className="font-bodoni text-2xl text-white">{v}</div>
                 </div>
               ))}

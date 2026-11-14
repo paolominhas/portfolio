@@ -51,7 +51,7 @@ const H2 = ({ id, n, children }: { id: string; n: number; children: React.ReactN
 
 const Plain = ({ children }: { children: React.ReactNode }) => (
   <div className="max-w-[44rem] my-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
-    <p className="text-xs font-mono uppercase tracking-[0.18em] text-white/40 mb-2">In plain English</p>
+    <p className="text-xs font-mono tracking-[0.02em] text-white/40 mb-2">In plain English</p>
     <div className="text-white/70 text-base leading-relaxed">{children}</div>
   </div>
 );
@@ -85,7 +85,7 @@ export default function PpssContent() {
           </Link>
           <div className="flex flex-wrap gap-2 mb-6">
             {["LHCb", "Flavour physics", "Machine learning", "Student project"].map((t) => (
-              <span key={t} className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">
+              <span key={t} className="px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)] bg-[var(--accent-muted)] rounded-full">
                 {t}
               </span>
             ))}

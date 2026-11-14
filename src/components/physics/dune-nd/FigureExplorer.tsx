@@ -86,11 +86,11 @@ export default function FigureExplorer() {
           </div>
           <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-relaxed space-y-3">
             <p>
-              <span className="text-xs font-mono uppercase tracking-wider text-white/40 block mb-1">What it shows</span>
+              <span className="text-xs font-mono tracking-normal text-white/40 block mb-1">What it shows</span>
               <span className="text-white/65">{info.what}</span>
             </p>
             <p>
-              <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent)]/80 block mb-1">What to look for</span>
+              <span className="text-xs font-mono tracking-normal text-[var(--accent)]/80 block mb-1">What to look for</span>
               <span className="text-white/70">{info.look}</span>
             </p>
             <p className="text-[11px] text-white/40">

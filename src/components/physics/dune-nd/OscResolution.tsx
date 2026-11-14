@@ -101,11 +101,11 @@ export default function OscResolution() {
           <Slider label="Energy scale error" value={bias} min={-0.2} max={0.2} step={0.01} onChange={setBias} format={(v) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(0)}%`} hint="Negative: reconstructed energies come out low, as the report finds." />
           <Slider label="Third curve: δCP" value={dcp} min={0} max={360} step={15} onChange={setDcp} format={(v) => `${v}°`} />
           <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm space-y-3">
-            <p className="text-xs uppercase tracking-wider text-white/40">Largest gap between δCP = −90° and +90°, kept</p>
+            <p className="text-xs tracking-normal text-white/40">Largest gap between δCP = −90° and +90°, kept</p>
             <GapRow name={`Around the first maximum (${W1[0]}–${W1[1]} GeV)`} before={g1i} after={g1s} />
             <GapRow name={`Around the second maximum (${W2[0]}–${W2[1]} GeV)`} before={g2i} after={g2s} />
             <div className="border-t border-white/10 pt-3 space-y-2">
-              <p className="text-xs uppercase tracking-wider text-white/40">Change to the −90° curve itself</p>
+              <p className="text-xs tracking-normal text-white/40">Change to the −90° curve itself</p>
               <ShiftRow name="First maximum region" v={c1} />
               <ShiftRow name="Second maximum region" v={c2} />
               <p className="text-[11px] text-white/35">Measured against that region’s full −90° to +90° gap: at 100% the blur or shift moves the curve as far as a change of δCP would.</p>

@@ -45,7 +45,7 @@ export default function Timeline() {
             <p className="mt-1 text-white/65 text-base leading-relaxed">{d.body}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {d.tag.map((t) => (
-                <span key={t} className="text-[10px] uppercase tracking-wider text-white/35">{TAG_LABEL[t]}</span>
+                <span key={t} className="text-[10px] tracking-normal text-white/35">{TAG_LABEL[t]}</span>
               ))}
             </div>
           </li>

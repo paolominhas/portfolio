@@ -66,17 +66,17 @@ export default function Beamline() {
       />
       <div className="grid sm:grid-cols-3 gap-3 mt-5 text-sm">
         <div className="rounded-xl border border-[#2F9E7C]/40 bg-[#2F9E7C]/[0.06] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-[#5FD0A8] mb-1">Near detector</p>
+          <p className="text-xs font-mono tracking-normal text-[#5FD0A8] mb-1">Near detector</p>
           <p className="text-white/70">phase {phase(L_ND).toFixed(2)} rad · P {phase(L_ND) > 30 ? "averages to" : "="} <span className="text-white">{(phase(L_ND) > 30 ? s22 / 2 : Pnd).toExponential(2)}</span></p>
           <p className="text-white/40 text-xs mt-1">Splitting at first maximum here: {dmAtND >= 0.01 ? dmAtND.toFixed(2) : dmAtND.toExponential(1)} eV²</p>
         </div>
         <div className="rounded-xl border border-[#7FB7FF]/40 bg-[#7FB7FF]/[0.06] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-[#7FB7FF] mb-1">Far detector</p>
+          <p className="text-xs font-mono tracking-normal text-[#7FB7FF] mb-1">Far detector</p>
           <p className="text-white/70">phase {phase(L_FD).toFixed(1)} rad · P {phase(L_FD) > 30 ? "averages to" : "="} <span className="text-white">{(phase(L_FD) > 30 ? s22 / 2 : Pfd).toExponential(2)}</span></p>
           <p className="text-white/40 text-xs mt-1">Splitting at first maximum here: {dmAtFD.toExponential(1)} eV²</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/45 mb-1">This splitting</p>
+          <p className="text-xs font-mono tracking-normal text-white/45 mb-1">This splitting</p>
           <p className="text-white/70">first maximum at <span className="text-white">{firstMax >= 1 ? firstMax.toFixed(1) : (firstMax * 1000).toFixed(0) + " m"}{firstMax >= 1 ? " km" : ""}</span></p>
           <p className="text-white/40 text-xs mt-1">Where the oscillation is too fast to draw, the curve shows its average, sin²2θ/2: the real beam, with its spread of energies, averages the wiggles in the same way.</p>
         </div>

@@ -9,7 +9,7 @@ import { ArrowLeft } from "lucide-react";
  */
 export default function CaseStudyFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="relative bg-navy bg-grain text-white min-h-screen overflow-x-clip">
+    <div className="in-dark relative bg-navy bg-grain text-white min-h-screen overflow-x-clip">
       <div aria-hidden className="pointer-events-none absolute -top-32 right-0 w-[34rem] h-[34rem] rounded-full bg-lilac/15 blur-[130px]" />
       <article className="relative pt-32 px-6 md:px-10 max-w-6xl mx-auto pb-24">
         <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm text-white/55 hover:text-yellow transition-colors mb-10">

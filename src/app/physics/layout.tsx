@@ -1,25 +1,18 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda } from "next/font/google";
-import PhysicsNav from "@/components/shared/SubdomainNav";
-import Footer from "@/components/shared/Footer";
+import Rail from "@/components/instrument/Rail";
+import Backplate from "@/components/instrument/Backplate";
+import { SpecimenProvider } from "@/components/instrument/Specimen";
+import { availableSpecimens } from "@/lib/specimens";
+import { fontVars } from "@/fonts";
 
 /**
- * PHYSICS LAYOUT
+ * PHYSICS LAYOUT (physics.paolo.org.uk)
  *
- * Scope note: this redesign covers the index/landing page (dark) and
- * the simulation sandbox pages (warm/painterly) — see physics/page.tsx
- * and SimulationSandbox.tsx. The nav and footer are intentionally
- * NOT rebuilt from scratch the way WebNav/MusicNav were; that wasn't
- * asked for this time, and SubdomainNav's existing "dark" pill theme
- * already sits fine over the new abyss/starfield background. Only the
- * accent hex changes, from the old #e84834 to `ember` (#FF6B3D), to
- * match the new palette in tailwind.config.ts.
- *
- * Bodoni Moda is loaded here via next/font/google for the "classic,
- * elegant, high-contrast serif" headline treatment — self-hosted at
- * build time, scoped to /physics the same way Playfair Display is
- * scoped to /music (see music/layout.tsx for the fuller explanation
- * of why that scoping works). Utility class: `font-bodoni`.
+ * The "physics" skin of the Instruments system: the same abyss / ember / kelp
+ * palette and Bodoni Moda display face as before, now with the shared rail,
+ * footer, reading face (Instrument Sans) and readout face (Martian Mono).
+ * The --accent variables the existing pages use are kept.
  */
 
 const bodoni = Bodoni_Moda({
@@ -49,14 +42,11 @@ const physicsNavItems = [
   { name: "Articles", path: "/articles" },
 ];
 
-export default function PhysicsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PhysicsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${bodoni.variable} min-h-screen`}
+      data-skin="physics"
+      className={`${bodoni.variable} ${fontVars} min-h-screen bg-[var(--ground)]`}
       style={
         {
           "--accent": "#FF6B3D",
@@ -65,15 +55,11 @@ export default function PhysicsLayout({
         } as React.CSSProperties
       }
     >
-      <PhysicsNav
-        siteName="Physics"
-        siteHref="/"
-        navItems={physicsNavItems}
-        accentColor="#FF6B3D"
-        homeHref="https://paolo.org.uk"
-      />
+      <SpecimenProvider available={availableSpecimens()}>
+      <Rail skin="physics" siteLabel="Physics" items={physicsNavItems} />
       <main className="relative z-10">{children}</main>
-      <Footer theme="dark" site="physics" accent="#FF6B3D" />
+      <Backplate skin="physics" siteLabel="Physics" items={physicsNavItems} />
+  </SpecimenProvider>
     </div>
   );
 }

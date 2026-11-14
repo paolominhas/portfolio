@@ -116,7 +116,7 @@ function Playground() {
     <div className="my-12 rounded-2xl border border-[var(--accent-border)] bg-white/[0.03] p-5 md:p-8 shadow-[0_0_40px_rgba(255,107,61,0.08)]">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-6">
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.2em] text-[var(--accent)] mb-2">Interactive</p>
+          <p className="text-xs font-mono tracking-[0.02em] text-[var(--accent)] mb-2">Interactive</p>
           <h3 className="font-bodoni text-2xl md:text-3xl text-white">Search {N} items for one</h3>
         </div>
         <label className="text-sm text-white/60 flex items-center gap-3">
@@ -362,7 +362,7 @@ export default function GroverContent() {
             {["Quantum Computing", "Qiskit", "IBM Quantum"].map((t) => (
               <span
                 key={t}
-                className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-muted)] rounded-full"
+                className="px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)] bg-[var(--accent-muted)] rounded-full"
               >
                 {t}
               </span>
@@ -473,7 +473,7 @@ export default function GroverContent() {
         </p>
 
         <footer className="mt-20 pt-8 border-t border-white/10 text-base">
-          <h4 className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">Notes</h4>
+          <h4 className="text-xs font-semibold text-white/40 tracking-normal mb-4">Notes</h4>
           <ul className="list-disc pl-6 space-y-2 text-white/50">
             <li>The marked item for each size is an arbitrary fixed choice so runs can be compared.</li>
             <li>Bitstrings follow Qiskit&apos;s convention: the rightmost bit is qubit 0.</li>

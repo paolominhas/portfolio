@@ -27,7 +27,7 @@ export default function ResearchExplorer({ projects }: { projects: ResearchProje
           href: `/research/${p.slug}`,
           cover: coverForSlug(p.slug),
           image: p.image,
-          kicker: [p.kind ?? "Research", p.tags[0]].filter(Boolean).join("  ·  ").toUpperCase(),
+          kicker: [p.kind ?? "Research", p.tags[0]].filter(Boolean).join(", "),
           title: p.title,
           standfirst: p.spotlight ? p.subtitle : p.summary,
           chips: p.spotlight ? p.techStack : p.tags.slice(0, 3),
@@ -66,7 +66,7 @@ export default function ResearchExplorer({ projects }: { projects: ResearchProje
     <div>
       <style>{CARD_CSS}</style>
 
-      <div className="max-w-2xl mb-5">
+      <div className="max-w-2xl mb-7">
         <SearchBox q={q} setQ={setQ} label="Search research" placeholder="Search projects, detectors, tools…  ( / )" />
       </div>
 
@@ -78,16 +78,16 @@ export default function ResearchExplorer({ projects }: { projects: ResearchProje
       </div>
       {topicOptions.length > 0 && (
         <div role="group" aria-label="Filter by topic" className="flex flex-wrap items-center gap-2 mb-8">
-          <span className="text-xs tracking-widest text-white/35 mr-1">TOPIC</span>
+          <span className="in-label mr-1">Topic</span>
           {topicOptions.map((t) => (
             <button
               key={t}
               type="button"
               aria-pressed={topic === t}
               onClick={() => set("topic", topic === t ? "" : t)}
-              className={`rounded-md px-2.5 py-1 text-xs font-mono transition-colors ${topic === t ? "bg-[var(--accent)] text-black" : "bg-white/5 text-white/50 hover:text-white"}`}
+              className="in-chip !min-h-[1.9rem] !px-2.5 font-mono !text-[0.75rem]"
             >
-              {t} <span className="opacity-60">{countTopic(t)}</span>
+              {t} <small>{countTopic(t)}</small>
             </button>
           ))}
         </div>

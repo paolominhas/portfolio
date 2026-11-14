@@ -1,3 +1,4 @@
+import NextProject from "@/components/physics/research/NextProject";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -63,17 +64,17 @@ export default async function ResearchDetailPage({ params }: PageProps) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs font-mono text-white/40 bg-white/5 px-2 py-1 rounded"
+              className="in-label border border-[var(--line)] px-2 py-1 rounded-[3px]"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <h1 className="font-bodoni text-4xl md:text-6xl font-medium tracking-tight text-white mb-4 [text-shadow:0_4px_40px_rgba(255,107,61,0.15)]">
+        <h1 className="in-display text-[length:var(--step-4)] md:text-[clamp(3rem,6vw,5rem)] text-white mb-5">
           {project.title}
         </h1>
-        <p className="text-lg text-white/50 max-w-2xl mb-10 leading-relaxed">
+        <p className="text-[length:var(--step-1)] text-white/75 max-w-2xl mb-10 leading-[1.45]">
           {project.subtitle}
         </p>
 
@@ -92,7 +93,7 @@ export default async function ResearchDetailPage({ params }: PageProps) {
           {project.techStack.map((tech) => (
             <span
               key={tech}
-              className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wide text-white/50 bg-white/5 border border-white/10 px-3 py-1.5 rounded"
+              className="inline-flex items-center gap-1.5 in-label border border-[var(--line)] px-3 py-1.5 rounded-[3px]"
             >
               <Wrench size={11} /> {tech}
             </span>
@@ -102,7 +103,7 @@ export default async function ResearchDetailPage({ params }: PageProps) {
         <div
           className="prose prose-invert max-w-none
             prose-headings:font-bodoni prose-headings:text-white prose-headings:font-medium
-            prose-p:text-white/60 prose-p:leading-relaxed
+            prose-p:text-white/75 prose-p:leading-relaxed prose-p:text-[1.0625rem]
             prose-em:text-white/40
             prose-a:text-[var(--accent)] prose-a:no-underline hover:prose-a:underline
             prose-strong:text-white"
@@ -111,14 +112,14 @@ export default async function ResearchDetailPage({ params }: PageProps) {
 
         {(project.repoUrl || (project.resources && project.resources.length > 0)) && (
           <div className="mt-14 pt-8 border-t border-white/10">
-            <h2 className="font-mono text-xs uppercase tracking-widest text-white/40 mb-4">Code and documents</h2>
+            <h2 className="in-display text-[length:var(--step-2)] text-white mb-5">Code and documents</h2>
             <div className="flex flex-wrap gap-3">
               {project.repoUrl && (
                 <a
                   href={project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border border-white/15 text-white/80 hover:border-[var(--accent-border)] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-[3px] border border-[var(--line)] text-white/85 hover:border-[var(--accent-border)] hover:text-white transition-colors"
                 >
                   <Github size={15} /> View the code on GitHub
                 </a>
@@ -129,7 +130,7 @@ export default async function ResearchDetailPage({ params }: PageProps) {
                   href={r.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border border-white/15 text-white/80 hover:border-[var(--accent-border)] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-[3px] border border-[var(--line)] text-white/85 hover:border-[var(--accent-border)] hover:text-white transition-colors"
                 >
                   <FileText size={15} /> {r.label}
                 </a>
@@ -138,6 +139,7 @@ export default async function ResearchDetailPage({ params }: PageProps) {
           </div>
         )}
       </article>
+      <NextProject slug={project.slug} />
     </div>
   );
 }

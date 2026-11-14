@@ -73,14 +73,14 @@ export default function SimulationSandbox({
 
           {/* Control panel */}
           <div className="rounded-2xl border border-white/40 bg-white/15 backdrop-blur-md p-6 md:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/70 mb-5">
+            <p className="font-mono text-[11px] tracking-normal text-white/70 mb-5">
               Controls
             </p>
             <div className="flex flex-col gap-5">{controls}</div>
 
             {stats && (
               <div className="mt-7 pt-6 border-t border-white/25">
-                <p className="font-mono text-[11px] uppercase tracking-widest text-white/70 mb-4">
+                <p className="font-mono text-[11px] tracking-normal text-white/70 mb-4">
                   Live readout
                 </p>
                 <div className="grid grid-cols-2 gap-3">{stats}</div>
@@ -183,7 +183,7 @@ export function SandboxToggle<T extends string>({
 export function SandboxStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl bg-black/15 border border-white/20 px-3 py-2.5">
-      <p className="font-mono text-[10px] uppercase tracking-wide text-white/60 mb-1">
+      <p className="font-mono text-[10px] tracking-normal text-white/60 mb-1">
         {label}
       </p>
       <p className="font-mono text-sm text-white font-semibold">{value}</p>
@@ -206,7 +206,7 @@ export function SandboxButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors duration-200 ${
+      className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-normal transition-colors duration-200 ${
         variant === "solid"
           ? "bg-white text-abyss hover:bg-white/90"
           : "border border-white/40 text-white hover:bg-white/10"

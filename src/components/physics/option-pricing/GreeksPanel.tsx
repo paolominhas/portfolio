@@ -77,7 +77,7 @@ export default function GreeksPanel({ p, kind }: { p: OptionParams; kind: Option
                 : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
             }`}
           >
-            <div className="text-[11px] font-mono uppercase tracking-wider text-white/40">{g.label}</div>
+            <div className="text-[11px] font-mono tracking-normal text-white/40">{g.label}</div>
             <div className="mt-1 font-mono text-lg tabular-nums text-white">{fmt(now[g.id] * g.scale, g.dp)}</div>
           </button>
         ))}

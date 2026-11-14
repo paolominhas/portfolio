@@ -1,3 +1,4 @@
+import NextProject from "@/components/physics/research/NextProject";
 import type { Metadata } from "next";
 import GroverContent from "@/components/physics/grover/GroverContent";
 
@@ -26,6 +27,7 @@ export default function GroverPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <GroverContent />
+      <NextProject slug="grover" />
     </>
   );
 }

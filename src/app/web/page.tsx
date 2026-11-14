@@ -5,9 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import { process, webProjects, type WebProject } from "@/data/web-data";
-import HeroText from "@/components/web/HeroText";
+import BlueprintHero from "@/components/instrument/BlueprintHero";
 import ScrollReveal from "@/components/web/ScrollReveal";
-import MagneticButton from "@/components/web/MagneticButton";
 import HowWeWorkShowcase from "@/components/web/HowWeWorkShowcase";
 import TerminalScrollShowcase from "@/components/web/TerminalScrollShowcase";
 import SitePreview from "@/components/web/HighlightPreviews";
@@ -99,96 +98,8 @@ export default function WebHomePage() {
 
   return (
     <div>
-      {/* ================= HERO — Navy ================= */}
-      <section className="relative overflow-hidden bg-navy bg-grain pt-40 pb-28 md:pt-48 md:pb-36 px-6 md:px-10">
-        {/* Decorative lilac glow, purely atmospheric */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-32 -right-24 w-[36rem] h-[36rem] rounded-full bg-lilac/20 blur-[120px]"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute bottom-0 left-0 w-[24rem] h-[24rem] rounded-full bg-yellow/10 blur-[100px]"
-        />
-
-        <div className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-16 items-center">
-          <div>
-            <ScrollReveal on="load" y={12}>
-              <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-navy bg-yellow px-3 py-1.5 rounded-full mb-8">
-                Available for new projects
-              </span>
-            </ScrollReveal>
-
-            <HeroText
-              as="h1"
-              text="Websites built like software, not like templates."
-              highlightWords={["software", "templates"]}
-              className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[0.98] mb-8"
-            />
-
-            <ScrollReveal on="load" delay={0.5} y={14}>
-              <p className="text-lg text-white/60 max-w-xl leading-relaxed mb-10">
-                I design and build full-stack web projects — from marketing
-                sites to content-managed platforms — with the same rigour
-                I&apos;d bring to a research codebase: typed,
-                version-controlled, and built to be maintained.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal on="load" delay={0.6} y={14}>
-              <div className="flex flex-wrap gap-4">
-                <MagneticButton href="/portfolio" variant="primary">
-                  View selected work
-                </MagneticButton>
-                <MagneticButton
-                  href="https://paolo.org.uk/contact"
-                  variant="secondary-light"
-                  icon={false}
-                >
-                  Get in touch
-                </MagneticButton>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Signature element: recoloured "editor window" */}
-          <motion.div
-            initial={{ opacity: 0, y: 24, rotate: -2 }}
-            animate={{ opacity: 1, y: 0, rotate: -1.5 }}
-            whileHover={{ rotate: 0, y: -4 }}
-            transition={{ type: "spring", stiffness: 120, damping: 16, delay: 0.3 }}
-            className="rounded-2xl bg-navy-deep/80 backdrop-blur-sm border border-lilac/30 shadow-[0_30px_80px_rgba(10,11,94,0.5)] overflow-hidden"
-          >
-            <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow/70" />
-              <span className="w-2.5 h-2.5 rounded-full bg-lilac/70" />
-              <span className="w-2.5 h-2.5 rounded-full bg-white/40" />
-              <span className="ml-3 font-mono text-xs text-white/40">
-                paolo.ts
-              </span>
-            </div>
-            <pre className="p-6 font-mono text-[13px] leading-relaxed text-white/70 overflow-x-auto">
-              <code>
-                <span className="text-lilac">const</span>{" "}
-                <span className="text-yellow">developer</span> = {"{"}
-                {"\n"}  name:{" "}
-                <span className="text-yellow">&quot;Paolo Minhas&quot;</span>,{"\n"}{" "}
-                stack: [
-                <span className="text-yellow">&quot;Next.js&quot;</span>,{" "}
-                <span className="text-yellow">&quot;TypeScript&quot;</span>,{"\n"}
-                {"          "}
-                <span className="text-yellow">&quot;Docker&quot;</span>],{"\n"}{" "}
-                basedIn:{" "}
-                <span className="text-yellow">&quot;Edinburgh, UK&quot;</span>,{"\n"}{" "}
-                also: [
-                <span className="text-yellow">&quot;physicist&quot;</span>,{" "}
-                <span className="text-yellow">&quot;musician&quot;</span>],{"\n"}
-                {"}"};
-              </code>
-            </pre>
-          </motion.div>
-        </div>
-      </section>
+      {/* ================= HERO: blueprint (components/instrument/BlueprintHero) ================= */}
+      <BlueprintHero />
 
       {/* ================= HOW WE WORK — Paper ================= */}
       <HowWeWorkShowcase />
@@ -196,9 +107,7 @@ export default function WebHomePage() {
       {/* ================= LIVE BUILD — full-bleed pinned track ================= */}
       <section className="bg-paper px-6 md:px-10 pt-20 pb-14 md:pt-28 md:pb-20">
         <ScrollReveal className="max-w-6xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-            02 — Watch it build
-          </p>
+          <p className="in-label mb-3">Watch it build</p>
           <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-4 max-w-xl">
             Four builds, one continuous scroll.
           </h2>
@@ -213,9 +122,7 @@ export default function WebHomePage() {
       <section className="bg-lilac-light py-20 md:py-28 px-6 md:px-10">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal className="mb-12">
-            <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-              03 — Past highlights
-            </p>
+            <p className="in-label mb-3">Past highlights</p>
             <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy max-w-xl">
               Two builds worth a closer look.
             </h2>
@@ -251,9 +158,7 @@ export default function WebHomePage() {
       {/* ================= HOW IT RUNS — Paper ================= */}
       <section className="px-6 md:px-10 max-w-6xl mx-auto py-20 md:py-28">
         <ScrollReveal>
-          <p className="font-mono text-xs uppercase tracking-widest text-navy/50 mb-3">
-            04 — How it runs
-          </p>
+          <p className="in-label mb-3">How it runs</p>
           <h2 className="text-3xl md:text-4xl font-black tracking-tight text-navy mb-3 max-w-xl">
             Four stages, start to finish.
           </h2>
@@ -327,7 +232,7 @@ export default function WebHomePage() {
 
       {/* ================= CTA — Navy ================= */}
       <section className="px-6 md:px-10 pb-24">
-        <div className="max-w-6xl mx-auto rounded-3xl bg-navy bg-grain px-8 py-16 md:py-20 text-center overflow-hidden relative">
+        <div className="max-w-6xl mx-auto in-dark rounded-3xl bg-navy bg-grain px-8 py-16 md:py-20 text-center overflow-hidden relative">
           <div
             aria-hidden
             className="pointer-events-none absolute -bottom-24 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] rounded-full bg-lilac/15 blur-[110px]"

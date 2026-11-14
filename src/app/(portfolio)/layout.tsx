@@ -1,37 +1,35 @@
-import Navbar from "@/components/navbar";
-import Scene from "@/components/scene";
-import Footer from "@/components/shared/Footer";
+import Rail from "@/components/instrument/Rail";
+import Backplate from "@/components/instrument/Backplate";
+import { SpecimenProvider } from "@/components/instrument/Specimen";
+import { availableSpecimens } from "@/lib/specimens";
+import ScopeField from "@/components/instrument/ScopeField";
+import { fontVars } from "@/fonts";
 
 /**
- * PORTFOLIO ROUTE GROUP LAYOUT
+ * PORTFOLIO ROUTE GROUP LAYOUT (paolo.org.uk)
  *
- * This is the layout for the main paolo.org.uk pages. It contains
- * exactly what was previously in the root layout.tsx:
- *   - <Scene /> (the 3D background)
- *   - <Navbar /> (the portfolio navigation pill)
- *   - <Footer /> (NEW — links to subdomains)
- *
- * ROUTE GROUPS: The (portfolio) folder name with parentheses is a
- * Next.js "route group" — it creates a layout boundary without
- * adding a URL segment. So src/app/(portfolio)/about/page.tsx
- * is still accessible at paolo.org.uk/about, not /portfolio/about.
- *
- * WHY: This isolates the portfolio's 3D scene and navbar from the
- * subdomain routes. physics.paolo.org.uk doesn't get the particle
- * background or the "My Portfolio" nav pill — it gets its own layout.
+ * The "main" skin of the Instruments system: bottle-green ground, brass signal.
+ * - ScopeField replaces the old three.js <Scene /> (components/scene.tsx is no
+ *   longer imported here; it can be deleted once nothing else uses it).
+ * - Rail replaces components/navbar.tsx; Backplate replaces shared/Footer.
+ * - Physics and Web are no longer nav links: the site switch on the right of
+ *   the rail goes to them from every page.
  */
 
-export default function PortfolioLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const items = [
+  { name: "About", path: "/about" },
+  { name: "Projects", path: "/projects" },
+];
+
+export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <Scene />
-      <Navbar />
+    <div data-skin="main" className={`${fontVars} relative min-h-screen bg-[var(--ground)] text-[var(--ink)]`}>
+      <SpecimenProvider available={availableSpecimens()}>
+      <ScopeField />
+      <Rail skin="main" items={items} cta={{ name: "Contact", href: "/contact" }} />
       <main className="relative z-10">{children}</main>
-      <Footer theme="dark" site="portfolio" />
-    </>
+      <Backplate skin="main" items={[{ name: "Home", path: "/" }, ...items, { name: "Contact", path: "/contact" }]} />
+  </SpecimenProvider>
+    </div>
   );
 }

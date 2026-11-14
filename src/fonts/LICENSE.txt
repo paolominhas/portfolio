@@ -1,0 +1,4 @@
+Instrument Sans (c) 2022 The Instrument Sans Project Authors, Martian Mono (c) 2021 The Martian Mono Project Authors,
+Bricolage Grotesque (c) 2022 The Bricolage Grotesque Project Authors. All three are licensed under the
+SIL Open Font License, Version 1.1 (https://openfontlicense.org). Files are the Latin variable subsets
+distributed by Fontsource (https://fontsource.org).

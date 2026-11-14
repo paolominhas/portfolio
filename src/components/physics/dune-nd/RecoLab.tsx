@@ -150,19 +150,19 @@ export default function RecoLab() {
       <div className="grid lg:grid-cols-[19rem_1fr] gap-8">
         <div className="space-y-5">
           <div className="space-y-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs uppercase tracking-wider text-white/40">The nucleus</p>
+            <p className="text-xs tracking-normal text-white/40">The nucleus</p>
             <Slider label="Fermi momentum" value={o.pF} min={0} max={0.35} step={0.01} onChange={set("pF")} format={(v) => (v === 0 ? "0 (at rest)" : `${(v * 1000).toFixed(0)} MeV/c`)} hint="The formulas assume the struck neutron is at rest." />
             <Slider label="True removal energy" value={o.EbTrue} min={0} max={0.06} step={0.002} onChange={set("EbTrue")} format={(v) => `${(v * 1000).toFixed(0)} MeV`} />
             <Slider label="Assumed in the formulas" value={o.EbAssumed} min={0} max={0.06} step={0.002} onChange={set("EbAssumed")} format={(v) => `${(v * 1000).toFixed(0)} MeV`} hint={`The macros fix this at ${E_B * 1000} MeV.`} />
           </div>
           <div className="space-y-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs uppercase tracking-wider text-white/40">The detector (assumed, not the ND’s)</p>
+            <p className="text-xs tracking-normal text-white/40">The detector (assumed, not the ND’s)</p>
             <Slider label="Muon energy resolution" value={o.resMu} min={0} max={0.2} step={0.005} onChange={set("resMu")} format={(v) => `${(v * 100).toFixed(1)}%`} />
             <Slider label="Proton energy resolution" value={o.resP} min={0} max={0.3} step={0.005} onChange={set("resP")} format={(v) => `${(v * 100).toFixed(1)}%`} />
             <Slider label="Muon angle resolution" value={o.resTh * 1000} min={0} max={50} step={1} onChange={(v) => set("resTh")(v / 1000)} format={(v) => `${v.toFixed(0)} mrad`} />
           </div>
           <div className="space-y-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs uppercase tracking-wider text-white/40">Physics the detector cannot see</p>
+            <p className="text-xs tracking-normal text-white/40">Physics the detector cannot see</p>
             <Slider label="2p2h (MEC) share" value={o.mecFrac} min={0} max={0.5} step={0.01} onChange={set("mecFrac")} format={(v) => `${(v * 100).toFixed(0)}%`} hint={`Digitised NDLAr plot: ${(MEC_SHARE * 100).toFixed(0)}% of CCQE + MEC.`} />
             <Slider label="2p2h energy shift" value={o.mecShift} min={0} max={0.4} step={0.01} onChange={set("mecShift")} format={(v) => `${(v * 1000).toFixed(0)} MeV`} hint="How much lower a 2p2h event looks. My assumption." />
             <Slider label="Chance a neutron carries energy off" value={o.fsiProb} min={0} max={1} step={0.05} onChange={set("fsiProb")} format={(v) => `${(v * 100).toFixed(0)}%`} />
@@ -228,7 +228,7 @@ function Mini({ label, v, sub }: { label: string; v: string; sub: string }) {
   return (
     <div className="rounded-lg border border-white/10 px-2 py-3">
       <p className="font-bodoni text-xl text-white">{v}</p>
-      <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">{label}</p>
+      <p className="text-[10px] tracking-normal text-white/40 mt-1">{label}</p>
       <p className="text-[11px] font-mono text-[var(--accent)]/80">{sub}</p>
     </div>
   );

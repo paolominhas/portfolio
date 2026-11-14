@@ -16,7 +16,7 @@ export function Widget({
 }) {
   return (
     <div className="my-12 rounded-2xl border border-[var(--accent-border)] bg-white/[0.03] p-5 md:p-8 shadow-[0_0_40px_rgba(255,107,61,0.08)]">
-      <p className="text-xs font-mono uppercase tracking-[0.2em] text-[var(--accent)] mb-2">{eyebrow}</p>
+      <p className="text-xs font-mono tracking-[0.02em] text-[var(--accent)] mb-2">{eyebrow}</p>
       <h3 className="font-bodoni text-2xl md:text-3xl text-white mb-5">{title}</h3>
       {children}
     </div>
@@ -36,7 +36,7 @@ export function Callout({
   const t = tone === "warn" ? "text-[var(--accent)]" : "text-[#5FD0A8]";
   return (
     <aside className={`my-8 rounded-xl border-l-4 ${c} p-5 text-base`}>
-      <p className={`text-xs font-mono uppercase tracking-[0.18em] mb-2 ${t}`}>{title}</p>
+      <p className={`text-xs font-mono tracking-[0.02em] mb-2 ${t}`}>{title}</p>
       <div className="text-white/70 leading-relaxed space-y-3">{children}</div>
     </aside>
   );
@@ -167,7 +167,7 @@ export function Seg<T extends string>({
 }) {
   return (
     <div>
-      {label && <p className="text-xs uppercase tracking-wider text-white/40 mb-1.5">{label}</p>}
+      {label && <p className="text-xs tracking-normal text-white/40 mb-1.5">{label}</p>}
       <div role="group" aria-label={label} className="flex flex-wrap gap-1.5">
         {options.map(([v, text]) => (
           <button

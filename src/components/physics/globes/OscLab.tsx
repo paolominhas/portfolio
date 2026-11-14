@@ -128,7 +128,7 @@ export default function OscLab() {
         <div className="space-y-5">
           <Seg label="Detector" value={site} onChange={setSite} options={[["FD", "Far · 1284.9 km"], ["ND", "Near · 0.574 km"]]} />
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/40 mb-1.5">Channel</p>
+            <p className="text-xs tracking-normal text-white/40 mb-1.5">Channel</p>
             <select
               value={chan}
               onChange={(e) => setChan(e.target.value as Chan)}

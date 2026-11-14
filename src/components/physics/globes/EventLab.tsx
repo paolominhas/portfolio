@@ -119,15 +119,15 @@ export default function EventLab() {
       </div>
       <div className="grid sm:grid-cols-3 gap-3 mt-6 text-sm">
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Signal events, 0.5–8 GeV</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Signal events, 0.5–8 GeV</p>
           <p className="text-white/70">normal <span className="text-white">{tot(nS).toFixed(0)}</span> · inverted <span className="text-white">{tot(iS).toFixed(0)}</span></p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Inverted / normal</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Inverted / normal</p>
           <p className="text-white/70"><span className="text-white">{(tot(iS) / tot(nS)).toFixed(2)}</span> in {beam === "FHC" ? "ν" : "ν̄"} mode at δCP = {delta}°</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Signal / background</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Signal / background</p>
           <p className="text-white/70">normal <span className="text-white">{(tot(nS) / tot(nB)).toFixed(1)}</span></p>
         </div>
       </div>

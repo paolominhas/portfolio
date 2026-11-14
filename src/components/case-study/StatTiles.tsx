@@ -42,7 +42,7 @@ export default function StatTiles({ stats, liveUpdatedAt }: { stats: (Stat & { l
               {s.suffix}
             </div>
             <div className="text-xs text-white/70 mt-1">{s.label}</div>
-            {s.live && <div className="text-[10px] uppercase tracking-widest text-emerald-400 mt-2">live</div>}
+            {s.live && <div className="text-[10px] text-emerald-400 mt-2">live</div>}
           </div>
         ))}
       </div>

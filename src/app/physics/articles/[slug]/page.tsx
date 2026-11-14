@@ -17,9 +17,12 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = physicsArticles.find((a) => a.slug === slug);
+  const url = `https://physics.paolo.org.uk/articles/${slug}`;
   return {
     title: article?.title ?? "Not found",
     description: article?.excerpt,
+    alternates: { canonical: url },
+    openGraph: { type: "article", url, title: article?.title, description: article?.excerpt },
   };
 }
 
@@ -35,7 +38,7 @@ function Block({ block }: { block: ArticleBlock }) {
     case "heading": {
       const Tag = block.level === 3 ? "h3" : "h2";
       return (
-        <Tag className="text-white font-bold mt-12 mb-4 text-2xl">
+        <Tag className="in-display text-white mt-14 mb-4 text-[length:var(--step-2)]">
           {block.text}
         </Tag>
       );
@@ -67,22 +70,39 @@ export default async function PhysicsArticlePage({ params }: PageProps) {
 
   return (
     <article className="pt-32 pb-20 px-6 md:px-20 max-w-3xl mx-auto">
-      <Link
-        href="/articles"
-        className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-zinc-500 hover:text-zinc-300 transition-colors mb-12"
-      >
-        <ArrowLeft size={14} /> Back to articles
-      </Link>
+      <div className="mb-12">
+        <Link
+          href="/articles"
+          className="in-label inline-flex items-center gap-2 transition-colors hover:text-[var(--ink)]"
+        >
+          <ArrowLeft size={14} /> Back to articles
+        </Link>
+      </div>
 
-      <time className="text-sm text-zinc-600 font-mono">{article.date}</time>
-      <h1 className="text-3xl md:text-5xl font-bold mt-2 mb-4 text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: article.title,
+            description: article.excerpt,
+            datePublished: article.date,
+            author: { "@type": "Person", name: "Paolo Minhas", url: "https://paolo.org.uk" },
+            url: `https://physics.paolo.org.uk/articles/${article.slug}`,
+          }),
+        }}
+      />
+
+      <time dateTime={article.date} className="in-label mb-3 block">{article.date}</time>
+      <h1 className="in-display mb-6 text-[length:var(--step-4)] text-white md:text-[clamp(3rem,6vw,4.6rem)]">
         {article.title}
       </h1>
       <div className="flex flex-wrap gap-2 mb-12">
         {article.tags.map((tag) => (
           <span
             key={tag}
-            className="text-xs font-mono text-zinc-500 bg-zinc-800/50 px-2 py-1 rounded"
+            className="in-label border border-[var(--line)] px-2 py-1 rounded-[3px]"
           >
             {tag}
           </span>

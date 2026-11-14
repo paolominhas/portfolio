@@ -16,8 +16,8 @@ export default function DecisionCards() {
           transition={{ type: "spring", stiffness: 120, damping: 18, delay: (i % 2) * 0.08 }}
         >
           <h3 className="text-lg font-semibold text-white mb-3">{d.title}</h3>
-          <p className="text-sm text-white/80 leading-relaxed mb-3"><span className="text-emerald-400 font-mono text-xs uppercase tracking-widest mr-2">Why</span>{d.why}</p>
-          <p className="text-sm text-white/70 leading-relaxed"><span className="text-amber-400 font-mono text-xs uppercase tracking-widest mr-2">Cost</span>{d.cost}</p>
+          <p className="text-sm text-white/80 leading-relaxed mb-3"><span className="text-emerald-400 font-mono text-xs mr-2">Why</span>{d.why}</p>
+          <p className="text-sm text-white/70 leading-relaxed"><span className="text-amber-400 font-mono text-xs mr-2">Cost</span>{d.cost}</p>
         </motion.article>
       ))}
     </div>

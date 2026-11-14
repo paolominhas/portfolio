@@ -51,15 +51,15 @@ export default function TriggerFunnel() {
       <div className="mt-6 grid gap-4 sm:grid-cols-3" aria-live="polite">
         <div className="sm:col-span-3 text-white/70">{s.what}</div>
         <div className="rounded-lg border border-white/10 p-3">
-          <div className="text-xs uppercase tracking-wider text-white/40">This step keeps</div>
+          <div className="text-xs tracking-normal text-white/40">This step keeps</div>
           <div className="font-bodoni text-2xl text-white">{prev ? `1 in ${fmt(prev)}` : "everything"}</div>
         </div>
         <div className="rounded-lg border border-white/10 p-3">
-          <div className="text-xs uppercase tracking-wider text-white/40">Cumulative</div>
+          <div className="text-xs tracking-normal text-white/40">Cumulative</div>
           <div className="font-bodoni text-2xl text-white">{i === 0 ? "1 in 1" : `1 in ${fmt(total)}`}</div>
         </div>
         <div className="rounded-lg border border-white/10 p-3">
-          <div className="text-xs uppercase tracking-wider text-white/40">Rate left</div>
+          <div className="text-xs tracking-normal text-white/40">Rate left</div>
           <div className="font-bodoni text-2xl text-white">{s.label}</div>
         </div>
       </div>

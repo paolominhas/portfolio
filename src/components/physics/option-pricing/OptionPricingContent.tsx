@@ -57,7 +57,7 @@ function Table({ head, rows }: { head: string[]; rows: string[][] }) {
     <div className="my-6 overflow-x-auto rounded-xl border border-white/10">
       <table className="w-full min-w-[420px] border-collapse text-left text-sm">
         <thead>
-          <tr className="border-b border-white/10 bg-white/[0.03] text-[11px] font-mono uppercase tracking-wider text-white/40">
+          <tr className="border-b border-white/10 bg-white/[0.03] text-[11px] font-mono tracking-normal text-white/40">
             {head.map((h, i) => (
               <th key={h} className={`px-4 py-3 font-normal ${i === 0 ? "" : "text-right"}`}>
                 {h}
@@ -93,13 +93,13 @@ export default function OptionPricingContent({ repoUrl }: { repoUrl?: string }) 
         <div className="relative z-10 mx-auto max-w-3xl">
           <Link
             href="/projects?cat=quant"
-            className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white/40 transition-colors hover:text-white"
+            className="mb-10 inline-flex items-center gap-2 font-mono text-xs tracking-normal text-white/40 transition-colors hover:text-white"
           >
             <ArrowLeft size={14} /> Back to Projects
           </Link>
           <div className="mb-6 flex flex-wrap gap-2">
             {["Monte Carlo", "Quantitative Finance", "Python", "TypeScript"].map((t) => (
-              <span key={t} className="rounded-full bg-[var(--accent-muted)] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
+              <span key={t} className="rounded-full bg-[var(--accent-muted)] px-3 py-1 text-xs font-bold tracking-normal text-[var(--accent)]">
                 {t}
               </span>
             ))}

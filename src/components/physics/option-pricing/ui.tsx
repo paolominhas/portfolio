@@ -99,7 +99,7 @@ export function Slider({ label, value, min, max, step, onChange, display, hint }
   return (
     <div>
       <div className="flex items-baseline justify-between mb-1.5">
-        <label htmlFor={id} className="text-xs font-mono uppercase tracking-wider text-white/50">
+        <label htmlFor={id} className="text-xs font-mono tracking-normal text-white/50">
           {label}
         </label>
         <span className="text-sm font-mono text-white tabular-nums">{display}</span>
@@ -245,7 +245,7 @@ export function Toggle({
         onClick={() => onChange(!checked)}
         className="flex w-full items-center justify-between gap-3 text-left"
       >
-        <span className="text-xs font-mono uppercase tracking-wider text-white/50">{label}</span>
+        <span className="text-xs font-mono tracking-normal text-white/50">{label}</span>
         <span
           aria-hidden
           className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${
@@ -277,7 +277,7 @@ export function Stat({
 }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-      <div className="text-[11px] font-mono uppercase tracking-wider text-white/40">{label}</div>
+      <div className="text-[11px] font-mono tracking-normal text-white/40">{label}</div>
       <div
         className={`mt-1 font-mono tabular-nums ${
           emphasis ? "text-2xl text-[var(--accent)]" : "text-lg text-white"

@@ -30,7 +30,7 @@ export default function CodeWalk() {
           <pre className="rounded-xl bg-black/50 border border-white/10 p-4 text-[12.5px] leading-relaxed text-[#cfe3ff] overflow-x-auto"><code>{c.code}</code></pre>
         </div>
         <div className="text-white/70 text-base leading-relaxed">
-          <p className="text-xs font-mono uppercase tracking-[0.18em] text-white/40 mb-2">In plain English</p>
+          <p className="text-xs font-mono tracking-[0.02em] text-white/40 mb-2">In plain English</p>
           <p>{c.plain}</p>
         </div>
       </div>

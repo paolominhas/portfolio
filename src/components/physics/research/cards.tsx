@@ -94,8 +94,7 @@ export function SearchBox({ q, setQ, label, placeholder }: { q: string; setQ: (s
   }, []);
   return (
     <label className="relative block">
-      <span className="sr-only">{label}</span>
-      <Search size={16} aria-hidden className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+      <span className="in-label mb-1 block">{label}</span>
       <input
         ref={ref}
         type="search"
@@ -103,12 +102,14 @@ export function SearchBox({ q, setQ, label, placeholder }: { q: string; setQ: (s
         onChange={(e) => setQ(e.target.value)}
         onKeyDown={(e) => e.key === "Escape" && setQ("")}
         placeholder={placeholder}
-        className="w-full rounded-full bg-white/[0.05] border border-white/10 focus:border-[var(--accent-border)] outline-none pl-11 pr-10 py-3 text-white placeholder:text-white/35 transition-colors"
+        className="in-field pr-9"
       />
-      {q && (
-        <button type="button" onClick={() => setQ("")} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-white/40 hover:text-white">
-          <X size={16} />
+      {q ? (
+        <button type="button" onClick={() => setQ("")} aria-label="Clear search" className="absolute bottom-2.5 right-0 p-1 text-[var(--ink-2)] hover:text-[var(--ink)]">
+          <X size={18} />
         </button>
+      ) : (
+        <Search size={18} aria-hidden className="absolute bottom-3.5 right-1 text-[var(--ink-2)]" />
       )}
     </label>
   );
@@ -116,16 +117,9 @@ export function SearchBox({ q, setQ, label, placeholder }: { q: string; setQ: (s
 
 export function Chip({ active, onClick, children, count }: { active: boolean; onClick: () => void; children: React.ReactNode; count?: number }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
-        active ? "border-[var(--accent)] bg-[var(--accent)] text-black" : "border-white/15 text-white/65 hover:border-white/40 hover:text-white"
-      }`}
-    >
+    <button type="button" onClick={onClick} aria-pressed={active} className="in-chip">
       {children}
-      {count !== undefined && <span className="text-xs opacity-60">{count}</span>}
+      {count !== undefined && <small>{count}</small>}
     </button>
   );
 }
@@ -137,10 +131,7 @@ export function Byline({ parts }: { parts: string[] }) {
         PM
       </span>
       <span className="text-white/70 whitespace-nowrap shrink-0">Paolo Minhas</span>
-      <span className="truncate min-w-0">
-        <span aria-hidden className="mr-2 text-white/25">·</span>
-        {parts.join("  ·  ")}
-      </span>
+      <span className="truncate min-w-0 font-mono text-[0.7rem]">{parts.join(", ")}</span>
     </div>
   );
 }
@@ -174,7 +165,7 @@ export function LeadCard({ item, badge = "Spotlight", cta = "Read the research" 
     <Link
       href={item.href}
       hidden={item.hidden}
-      className="rx-in group relative block rounded-3xl border border-white/10 bg-white/[0.03] hover:border-[var(--accent-border)] transition-colors p-4 md:p-6 [&[hidden]]:hidden [animation:rx-in_.6s_ease-out_both]"
+      className="rx-in group relative block border-y border-[var(--line)] hover:border-[var(--signal)] transition-colors py-6 md:py-8 [&[hidden]]:hidden [animation:rx-in_.6s_ease-out_both]"
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
         <div className="min-w-0 md:col-span-7" onPointerMove={onMove} onPointerLeave={onLeave}>
@@ -186,8 +177,8 @@ export function LeadCard({ item, badge = "Spotlight", cta = "Read the research" 
           </div>
         </div>
         <div className="min-w-0 md:col-span-5 md:pr-4">
-          <p className="font-mono text-xs tracking-wider text-[var(--accent)] mb-3">{item.kicker}</p>
-          <h2 className="font-bodoni text-3xl md:text-[2.6rem] leading-[1.08] font-medium text-white mb-4 group-hover:text-[var(--accent)] transition-colors">{item.title}</h2>
+          <p className="in-label mb-3 !text-[var(--signal)]">{item.kicker}</p>
+          <h2 className="in-display text-[length:var(--step-3)] md:text-[length:var(--step-4)] text-white mb-4 group-hover:text-[var(--accent)] transition-colors">{item.title}</h2>
           <p className="text-white/60 text-lg leading-relaxed mb-5">{item.standfirst}</p>
           {item.highlights && item.highlights.length > 0 && (
             <ul className="mb-5 space-y-1.5">
@@ -211,7 +202,7 @@ export function LeadCard({ item, badge = "Spotlight", cta = "Read the research" 
               ))}
             </div>
           )}
-          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-black font-medium px-5 py-2.5 text-sm group-hover:gap-3 transition-all">
+          <span className="inline-flex h-11 items-center gap-2 rounded-[3px] bg-[var(--signal)] px-5 font-semibold text-[var(--signal-ink)] transition-all group-hover:gap-3">
             {cta} <ArrowRight size={15} />
           </span>
         </div>
@@ -234,7 +225,7 @@ export function StoryCard({ item, cta = "Read more" }: { item: CardItem; cta?: s
           <Cover item={item} className="w-full h-full" />
         </div>
       </div>
-      <p className="font-mono text-[11px] tracking-wider text-[var(--accent)] mb-2">{item.kicker}</p>
+      <p className="in-label mb-2 !text-[var(--signal)]">{item.kicker}</p>
       <h2 className="font-bodoni text-2xl leading-snug font-medium text-white mb-2 group-hover:text-[var(--accent)] transition-colors">{item.title}</h2>
       <p className="text-white/55 leading-relaxed line-clamp-3 mb-4">{item.standfirst}</p>
       <div className="flex items-center justify-between gap-3">

@@ -91,7 +91,7 @@ export default function SensitivityLab() {
           <Seg label="Confidence level (2 parameters)" value={cl} onChange={setCl} options={[["90", "90%  (Δχ² = 4.61)"], ["99", "99%  (Δχ² = 9.21)"]]} />
         </div>
         <div>
-          <p className="text-xs uppercase tracking-wider text-white/40 mb-1.5">Curves</p>
+          <p className="text-xs tracking-normal text-white/40 mb-1.5">Curves</p>
           <div className="flex flex-wrap gap-1.5">
             {SETS.map(([id, label, color]) => (
               <button
@@ -138,15 +138,15 @@ export default function SensitivityLab() {
       </ul>
       <div className="grid md:grid-cols-3 gap-3 mt-6 text-sm">
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">The notch</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">The notch</p>
           <p className="text-white/70">The far-detector curve moves sharply right near Δm²₄₁ = 10⁻²·⁶ eV², the atmospheric splitting: there a sterile neutrino mimics a shift in the ordinary parameters.</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">The near detector</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">The near detector</p>
           <p className="text-white/70">Below roughly 10⁻² eV² the near detector has little to see (almost no oscillation has started over 574 m). Above about 1 eV² its reach is more than two orders of magnitude below the far detector’s in sin²θ₂₄, though the exact value depends on its assumed event count.</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-1">Systematics</p>
+          <p className="text-xs font-mono tracking-normal text-white/40 mb-1">Systematics</p>
           <p className="text-white/70">With the systematic errors switched off, the far detector’s reach at large Δm²₄₁ improves by roughly a factor of three in sin²θ₂₄. The flux and cross-section errors are part of what limits it; the near detector sees the beam before it oscillates, so it constrains them.</p>
         </div>
       </div>

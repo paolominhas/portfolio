@@ -26,9 +26,9 @@ export default function Section({
       viewport={{ once: true, margin: "-80px" }}
       transition={{ type: "spring", stiffness: 120, damping: 18 }}
     >
-      <p className="text-xs font-mono uppercase tracking-widest text-yellow mb-3">{eyebrow}</p>
-      <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 max-w-3xl">{title}</h2>
-      {intro && <p className="text-white/70 max-w-3xl mb-10 leading-relaxed">{intro}</p>}
+      <p className="in-label mb-3 !text-yellow">{eyebrow}</p>
+      <h2 className="text-[length:var(--step-3)] md:text-[length:var(--step-4)] font-extrabold leading-[1.02] text-white mb-5 max-w-3xl">{title}</h2>
+      {intro && <p className="text-white/80 max-w-[62ch] mb-10 leading-relaxed text-[1.0625rem]">{intro}</p>}
       {children}
     </motion.section>
   );
