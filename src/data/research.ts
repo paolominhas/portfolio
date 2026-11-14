@@ -130,25 +130,15 @@ export const researchProjects: ResearchProject[] = [
     institution: "School of Physics and Astronomy, University of Edinburgh",
     period: "2025",
     summary:
-      "A ten-week analysis of simulated DUNE near-detector events, comparing reconstructed with true neutrino energy for different interaction types to find where measurement uncertainties bite hardest, and how to avoid them.",
+      "A ten-week analysis of simulated DUNE near-detector events, comparing reconstructed with true neutrino energy for each interaction type to find where measurement uncertainties bite hardest, and how to avoid them. The page lets you switch the causes of a mis-reconstruction on one at a time, build the final states the analysis cuts on, and browse every result plot.",
     tags: ["Neutrino Physics", "DUNE", "Data Analysis"],
     techStack: ["ROOT (C++)", "CAFAna", "GENIE simulation"],
     repoUrl: "https://github.com/paolominhas/CPV-DUNE-ND",
     resources: [
       { label: "Senior Honours report (PDF)", href: "https://github.com/paolominhas/CPV-DUNE-ND/blob/main/SeniorHonoursReport.pdf" },
     ],
-    content: `
-      <p>DUNE wants to know whether neutrinos and antineutrinos oscillate differently (CP violation), one of the clues to why the universe is made of matter. The measurement compares what a far detector sees with what the beam was <em>before</em> it oscillated, and that prediction is only as good as the near detector's grasp of the beam, the cross-sections and its own energy reconstruction. This project asked where that reconstruction goes wrong.</p>
-      <h2>What I did</h2>
-      <ul>
-        <li>Analysed GENIE-simulated events for the liquid-argon (ND-LAr) and high-pressure gas (ND-GAr) near detectors, in both neutrino-rich (FHC) and antineutrino-rich (RHC) beams, using the DUNE analysis framework CAFAna and ROOT macros.</li>
-        <li>Plotted the beam's energy spectra and separated events by interaction type: quasi-elastic, resonant, deep-inelastic and meson-exchange (MEC).</li>
-        <li>Compared three ways of reconstructing the neutrino energy (the simulation's reconstruction, an energy-conservation sum, and the quasi-elastic formula) against the true energy, interaction by interaction.</li>
-      </ul>
-      <h2>What I found</h2>
-      <p>The liquid-argon detector shows large spurious peaks at low reconstructed energy, traced to neutrons that escape without being counted, so the gas detector's low-energy performance is needed alongside it. Selecting events by their <em>final state</em> (for example charged-current with no pions, CC0π) rather than by interaction label gave much better reconstruction, because the final state already includes effects such as two-particle-two-hole interactions and final-state interactions that the label hides. The report notes that the gas detector has since been removed from the baseline design for funding reasons, which makes smarter analysis, not just better hardware, more important.</p>
-      <p>The macros are in the repository; the full argument, with every figure, is in the report.</p>
-    `,
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
   },
   {
     slug: "audio-sample-cleaner",
