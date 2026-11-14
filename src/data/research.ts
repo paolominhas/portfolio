@@ -105,12 +105,12 @@ export const researchProjects: ResearchProject[] = [
     slug: "globes",
     title: "Sterile-Neutrino Sensitivity at DUNE with GLoBES",
     subtitle:
-      "Recreating DUNE's published oscillation sensitivities, then adding a sterile neutrino and a smeared near detector.",
+      "An interactive look at DUNE's sensitivity to CP violation, the mass ordering and a fourth neutrino, with the near detector.",
     role: "Summer project (Career Development Summer Scholarship)",
     institution: "School of Physics and Astronomy, University of Edinburgh",
     period: "June–July 2025",
     summary:
-      "Simulating DUNE's near and far detectors in GLoBES to see how sensitive the experiment is to CP violation, the neutrino mass ordering, and a hypothetical fourth (sterile) neutrino, and why the near detector matters so much for the last of these.",
+      "Simulating DUNE's near and far detectors in GLoBES to see how sensitive the experiment is to CP violation, the neutrino mass ordering, and a hypothetical fourth (sterile) neutrino, and why the near detector matters so much for the last of these. The page runs the oscillation physics live and shows the checks made on the work afterwards.",
     tags: ["Neutrino Physics", "DUNE", "Simulation"],
     techStack: ["GLoBES", "C", "SNU library", "Python", "Mathematica"],
     repoUrl: "https://github.com/paolominhas/DUNE-GLoBES-Simulation-Internship-2025",
@@ -118,17 +118,8 @@ export const researchProjects: ResearchProject[] = [
       { label: "Project report (PDF)", href: "https://github.com/paolominhas/DUNE-GLoBES-Simulation-Internship-2025/blob/main/Report.pdf" },
       { label: "Poster (PDF)", href: "https://github.com/paolominhas/DUNE-GLoBES-Simulation-Internship-2025/blob/main/Poster.pdf" },
     ],
-    content: `
-      <p>DUNE fires a neutrino beam from Fermilab to a detector 1,300 km away in South Dakota and looks for the beam's flavours changing on the way. Before data arrives (the experiment is expected to come online around 2027), physicists use simulators to ask what the experiment <em>could</em> tell us. GLoBES, the General Long Baseline Experiment Simulator, is the standard tool: give it a beam, a detector and a systematic-error model, and it returns a χ² for any pair of competing hypotheses.</p>
-      <h2>Step 1: reproduce the published numbers</h2>
-      <p>I first checked that my simulation agreed with DUNE's technical design report: the neutrino mass ordering (normal against inverted) and sensitivity to the CP-violating phase δ<sub>CP</sub>. The δ<sub>CP</sub> curve matched well apart from a dip around δ<sub>CP</sub>/π = 0.5; near maximal CP violation (δ<sub>CP</sub> around ±π/2) the sensitivity reaches the 5σ level particle physics uses for discovery.</p>
-      <h2>Step 2: add a sterile neutrino</h2>
-      <p>A sterile neutrino is a hypothetical fourth neutrino that doesn't feel the weak force, so it can only show itself through oscillations. I extended the simulation to a 3+1 model with the SNU library, then proved the extension didn't break anything: with the sterile parameters set to zero it must reproduce the ordinary three-neutrino result, and the two χ² surfaces came out identical.</p>
-      <p>At the far detector the sensitivity to the sterile mass splitting Δm²<sub>41</sub> and mixing angle θ<sub>24</sub> has a conspicuous dip where Δm²<sub>41</sub> approaches the ordinary atmospheric splitting: the sterile effect then looks like a small change to the standard parameters and the two can't be told apart.</p>
-      <h2>Step 3: the near detector</h2>
-      <p>The near detector, only 574 m from the source, sees the beam before the ordinary oscillation has developed, but a Δm² near 1 eV² oscillates over exactly that distance. I added it as a new detector with ten GLoBES files spread along the decay pipe, so the neutrino source is a smeared line rather than a point. Adding it lifted the sensitivity to the sterile parameters substantially, and reproduced the shape of the design-report curve, including the dip. The remaining differences probably come from systematics and from simplifications, notably treating the source as a point in the final combined plot.</p>
-      <p>This was a learning project: it was my first time using C, Makefiles and GLoBES (segmentation faults included), and the repository's README is partly a template I was practising with. The report and poster have the real description.</p>
-    `,
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
   },
   {
     slug: "dune-nd",
