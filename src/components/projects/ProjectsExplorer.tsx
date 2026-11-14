@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Search, X } from "lucide-react";
 import { CATEGORIES, type ProjectCategory } from "@/data/projects";
+import CoverArt, { coverForSlug, hasCover } from "@/components/physics/research/CoverArt";
 
 /**
  * PROJECTS EXPLORER
@@ -231,6 +232,13 @@ export default function ProjectsExplorer({ projects }: { projects: ExplorerProje
               className="group relative block bg-zinc-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300 [&[hidden]]:hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {hasCover(project.slug) && (
+                <div className="relative z-10 aspect-[16/8] overflow-hidden border-b border-white/10">
+                  <div className="absolute inset-0 motion-safe:group-hover:scale-[1.035] transition-transform duration-500 ease-out">
+                    <CoverArt kind={coverForSlug(project.slug)} className="w-full h-full" />
+                  </div>
+                </div>
+              )}
               <div className="p-8 relative z-10">
                 <div className="flex items-center justify-between mb-4 gap-4">
                   <span className="text-[10px] uppercase tracking-widest text-zinc-400 border border-white/15 rounded-full px-2.5 py-1">

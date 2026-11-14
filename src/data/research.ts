@@ -44,6 +44,14 @@ export interface ResearchProject {
    * the line) to publish.
    */
   draft?: boolean;
+  /** What kind of piece of work this is; drives the type chips and the kicker on the cards. */
+  kind?: "Thesis" | "Internship" | "Summer project" | "Senior honours" | "Personal";
+  /** Optional path to a real image (e.g. "/images/mphys/tpc.jpg") to use as the card cover instead of the generated artwork. */
+  image?: string;
+  /** Show as the large lead card at the top of /research (use on one entry). */
+  spotlight?: boolean;
+  /** Up to three short bullet points for the lead card. */
+  highlights?: string[];
   /** Optional link to the source repo; both the bespoke and generic pages show a "View the code" link when set. */
   repoUrl?: string;
   /** Optional extra links (report, poster, slides) shown under the write-up on the generic page. */
@@ -53,6 +61,13 @@ export interface ResearchProject {
 export const researchProjects: ResearchProject[] = [
   {
     slug: "mphys",
+    kind: "Thesis",
+    spotlight: true,
+    highlights: [
+      "Geant4 simulation benchmarked against IFJ PAN beam-test data",
+      "Interactive 3D detector-geometry explorer",
+      "Live collision visualisation",
+    ],
     title: "MPhys Thesis — HIBEAM Prototype TPC",
     subtitle:
       "dE/dx analysis of a prototype Time Projection Chamber for the HIBEAM experiment at the ESS.",
@@ -68,6 +83,7 @@ export const researchProjects: ResearchProject[] = [
   },
   {
     slug: "grover",
+    kind: "Personal",
     title: "Grover's Algorithm on IBM Quantum",
     subtitle:
       "Quantum search built by hand in Qiskit, checked against the theory, and run ideally, in a noisy simulation and on real hardware.",
@@ -83,6 +99,7 @@ export const researchProjects: ResearchProject[] = [
   },
   {
     slug: "ppss",
+    kind: "Internship",
     title: "Searching for Lepton-Flavour Violation in Charmed Baryon Decays",
     subtitle:
       "A machine-learning event selection and a CLs limit for the forbidden decay Λc⁺ → p e⁻ μ⁺, using LHCb data.",
@@ -103,6 +120,7 @@ export const researchProjects: ResearchProject[] = [
   },
   {
     slug: "globes",
+    kind: "Summer project",
     title: "Sterile-Neutrino Sensitivity at DUNE with GLoBES",
     subtitle:
       "An interactive look at DUNE's sensitivity to CP violation, the mass ordering and a fourth neutrino, with the near detector.",
@@ -123,6 +141,7 @@ export const researchProjects: ResearchProject[] = [
   },
   {
     slug: "dune-nd",
+    kind: "Senior honours",
     title: "DUNE Near Detector: Constraining CP-Violation Uncertainties",
     subtitle:
       "Using simulated near-detector events to find where reconstructed neutrino energy can and can't be trusted.",
