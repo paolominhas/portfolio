@@ -126,7 +126,11 @@ export default function Rail({ skin, siteLabel, items, cta }: RailProps) {
     <>
     <header
       className="fixed inset-x-0 top-0 z-50 text-[var(--ink)]"
-      style={{ background: "color-mix(in srgb, var(--ground) 88%, transparent)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }}
+      style={
+        open
+          ? { background: "var(--ground)" } // solid while the phone menu is open, so no page text ghosts through the bar
+          : { background: "color-mix(in srgb, var(--ground) 88%, transparent)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }
+      }
     >
       <div className="mx-auto flex h-14 max-w-[90rem] items-center gap-6 px-5 md:px-8">
         <Link href="/" className="flex shrink-0 items-baseline gap-2 text-[0.95rem] font-semibold tracking-tight">
@@ -195,7 +199,7 @@ export default function Rail({ skin, siteLabel, items, cta }: RailProps) {
     </header>
 
       {/* phone menu: outside the header, because the header's backdrop-filter would otherwise clip a fixed child */}
-      <div id="rail-menu" hidden={!open} className="fixed inset-x-0 bottom-0 top-14 z-50 overflow-y-auto bg-[var(--ground)] text-[var(--ink)] px-5 pb-10 pt-4 md:hidden">
+      <div id="rail-menu" hidden={!open} className="fixed inset-x-0 bottom-0 top-14 z-50 overflow-y-auto overscroll-contain bg-[var(--ground)] text-[var(--ink)] px-5 pb-10 pt-4 md:hidden">
         <nav aria-label="Pages" className="border-t border-[var(--line)]">
           {items.map((it) => {
             const active = isActive(it.path);

@@ -45,7 +45,7 @@ export interface ResearchProject {
    */
   draft?: boolean;
   /** What kind of piece of work this is; drives the type chips and the kicker on the cards. */
-  kind?: "Thesis" | "Internship" | "Summer project" | "Senior honours" | "Personal";
+  kind?: "Thesis" | "Internship" | "Summer project" | "Senior honours" | "Coursework" | "Personal";
   /** Optional path to a real image (e.g. "/images/mphys/tpc.jpg") to use as the card cover instead of the generated artwork. */
   image?: string;
   /** Show as the large lead card at the top of /research (use on one entry). */
@@ -156,6 +156,38 @@ export const researchProjects: ResearchProject[] = [
     resources: [
       { label: "Senior Honours report (PDF)", href: "https://github.com/paolominhas/CPV-DUNE-ND/blob/main/SeniorHonoursReport.pdf" },
     ],
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
+  },
+  {
+    slug: "mini-cms",
+    kind: "Coursework",
+    title: "Building a Mini-CMS in Geant4 and Teaching It to Identify Particles",
+    subtitle:
+      "A layered detector simulated from scratch, five attempts at telling pions from kaons, and what Cherenkov physics says about why they all landed at 50%.",
+    role: "Coursework project (DAML, Project 3)",
+    institution: "School of Physics and Astronomy, University of Edinburgh",
+    period: "2025–26",
+    summary:
+      "I added calorimeters, a muon chamber and a RICH to a Geant4 tracker, rebuilt momentum from track curvature, and tried to identify electrons, muons, pions and kaons. Electrons and muons worked; pions and kaons did not, five ways. The page lets you fire particles through the detector, bend a track, and sweep the Cherenkov angle to see why.",
+    tags: ["Detector Physics", "Machine Learning", "Simulation"],
+    techStack: ["Geant4 (C++)", "Python", "pandas", "scikit-learn"],
+    content: "", // rendered by the bespoke page, not this template
+    bespokeRoute: true,
+  },
+  {
+    slug: "exotic-search",
+    kind: "Coursework",
+    title: "Hunting a 1 TeV Resonance: Square Cuts or a Neural Network?",
+    subtitle:
+      "Pulling a heavy Higgs-like signal out of 6.8 million background events, and what a fit significance does and does not tell you.",
+    role: "Coursework project (DAML, Project 4)",
+    institution: "School of Physics and Astronomy, University of Edinburgh",
+    period: "2025–26",
+    summary:
+      "A search for a 1 TeV resonance in simulated collider events: kinematic cuts chosen by eye, a small PyTorch network, and a hypothesis test on the reconstructed mass. The page shows how thin the signal is, lets you build a fake peak out of pure background (mass sculpting), and checks what the quoted 5.6σ and 14.6σ really mean.",
+    tags: ["Particle Physics", "Machine Learning", "Data Analysis"],
+    techStack: ["Python", "PyTorch", "pandas", "SciPy"],
     content: "", // rendered by the bespoke page, not this template
     bespokeRoute: true,
   },

@@ -41,8 +41,8 @@ export default function ContactPage() {
           If for some reason you would like to contact me go ahead here!
         </p>
         <p className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-          <a href="mailto:hello@paolo.org.uk" className="in-link">
-            hello@paolo.org.uk
+          <a href="mailto:info@paolo.org.uk" className="in-link">
+            info@paolo.org.uk
           </a>
           <a href="https://github.com/paolominhas" className="in-link">
             GitHub
@@ -90,7 +90,7 @@ export default function ContactPage() {
               </button>
               {status === "error" && (
                 <p role="alert" className="text-[#ff9b8a]">
-                  The message did not send. Try again, or email hello@paolo.org.uk.
+                  The message did not send. Try again, or email info@paolo.org.uk.
                 </p>
               )}
             </div>

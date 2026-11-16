@@ -60,7 +60,7 @@ export default function TutorFooter() {
               ))}
               <li>
                 <a
-                  href="mailto:hello@paolo.org.uk"
+                  href="mailto:info@paolo.org.uk"
                   className="inline-flex items-center gap-1.5 text-sm text-[var(--tutor-paper)]/60 transition-colors hover:text-[var(--tutor-paper)]"
                 >
                   <Mail size={14} /> Email

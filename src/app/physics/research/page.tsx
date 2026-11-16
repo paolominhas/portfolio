@@ -16,7 +16,7 @@ import ResearchExplorer from "@/components/physics/research/ResearchExplorer";
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "Detector physics, flavour physics and neutrino oscillations: an MPhys thesis on the HIBEAM prototype TPC, two summer placements, a senior honours project and a quantum-computing side project.",
+    "Detector physics, flavour physics and neutrino oscillations: an MPhys thesis on the HIBEAM prototype TPC, two summer placements, a senior honours project, two machine-learning coursework projects and a quantum-computing side project.",
   alternates: { canonical: "https://physics.paolo.org.uk/research" },
 };
 
@@ -32,8 +32,8 @@ export default function ResearchIndex() {
         <h1 className="in-display mb-6 text-[length:var(--step-5)] text-white">Research</h1>
         <p className="in-prose mb-10">
           Projects spanning detector physics, flavour physics and neutrino oscillations: an MPhys thesis, two summer
-          placements and a senior honours project, mostly built on ROOT and Python, plus a few side projects where the
-          same ideas turn up somewhere unexpected.
+          placements, a senior honours project and two machine-learning coursework projects, mostly built on ROOT and
+          Python, plus a few side projects where the same ideas turn up somewhere unexpected.
         </p>
         <ResearchExplorer projects={projects} />
       </section>

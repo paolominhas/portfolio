@@ -104,8 +104,8 @@ export default function Backplate({ skin, items, siteLabel }: { skin: Skin; item
 
           <div className="md:col-span-2">
             <span className={colHead}>Contact</span>
-            <a href="mailto:hello@paolo.org.uk" className={linkCls}>
-              hello@paolo.org.uk
+            <a href="mailto:info@paolo.org.uk" className={linkCls}>
+              info@paolo.org.uk
             </a>
             <a href="https://github.com/paolominhas" className={linkCls}>
               GitHub

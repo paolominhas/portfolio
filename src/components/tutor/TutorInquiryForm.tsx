@@ -184,7 +184,7 @@ export default function TutorInquiryForm() {
             className="mt-3 text-xs text-[var(--tutor-coral)]"
           >
             Something went wrong — please try again, or email
-            hello@paolo.org.uk directly.
+            info@paolo.org.uk directly.
           </motion.p>
         )}
       </AnimatePresence>

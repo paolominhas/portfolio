@@ -140,6 +140,34 @@ export const projects: Project[] = [
     external: `${PHYSICS}/dune-nd`,
   },
   {
+    id: 'mini-cms',
+    category: 'physics',
+    title: 'Mini-CMS: Building a Detector and Teaching It to Identify Particles',
+    slug: 'mini-cms',
+    description:
+      "A layered Geant4 detector with calorimeters, a muon chamber and a RICH, used to tell electrons from muons (it can) and pions from kaons (it can't, five ways), with the Cherenkov physics that explains why.",
+    techStack: ['Geant4', 'Python', 'scikit-learn'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "What it takes to identify a particle, and an honest look at a classifier that scores 50% however you build it.",
+    content: '',
+    external: `${PHYSICS}/mini-cms`,
+  },
+  {
+    id: 'exotic-search',
+    category: 'physics',
+    title: 'Hunting a 1 TeV Resonance: Cuts vs a Neural Network',
+    slug: 'exotic-search',
+    description:
+      "A coursework search for a heavy Higgs-like resonance among 6.8 million background events: square cuts, a PyTorch classifier, and a careful look at what the fit significance means.",
+    techStack: ['Python', 'PyTorch', 'SciPy'],
+    image: '/images/root-project-thumbnail.jpg',
+    excerpt:
+      "Why a classifier that sees the mass can build a peak out of nothing, and why a big sigma is not the same as a discovery.",
+    content: '',
+    external: `${PHYSICS}/exotic-search`,
+  },
+  {
     id: 'diorama-consulting',
     category: 'web',
     title: 'Diorama Consulting: Off WordPress, Into Docker',

@@ -11,12 +11,17 @@
  *   dune-nd  the digitised NDLAr CC0π stack (data copied to coverData.ts)
  *   grover   the exact Grover amplitudes after two iterations on 16 items
  *   life     a real Game of Life run from a Gosper glider gun
+ *   exotic   the shapes of the notebook's own density plot (a lognormal-like background peaking near
+ *            0.55 TeV, a narrow signal at 1 TeV); the inset ROC is a one-parameter curve with the
+ *            real AUC of 0.943, not the real curve
  *
  * and is an illustration, not data, for the rest:
  *
  *   tpc      a drift chamber with tracks; the clusters are placed along
  *            curves by hand, and the two stopping tracks get bigger clusters
  *            toward their ends (the dE/dx rise) as the idea, not as a measurement
+ *   mini-cms concentric detector layers with four tracks stopping at different depths: the idea of
+ *            the layout, not to scale
  *   ppss     a falling background with a small peak and a signal window
  *   field    generic seeded pattern, used when nothing else fits
  *
@@ -29,7 +34,7 @@
 import { makeEngine, stdParams } from "@/lib/physics/neutrinoOsc";
 import { ND_STACK } from "./coverData";
 
-export type CoverKind = "tpc" | "grover" | "ppss" | "globes" | "dune-nd" | "life" | "field";
+export type CoverKind = "tpc" | "grover" | "ppss" | "globes" | "dune-nd" | "life" | "mini-cms" | "exotic" | "field";
 
 const EMBER = "#FF6B3D";
 const KELP = "#2F9E7C";
@@ -43,6 +48,8 @@ const LABELS: Record<CoverKind, string> = {
   globes: "Oscillation probability curves for three values of the CP phase, computed for DUNE",
   "dune-nd": "Stacked histogram of simulated near-detector events by interaction type",
   life: "Game of Life cells with gliders streaming away from a glider gun",
+  "mini-cms": "End-on view of a layered detector with electron, muon, pion and kaon tracks stopping at different depths",
+  exotic: "Narrow signal peak against a falling background histogram, with a ROC curve inset",
   field: "Abstract pattern of concentric arcs",
 };
 
@@ -344,6 +351,96 @@ function Life() {
   );
 }
 
+function MiniCms() {
+  const cx = 320, cy = 200, rho = 250;
+  // A track of radius rho through the origin: the point at distance r sits at angle phi0 + sign*asin(r / 2rho).
+  const track = (phi0: number, sign: number, rMax: number) => {
+    const pts: Pt[] = [];
+    for (let r = 6; r <= rMax; r += 6) {
+      const a = (phi0 * Math.PI) / 180 + sign * Math.asin(Math.min(1, r / (2 * rho)));
+      pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
+    }
+    return pts;
+  };
+  const d = (pts: Pt[]) => pts.map((p, i) => `${i ? "L" : "M"}${f(p[0])} ${f(p[1])}`).join(" ");
+  const at = (phi0: number, sign: number, r: number): Pt => {
+    const a = (phi0 * Math.PI) / 180 + sign * Math.asin(Math.min(1, r / (2 * rho)));
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+  const ring = (r0: number, r1: number) => `M${cx - r1} ${cy}a${r1} ${r1} 0 1 0 ${2 * r1} 0a${r1} ${r1} 0 1 0 ${-2 * r1} 0ZM${cx - r0} ${cy}a${r0} ${r0} 0 1 1 ${2 * r0} 0a${r0} ${r0} 0 1 1 ${-2 * r0} 0Z`;
+  const tracks = [
+    { phi: -38, sign: 1, stop: 126, col: BLUE, shower: 7, d: 0.1 },
+    { phi: 24, sign: -1, stop: 218, col: EMBER, shower: 0, d: 0.35 },
+    { phi: 152, sign: 1, stop: 172, col: KELP, shower: 9, d: 0.6 },
+    { phi: 214, sign: -1, stop: 166, col: GOLD, shower: 9, d: 0.85 },
+  ];
+  return (
+    <>
+      <path d={ring(112, 136)} fill="rgba(255,107,61,.13)" fillRule="evenodd" />
+      <path d={ring(140, 186)} fill="rgba(47,158,124,.10)" fillRule="evenodd" />
+      <path d={ring(82, 98)} fill="rgba(110,168,255,.14)" fillRule="evenodd" />
+      <circle cx={cx} cy={cy} r="189" fill="none" stroke="rgba(255,255,255,.4)" strokeWidth="1.5" />
+      <circle cx={cx} cy={cy} r="140" fill="none" stroke="rgba(47,158,124,.45)" />
+      <circle cx={cx} cy={cy} r="112" fill="none" stroke="rgba(255,107,61,.45)" />
+      {[38, 62].map((r) => (
+        <circle key={r} cx={cx} cy={cy} r={r} fill="none" stroke="rgba(255,255,255,.35)" strokeDasharray="2 4" />
+      ))}
+      {tracks.map((t, i) => {
+        const end = at(t.phi, t.sign, t.stop);
+        return (
+          <g key={i}>
+            <path d={d(track(t.phi, t.sign, t.stop))} className="ca-draw" pathLength={1} style={{ ["--d" as string]: `${t.d}s` }} fill="none" stroke={t.col} strokeWidth="2.6" strokeLinecap="round" />
+            {[38, 62].map((r) => {
+              const h = at(t.phi, t.sign, r);
+              return <circle key={r} className="ca-fade" style={{ ["--d" as string]: `${t.d + 0.3}s` }} cx={f(h[0])} cy={f(h[1])} r="3.2" fill={t.col} />;
+            })}
+            {t.shower > 0 &&
+              Array.from({ length: t.shower }, (_, k) => {
+                const a = (t.phi * Math.PI) / 180 + t.sign * Math.asin(t.stop / (2 * rho)) + ((k - (t.shower - 1) / 2) * 0.2);
+                const len = 14 + ((k * 7) % 11);
+                return <line key={k} className="ca-fade" style={{ ["--d" as string]: `${t.d + 0.9}s` }} x1={f(end[0])} y1={f(end[1])} x2={f(end[0] + len * Math.cos(a))} y2={f(end[1] + len * Math.sin(a))} stroke={t.col} strokeWidth="1.5" strokeOpacity=".75" />;
+              })}
+            {t.shower === 0 && <circle className="ca-fade" style={{ ["--d" as string]: `${t.d + 1}s` }} cx={f(at(t.phi, t.sign, 188)[0])} cy={f(at(t.phi, t.sign, 188)[1])} r="6" fill={t.col} />}
+          </g>
+        );
+      })}
+      <circle cx={cx} cy={cy} r="4" fill="#fff" />
+    </>
+  );
+}
+
+function Exotic() {
+  const nb = 44, x0 = 40, x1 = 420, base = 334, top = 64;
+  const w = (x1 - x0) / nb;
+  const m = (i: number) => 0.2 + ((i + 0.5) / nb) * 2.0; // TeV
+  const bg = (t: number) => Math.exp(-0.5 * ((Math.log(t) - Math.log(0.62)) / 0.5) ** 2) / t;
+  const sg = (t: number) => Math.exp(-0.5 * ((t - 1.0) / 0.055) ** 2);
+  const bgMax = Math.max(...Array.from({ length: nb }, (_, i) => bg(m(i))));
+  const roc = Array.from({ length: 41 }, (_, k) => {
+    const x = k / 40;
+    const y = 1 - Math.pow(1 - x, 16.5); // AUC = 1 - 1/(a+1) = 0.943 for a = 16.5
+    return `${k ? "L" : "M"}${f(452 + x * 150)} ${f(272 - y * 150)}`;
+  }).join(" ");
+  return (
+    <>
+      <line x1={x0} x2={x1} y1={base} y2={base} stroke="rgba(255,255,255,.3)" />
+      {Array.from({ length: nb }, (_, i) => {
+        const hb = Math.max(1.5, (bg(m(i)) / bgMax) * 0.34 * (base - top));
+        const hs = (sg(m(i)) * 0.9 + 0.012) * (base - top);
+        return (
+          <g key={i}>
+            <rect className="ca-rise" style={{ ["--d" as string]: `${i * 0.01}s` }} x={f(x0 + i * w + 0.8)} y={f(base - hb)} width={f(w - 1.6)} height={f(hb)} fill="rgba(110,168,255,.55)" />
+            <rect className="ca-rise" style={{ ["--d" as string]: `${0.25 + i * 0.01}s` }} x={f(x0 + i * w + 0.8)} y={f(base - hs)} width={f(w - 1.6)} height={f(hs)} fill={EMBER} fillOpacity=".8" />
+          </g>
+        );
+      })}
+      <rect x="440" y="104" width="172" height="184" rx="3" fill="rgba(8,11,22,.6)" stroke="rgba(255,255,255,.25)" />
+      <line x1="452" y1="272" x2="602" y2="122" stroke="rgba(255,255,255,.3)" strokeDasharray="3 4" />
+      <path d={roc} className="ca-draw" pathLength={1} style={{ ["--d" as string]: "0.5s" }} fill="none" stroke={KELP} strokeWidth="2.6" strokeLinejoin="round" />
+    </>
+  );
+}
+
 function Field({ seed }: { seed: string }) {
   const r = mulberry32(hash(seed));
   const arcs = Array.from({ length: 9 }, (_, i) => ({ cx: 120 + r() * 400, cy: 80 + r() * 240, rad: 50 + i * 26 + r() * 20, col: i % 3 === 0 ? EMBER : i % 3 === 1 ? KELP : BLUE }));
@@ -360,7 +457,7 @@ function Field({ seed }: { seed: string }) {
 
 export default function CoverArt({ kind, seed = "", loop = false, className = "" }: { kind: CoverKind; seed?: string; loop?: boolean; className?: string }) {
   const art =
-    kind === "tpc" ? <Tpc /> : kind === "grover" ? <Grover /> : kind === "ppss" ? <Ppss /> : kind === "globes" ? <Globes /> : kind === "dune-nd" ? <DuneNd /> : kind === "life" ? <Life /> : <Field seed={seed || "x"} />;
+    kind === "tpc" ? <Tpc /> : kind === "grover" ? <Grover /> : kind === "ppss" ? <Ppss /> : kind === "globes" ? <Globes /> : kind === "dune-nd" ? <DuneNd /> : kind === "life" ? <Life /> : kind === "mini-cms" ? <MiniCms /> : kind === "exotic" ? <Exotic /> : <Field seed={seed || "x"} />;
   const gid = `cg-${kind}`;
   return (
     <svg
@@ -395,6 +492,8 @@ export function coverForSlug(slug: string): CoverKind {
     case "ppss": return "ppss";
     case "globes": return "globes";
     case "dune-nd": return "dune-nd";
+    case "mini-cms": return "mini-cms";
+    case "exotic-search": return "exotic";
     case "game-of-life-gliders": return "life";
     default: return "field";
   }

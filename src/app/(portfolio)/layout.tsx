@@ -1,3 +1,4 @@
+import "../instruments.css";
 import Rail from "@/components/instrument/Rail";
 import Backplate from "@/components/instrument/Backplate";
 import { SpecimenProvider } from "@/components/instrument/Specimen";

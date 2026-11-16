@@ -78,7 +78,7 @@ export default function MusicFooter() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@paolo.org.uk"
+                  href="mailto:info@paolo.org.uk"
                   className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-lime transition-colors"
                 >
                   <Mail size={14} /> Email

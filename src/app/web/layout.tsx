@@ -1,3 +1,4 @@
+import "../instruments.css";
 import type { Metadata } from "next";
 import Rail from "@/components/instrument/Rail";
 import Backplate from "@/components/instrument/Backplate";

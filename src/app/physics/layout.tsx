@@ -1,3 +1,4 @@
+import "../instruments.css";
 import type { Metadata } from "next";
 import { Bodoni_Moda } from "next/font/google";
 import Rail from "@/components/instrument/Rail";

@@ -101,9 +101,9 @@ export default function Footer({
               Paolo Minhas
             </p>
             <p className={`text-sm leading-relaxed max-w-xs ${styles.body}`}>
-              Physics grad and developer based in Reading, UK. Building
-              simulations, arrangements, websites and tutoring across four
-              small corners of the internet :)
+              Physicist and developer based in Edinburgh, UK — building
+              simulations, arrangements, websites, and tutoring across four
+              small corners of the internet.
             </p>
           </div>
 
@@ -146,7 +146,7 @@ export default function Footer({
               </li>
               <li>
                 <a
-                  href="mailto:hello@paolo.org.uk"
+                  href="mailto:info@paolo.org.uk"
                   className={`inline-flex items-center gap-1.5 text-sm ${styles.bodyStrong} ${styles.hover} transition-colors`}
                 >
                   <Mail size={14} /> Email
